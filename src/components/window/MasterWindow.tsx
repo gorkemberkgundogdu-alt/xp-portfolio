@@ -67,7 +67,12 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   };
 
-  // Compute safe drag bounds so window titlebar cannot be lost off-screen
+  // Compute safe drag bounds and responsive initial layout
+  const clampedWidth = Math.min(windowState.defaultSize.width, Math.max(320, viewportBounds.width - 32));
+  const clampedHeight = Math.min(windowState.defaultSize.height, Math.max(260, viewportBounds.height - 80));
+  const clampedX = Math.max(16, Math.min(windowState.defaultPosition.x, Math.max(16, viewportBounds.width - clampedWidth - 16)));
+  const clampedY = Math.max(16, Math.min(windowState.defaultPosition.y, Math.max(16, viewportBounds.height - clampedHeight - 46)));
+
   const maxDragRight = Math.max(0, viewportBounds.width - 150);
   const maxDragBottom = Math.max(0, viewportBounds.height - 80);
 
@@ -104,8 +109,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               isMobile
                 ? { y: '100%', opacity: 0 }
                 : {
-                    x: windowState.defaultPosition.x,
-                    y: windowState.defaultPosition.y,
+                    x: clampedX,
+                    y: clampedY,
                     opacity: 0,
                     scale: 0.96,
                   }
@@ -123,8 +128,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                     scale: 1,
                   }
                 : {
-                    width: windowState.defaultSize.width,
-                    height: windowState.defaultSize.height,
+                    width: clampedWidth,
+                    height: clampedHeight,
                     opacity: 1,
                     scale: 1,
                   }

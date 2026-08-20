@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useWindowStore } from '../../stores/windowStore';
 import { XpIcon } from '../common/XpIcon';
 import type { WindowId } from '../../types/window';
@@ -8,8 +9,6 @@ export const StartMenu: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
   const openWindow = useWindowStore((state) => state.openWindow);
   const language = useWindowStore((state) => state.language);
-
-  if (!isStartMenuOpen) return null;
 
   const handleOpenItem = (id: WindowId) => {
     openWindow(id);
@@ -24,12 +23,18 @@ export const StartMenu: React.FC = () => {
   };
 
   return (
-    <div
-      role="menu"
-      aria-label="Windows XP Başlat Menüsü"
-      onClick={(e) => e.stopPropagation()}
-      className="fixed bottom-[30px] left-0 w-[380px] bg-[#ECE9D8] rounded-t-[6px] border-2 border-[#0055EA] shadow-2xl z-50 flex flex-col select-none overflow-hidden font-sans"
-    >
+    <AnimatePresence>
+      {isStartMenuOpen && (
+        <motion.div
+          role="menu"
+          aria-label="Windows XP Başlat Menüsü"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 6 }}
+          transition={{ duration: 0.12, ease: 'easeOut' }}
+          onClick={(e) => e.stopPropagation()}
+          className="fixed bottom-[30px] left-0 w-[380px] bg-[#ECE9D8] rounded-t-[6px] border-2 border-[#0055EA] shadow-2xl z-50 flex flex-col select-none overflow-hidden font-sans"
+        >
       {/* Header Profile Bar */}
       <div className="h-[52px] bg-gradient-to-r from-[#0058EE] via-[#2F82FF] to-[#0055EA] px-3 flex items-center gap-3 border-b border-[#0A246A]">
         <div className="w-10 h-10 rounded-md border-2 border-white bg-slate-200 overflow-hidden shadow-inner flex items-center justify-center">
@@ -218,6 +223,8 @@ export const StartMenu: React.FC = () => {
           <span>Bilgisayarı Kapat</span>
         </button>
       </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

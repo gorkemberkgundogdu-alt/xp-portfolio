@@ -31,11 +31,10 @@ export const CvViewerWindow: React.FC = () => {
 
           <div>
             <a
-              href="#download"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('CV indirme işlemi başlatılıyor...');
-              }}
+              href="/assets/Gorkem_Berk_Gundogdu_CV_2026.pdf"
+              download="Gorkem_Berk_Gundogdu_CV_2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[12px] font-bold flex items-center gap-1 shadow-sm transition-colors cursor-pointer"
             >
               📥 CV İndir (PDF)

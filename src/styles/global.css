@@ -45,19 +45,13 @@
   background: linear-gradient(
     to bottom,
     #7697d9 0%,
-    #a2bce9 4%,
-    #9db8e8 6%,
     #8caee5 8%,
-    #85a9e3 10%,
-    #7fa5e1 14%,
     #7697d9 20%,
-    #7697d9 63%,
     #6884c7 86%,
-    #627ec1 90%,
-    #7292d5 94%,
     #627ec1 100%
   );
-  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
 }
 
 .xp-window-border {
