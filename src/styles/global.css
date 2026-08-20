@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+    font-family: 'Tahoma', 'Segoe UI', 'Trebuchet MS', sans-serif;
+    background-color: #004e98;
+  }
+}
+
+/* Windows XP Luna Gradients & Effects */
+.xp-titlebar-active {
+  background: linear-gradient(
+    to bottom,
+    #0058ee 0%,
+    #3593ff 4%,
+    #288eff 6%,
+    #0669f2 8%,
+    #0b6efe 10%,
+    #0a6bfe 14%,
+    #0053e1 20%,
+    #0053e1 63%,
+    #0041c4 86%,
+    #003ddb 90%,
+    #0050ee 94%,
+    #003ddb 100%
+  );
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.xp-titlebar-inactive {
+  background: linear-gradient(
+    to bottom,
+    #7697d9 0%,
+    #a2bce9 4%,
+    #9db8e8 6%,
+    #8caee5 8%,
+    #85a9e3 10%,
+    #7fa5e1 14%,
+    #7697d9 20%,
+    #7697d9 63%,
+    #6884c7 86%,
+    #627ec1 90%,
+    #7292d5 94%,
+    #627ec1 100%
+  );
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.xp-window-border {
+  border: 3px solid #0055ea;
+  border-top: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.xp-window-border-inactive {
+  border: 3px solid #7697d9;
+  border-top: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Control Buttons */
+.xp-btn-minimize,
+.xp-btn-maximize {
+  background: linear-gradient(to bottom, #4589f7 0%, #1e63d8 50%, #1153c9 100%);
+  border: 1px solid #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.xp-btn-minimize:hover,
+.xp-btn-maximize:hover {
+  background: linear-gradient(to bottom, #609bf9 0%, #2f74e9 50%, #1e62d9 100%);
+}
+
+.xp-btn-minimize:active,
+.xp-btn-maximize:active {
+  background: linear-gradient(to bottom, #1153c9 0%, #1e63d8 50%, #4589f7 100%);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+.xp-btn-close {
+  background: linear-gradient(to bottom, #e87358 0%, #d84528 50%, #c4290d 100%);
+  border: 1px solid #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.3), 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.xp-btn-close:hover {
+  background: linear-gradient(to bottom, #f38b72 0%, #ea583a 50%, #d93a1e 100%);
+}
+
+.xp-btn-close:active {
+  background: linear-gradient(to bottom, #aa2007 0%, #c4290d 50%, #e87358 100%);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+/* XP Taskbar */
+.xp-taskbar-bg {
+  background: linear-gradient(
+    to bottom,
+    #245edc 0%,
+    #3f8cf3 9%,
+    #245edc 18%,
+    #245edc 92%,
+    #1941a5 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.xp-start-btn {
+  background: linear-gradient(
+    to bottom,
+    #388e3c 0%,
+    #53b458 12%,
+    #43a047 25%,
+    #2e7d32 85%,
+    #1b5e20 100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 1px 0 0 rgba(255, 255, 255, 0.3), inset -1px 0 0 rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.xp-start-btn:hover {
+  background: linear-gradient(
+    to bottom,
+    #43a047 0%,
+    #66bb6a 12%,
+    #4caf50 25%,
+    #388e3c 85%,
+    #2e7d32 100%
+  );
+}
+
+.xp-tray-bg {
+  background: linear-gradient(
+    to bottom,
+    #0c59b9 0%,
+    #139eee 12%,
+    #18b9f2 25%,
+    #0f77d3 85%,
+    #0c59b9 100%
+  );
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(0,0,0,0.2);
+}
+
+/* 3D Sunken/Raised Panels */
+.xp-inset {
+  border-top: 1px solid #716f64;
+  border-left: 1px solid #716f64;
+  border-right: 1px solid #f1efe2;
+  border-bottom: 1px solid #f1efe2;
+  background-color: #ffffff;
+}
+
+.xp-outset {
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #716f64;
+  border-bottom: 1px solid #716f64;
+}
+
+/* Custom Scrollbars */
+.xp-scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.xp-scrollbar::-webkit-scrollbar-track {
+  background: #ebeadb;
+  border: 1px solid #d4d0c8;
+}
+
+.xp-scrollbar::-webkit-scrollbar-thumb {
+  background: #c3d3ea;
+  border: 1px solid #ffffff;
+  border-right-color: #716f64;
+  border-bottom-color: #716f64;
+  box-shadow: inset 1px 1px 0 #ffffff;
+}
+
+.xp-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #b2c8e8;
+}

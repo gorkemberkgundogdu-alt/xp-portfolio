@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolio',
+  description = 'Görkem Berk Gündoğdu - UI/UX Designer & Front-End Builder retro Windows XP portfolio. B2B SaaS, Operater.io, v1be.io, and modern web experiences.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO & Metadata -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Görkem Berk Gündoğdu" />
+    <meta name="theme-color" content="#0055ea" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Görkem Berk Gündoğdu",
+        "jobTitle": "UI/UX Designer & Front-End Builder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Operater.io"
+        },
+        "knowsAbout": ["UI/UX Design", "Front-End Development", "Figma", "Tailwind CSS", "Astro", "React", "AI Workflows"]
+      }
+    </script>
+  </head>
+  <body class="bg-[#004e98] overflow-hidden">
+    <slot />
+  </body>
+</html>

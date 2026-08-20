@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Desktop } from '../components/desktop/Desktop';
+---
+
+<Layout>
+  <main class="w-full h-full">
+    <Desktop client:only="react" />
+  </main>
+</Layout>
