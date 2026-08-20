@@ -1,6 +1,7 @@
 import React from 'react';
 import { useWindowStore } from '../../stores/windowStore';
 import { XpIcon } from '../common/XpIcon';
+import type { WindowId } from '../../types/window';
 
 export const StartMenu: React.FC = () => {
   const isStartMenuOpen = useWindowStore((state) => state.isStartMenuOpen);
@@ -10,8 +11,22 @@ export const StartMenu: React.FC = () => {
 
   if (!isStartMenuOpen) return null;
 
+  const handleOpenItem = (id: WindowId) => {
+    openWindow(id);
+    toggleStartMenu(false);
+  };
+
+  const handleItemKeyDown = (e: React.KeyboardEvent, id: WindowId) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleOpenItem(id);
+    }
+  };
+
   return (
     <div
+      role="menu"
+      aria-label="Windows XP Başlat Menüsü"
       onClick={(e) => e.stopPropagation()}
       className="fixed bottom-[30px] left-0 w-[380px] bg-[#ECE9D8] rounded-t-[6px] border-2 border-[#0055EA] shadow-2xl z-50 flex flex-col select-none overflow-hidden font-sans"
     >
@@ -31,72 +46,82 @@ export const StartMenu: React.FC = () => {
         {/* Left Column - Frequent Apps */}
         <div className="w-[52%] p-2 space-y-1 bg-white border-r border-[#D4D0C8]">
           <div
-            onClick={() => {
-              openWindow('readme');
-              toggleStartMenu(false);
-            }}
-            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('readme')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'readme')}
+            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <XpIcon name="notepad" size={24} />
             <div className="min-w-0">
               <div className="text-[12px] font-bold">Beni Oku (Notepad)</div>
-              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 truncate">Hakkımda & Vizyon</div>
+              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
+                Hakkımda & Vizyon
+              </div>
             </div>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('projects');
-              toggleStartMenu(false);
-            }}
-            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('projects')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'projects')}
+            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <XpIcon name="folder" size={24} />
             <div className="min-w-0">
               <div className="text-[12px] font-bold">Projelerim</div>
-              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 truncate">Operater.io & v1be.io</div>
+              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
+                Operater.io & v1be.io
+              </div>
             </div>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('browser');
-              toggleStartMenu(false);
-            }}
-            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('browser')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'browser')}
+            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <XpIcon name="ie" size={24} />
             <div className="min-w-0">
               <div className="text-[12px] font-bold">Internet Explorer</div>
-              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 truncate">Makaleler & Blog</div>
+              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
+                Makaleler & Blog
+              </div>
             </div>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('cv');
-              toggleStartMenu(false);
-            }}
-            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('cv')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'cv')}
+            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <XpIcon name="pdf" size={24} />
             <div className="min-w-0">
               <div className="text-[12px] font-bold">CV_2026.pdf</div>
-              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 truncate">Özgeçmiş & Yetkinlikler</div>
+              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
+                Özgeçmiş & Yetkinlikler
+              </div>
             </div>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('contact');
-              toggleStartMenu(false);
-            }}
-            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('contact')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'contact')}
+            className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <XpIcon name="msn" size={24} />
             <div className="min-w-0">
               <div className="text-[12px] font-bold">MSN Messenger</div>
-              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 truncate">Titreşim & İletişim</div>
+              <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
+                Titreşim & İletişim
+              </div>
             </div>
           </div>
         </div>
@@ -104,33 +129,33 @@ export const StartMenu: React.FC = () => {
         {/* Right Column - Places & Links */}
         <div className="w-[48%] p-2 bg-[#D3E5FA] space-y-1 text-[#0A246A] text-[11px] font-semibold">
           <div
-            onClick={() => {
-              openWindow('projects');
-              toggleStartMenu(false);
-            }}
-            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('projects')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'projects')}
+            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <span className="text-[14px]">📁</span>
             <span>Belgelerim</span>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('cv');
-              toggleStartMenu(false);
-            }}
-            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('cv')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'cv')}
+            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <span className="text-[14px]">📄</span>
             <span>Resimlerim (CV)</span>
           </div>
 
           <div
-            onClick={() => {
-              openWindow('projects');
-              toggleStartMenu(false);
-            }}
-            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2"
+            role="menuitem"
+            tabIndex={0}
+            onClick={() => handleOpenItem('projects')}
+            onKeyDown={(e) => handleItemKeyDown(e, 'projects')}
+            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <span className="text-[14px]">💻</span>
             <span>Bilgisayarım</span>
@@ -139,10 +164,11 @@ export const StartMenu: React.FC = () => {
           <div className="border-t border-[#A8C6EE] my-1" />
 
           <a
-            href="https://github.com"
+            href="https://github.com/gorkemberkgundogdu-alt"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2"
+            role="menuitem"
+            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <span className="text-[14px]">🐙</span>
             <span>GitHub Profili ↗</span>
@@ -152,7 +178,8 @@ export const StartMenu: React.FC = () => {
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2"
+            role="menuitem"
+            className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
           >
             <span className="text-[14px]">💼</span>
             <span>LinkedIn Profili ↗</span>

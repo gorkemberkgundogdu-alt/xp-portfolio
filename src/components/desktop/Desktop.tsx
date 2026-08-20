@@ -10,9 +10,11 @@ import { ContactMsnWindow } from '../windows/ContactMsnWindow';
 
 export const Desktop: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
+  const setSelectedIconId = useWindowStore((state) => state.setSelectedIconId);
 
   const handleDesktopClick = () => {
     toggleStartMenu(false);
+    setSelectedIconId(null);
   };
 
   return (

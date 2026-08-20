@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MasterWindow } from '../window/MasterWindow';
 import { XpIcon } from '../common/XpIcon';
 import gsap from 'gsap';
@@ -22,6 +22,14 @@ export const ContactMsnWindow: React.FC = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+
+  // Clear timeouts on unmount
+  useEffect(() => {
+    return () => {
+      timeoutsRef.current.forEach((t) => clearTimeout(t));
+    };
+  }, []);
 
   const handleSend = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -37,8 +45,8 @@ export const ContactMsnWindow: React.FC = () => {
     setMessages((prev) => [...prev, newMsg]);
     setInputText('');
 
-    // Automated reply simulation
-    setTimeout(() => {
+    // Automated reply simulation with safe timer tracking
+    const replyTimer = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         {
@@ -49,26 +57,26 @@ export const ContactMsnWindow: React.FC = () => {
         },
       ]);
     }, 1000);
+
+    timeoutsRef.current.push(replyTimer);
   };
 
   const handleNudge = () => {
-    // GSAP Shake animation
+    // GSAP Shake animation strictly on inner container to protect outer drag transform
     if (containerRef.current) {
       gsap.fromTo(
-        containerRef.current.closest('.xp-window-border, .xp-window-border-inactive') || containerRef.current,
-        { x: -10 },
+        containerRef.current,
+        { x: -8 },
         {
-          x: 10,
+          x: 8,
           duration: 0.05,
           repeat: 7,
           yoyo: true,
           ease: 'power1.inOut',
           onComplete: () => {
-            gsap.set(
-              containerRef.current?.closest('.xp-window-border, .xp-window-border-inactive') ||
-                containerRef.current,
-              { x: 0 }
-            );
+            if (containerRef.current) {
+              gsap.set(containerRef.current, { x: 0 });
+            }
           },
         }
       );
@@ -166,7 +174,7 @@ export const ContactMsnWindow: React.FC = () => {
             <button
               type="button"
               onClick={handleNudge}
-              className="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 border border-amber-400 rounded text-amber-900 font-bold flex items-center gap-1 shadow-sm transition-transform active:scale-95"
+              className="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 border border-amber-400 rounded text-amber-900 font-bold flex items-center gap-1 shadow-sm transition-transform active:scale-95 cursor-pointer"
             >
               ⚡ Titreşim Gönder!
             </button>

@@ -103,6 +103,7 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
 export const useWindowStore = create<WindowStoreState>((set, get) => ({
   windows: INITIAL_WINDOWS,
   activeWindowId: 'readme',
+  selectedIconId: null,
   maxZIndex: 10,
   language: 'tr',
   isStartMenuOpen: false,
@@ -155,7 +156,6 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
 
     let nextActiveId: WindowId | null = null;
     if (activeWindowId === id && remainingOpen.length > 0) {
-      // Find the open window with highest zIndex
       const highest = remainingOpen.reduce((prev, curr) =>
         curr.zIndex > prev.zIndex ? curr : prev
       );
@@ -210,6 +210,30 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
       },
       activeWindowId: nextActiveId,
     });
+  },
+
+  minimizeAll: () => {
+    const { windows } = get();
+    const nextWindows: Record<WindowId, WindowState> = { ...windows };
+    let hasOpen = false;
+
+    Object.keys(nextWindows).forEach((key) => {
+      const winId = key as WindowId;
+      if (nextWindows[winId].isOpen && !nextWindows[winId].isMinimized) {
+        nextWindows[winId] = {
+          ...nextWindows[winId],
+          isMinimized: true,
+        };
+        hasOpen = true;
+      }
+    });
+
+    if (hasOpen) {
+      set({
+        windows: nextWindows,
+        activeWindowId: null,
+      });
+    }
   },
 
   restoreWindow: (id: WindowId) => {
@@ -317,6 +341,10 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
       maxZIndex: nextZ,
       isStartMenuOpen: false,
     });
+  },
+
+  setSelectedIconId: (id: WindowId | null) => {
+    set({ selectedIconId: id });
   },
 
   setLanguage: (lang: 'tr' | 'en') => {

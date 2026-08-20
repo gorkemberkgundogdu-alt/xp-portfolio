@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useWindowStore } from '../../stores/windowStore';
 import { XpIcon } from '../common/XpIcon';
 import { StartMenu } from './StartMenu';
 
-export const Taskbar: React.FC = () => {
-  const windows = useWindowStore((state) => state.windows);
-  const activeWindowId = useWindowStore((state) => state.activeWindowId);
-  const toggleMinimize = useWindowStore((state) => state.toggleMinimize);
-  const isStartMenuOpen = useWindowStore((state) => state.isStartMenuOpen);
-  const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
-  const language = useWindowStore((state) => state.language);
-  const setLanguage = useWindowStore((state) => state.setLanguage);
-
+// Isolated Clock Component to avoid re-rendering the whole taskbar every second
+const SystemTrayClock: React.FC = memo(() => {
   const [time, setTime] = useState<string>('');
 
   useEffect(() => {
@@ -29,6 +22,29 @@ export const Taskbar: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  return (
+    <div
+      className="text-[11px] font-mono tracking-tight text-white/90 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+      aria-label={`Saat ${time}`}
+    >
+      {time || '18:00'}
+    </div>
+  );
+});
+
+SystemTrayClock.displayName = 'SystemTrayClock';
+
+export const Taskbar: React.FC = () => {
+  const windows = useWindowStore((state) => state.windows);
+  const activeWindowId = useWindowStore((state) => state.activeWindowId);
+  const toggleMinimize = useWindowStore((state) => state.toggleMinimize);
+  const minimizeAll = useWindowStore((state) => state.minimizeAll);
+  const openWindow = useWindowStore((state) => state.openWindow);
+  const isStartMenuOpen = useWindowStore((state) => state.isStartMenuOpen);
+  const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
+  const language = useWindowStore((state) => state.language);
+  const setLanguage = useWindowStore((state) => state.setLanguage);
+
   const openWindowsList = Object.values(windows).filter((w) => w.isOpen);
 
   return (
@@ -44,6 +60,8 @@ export const Taskbar: React.FC = () => {
           {/* Start Button */}
           <button
             type="button"
+            aria-label="Başlat Menüsü"
+            aria-expanded={isStartMenuOpen}
             onClick={() => toggleStartMenu()}
             className={`h-full px-3 xp-start-btn flex items-center gap-1.5 rounded-r-[10px] font-bold italic text-[13px] text-white cursor-pointer shadow-md transition-all ${
               isStartMenuOpen ? 'brightness-90' : ''
@@ -66,14 +84,8 @@ export const Taskbar: React.FC = () => {
             <button
               type="button"
               title="Masaüstünü Göster"
-              onClick={() => {
-                // Minimize all open windows
-                openWindowsList.forEach((w) => {
-                  if (!w.isMinimized) {
-                    useWindowStore.getState().minimizeWindow(w.id);
-                  }
-                });
-              }}
+              aria-label="Masaüstünü Göster"
+              onClick={() => minimizeAll()}
               className="p-1 hover:bg-white/20 rounded cursor-pointer"
             >
               <div className="w-3.5 h-3.5 border border-white bg-blue-300 rounded-[1px]" />
@@ -81,7 +93,8 @@ export const Taskbar: React.FC = () => {
             <button
               type="button"
               title="Internet Explorer"
-              onClick={() => useWindowStore.getState().openWindow('browser')}
+              aria-label="Internet Explorer"
+              onClick={() => openWindow('browser')}
               className="p-0.5 hover:bg-white/20 rounded cursor-pointer"
             >
               <XpIcon name="ie" size={16} />
@@ -89,7 +102,8 @@ export const Taskbar: React.FC = () => {
             <button
               type="button"
               title="MSN Messenger"
-              onClick={() => useWindowStore.getState().openWindow('contact')}
+              aria-label="MSN Messenger"
+              onClick={() => openWindow('contact')}
               className="p-0.5 hover:bg-white/20 rounded cursor-pointer"
             >
               <XpIcon name="msn" size={16} />
@@ -106,6 +120,7 @@ export const Taskbar: React.FC = () => {
                 <button
                   key={win.id}
                   type="button"
+                  aria-pressed={isActive}
                   onClick={() => toggleMinimize(win.id)}
                   className={`h-[24px] min-w-[120px] max-w-[180px] px-2 rounded-[2px] flex items-center gap-1.5 cursor-pointer text-left truncate transition-colors ${
                     isActive
@@ -127,6 +142,7 @@ export const Taskbar: React.FC = () => {
           <button
             type="button"
             title="Dili Değiştir / Change Language"
+            aria-label="Dili Değiştir"
             onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
             className="px-1.5 py-0.5 bg-[#0C59B9] hover:bg-[#1E73DB] border border-[#3E98FA] rounded text-[10px] font-bold uppercase cursor-pointer"
           >
@@ -139,9 +155,7 @@ export const Taskbar: React.FC = () => {
           </span>
 
           {/* Real-time Clock */}
-          <div className="text-[11px] font-mono tracking-tight text-white/90 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-            {time || '18:00'}
-          </div>
+          <SystemTrayClock />
         </div>
       </div>
     </>

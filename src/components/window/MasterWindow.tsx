@@ -24,20 +24,24 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
   const windowState = useWindowStore((state) => state.windows[id]);
   const activeWindowId = useWindowStore((state) => state.activeWindowId);
   const focusWindow = useWindowStore((state) => state.focusWindow);
+  const closeWindow = useWindowStore((state) => state.closeWindow);
 
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
+  const [viewportBounds, setViewportBounds] = useState({ width: 1280, height: 800 });
   const dragControls = useDragControls();
   const windowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMounted(true);
-    const checkMobile = () => {
+    const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      setViewportBounds({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   if (!windowState || !windowState.isOpen) {
@@ -63,6 +67,10 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   };
 
+  // Compute safe drag bounds so window titlebar cannot be lost off-screen
+  const maxDragRight = Math.max(0, viewportBounds.width - 150);
+  const maxDragBottom = Math.max(0, viewportBounds.height - 80);
+
   return (
     <AnimatePresence>
       {!isMinimized && (
@@ -73,7 +81,7 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
-              onClick={() => useWindowStore.getState().closeWindow(id)}
+              onClick={() => closeWindow(id)}
               className="fixed inset-0 bg-black z-40 md:hidden"
             />
           )}
@@ -85,7 +93,13 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
             dragControls={dragControls}
             dragListener={false}
             dragMomentum={false}
-            dragElastic={0.02}
+            dragElastic={0}
+            dragConstraints={{
+              top: 0,
+              left: 0,
+              right: maxDragRight,
+              bottom: maxDragBottom,
+            }}
             initial={
               isMobile
                 ? { y: '100%', opacity: 0 }
@@ -109,8 +123,6 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                     scale: 1,
                   }
                 : {
-                    x: windowState.defaultPosition.x,
-                    y: windowState.defaultPosition.y,
                     width: windowState.defaultSize.width,
                     height: windowState.defaultSize.height,
                     opacity: 1,
@@ -123,7 +135,7 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                 : { opacity: 0, scale: 0.92, transition: { duration: 0.15 } }
             }
             transition={{
-              type: isMobile ? 'spring' : 'spring',
+              type: 'spring',
               damping: isMobile ? 28 : 30,
               stiffness: isMobile ? 300 : 350,
             }}
@@ -164,7 +176,7 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               />
             </div>
 
-            {/* Optional Menu Bar (File, Edit, View, Help...) */}
+            {/* Optional Menu Bar */}
             {menuBar && (
               <div className="bg-[#ECE9D8] border-b border-[#D4D0C8] px-2 py-0.5 text-[11px] flex items-center gap-3 select-none">
                 {menuBar}

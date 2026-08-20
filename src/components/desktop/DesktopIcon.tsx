@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { XpIcon } from '../common/XpIcon';
+import React from 'react';
+import { XpIcon, type XpIconName } from '../common/XpIcon';
 import { useWindowStore } from '../../stores/windowStore';
 import type { WindowId } from '../../types/window';
 
@@ -7,7 +7,7 @@ interface DesktopIconProps {
   id: WindowId;
   label: string;
   labelEn?: string;
-  icon: string;
+  icon: XpIconName;
   onClick?: () => void;
 }
 
@@ -18,10 +18,12 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
   icon,
   onClick,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const selectedIconId = useWindowStore((state) => state.selectedIconId);
+  const setSelectedIconId = useWindowStore((state) => state.setSelectedIconId);
   const openWindow = useWindowStore((state) => state.openWindow);
   const language = useWindowStore((state) => state.language);
 
+  const isSelected = selectedIconId === id;
   const displayLabel = language === 'en' && labelEn ? labelEn : label;
 
   const handleOpen = () => {
@@ -32,13 +34,24 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleOpen();
+    }
+  };
+
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={`${displayLabel} (${language === 'en' ? 'Double click or press Enter to open' : 'Açmak için çift tıklayın veya Enter\'a basın'})`}
+      aria-pressed={isSelected}
       onClick={(e) => {
         e.stopPropagation();
-        setIsSelected(true);
+        setSelectedIconId(id);
         // On mobile single tap opens window
-        if (window.innerWidth < 768) {
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
           handleOpen();
         }
       }}
@@ -46,7 +59,8 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
         e.stopPropagation();
         handleOpen();
       }}
-      className={`group flex flex-col items-center justify-start w-[76px] p-1.5 rounded cursor-pointer select-none transition-all ${
+      onKeyDown={handleKeyDown}
+      className={`group flex flex-col items-center justify-start w-[78px] p-1.5 rounded cursor-pointer select-none transition-all outline-none focus-visible:ring-2 focus-visible:ring-yellow-300 ${
         isSelected
           ? 'bg-[#0B61FE]/40 border border-[#0B61FE]/70'
           : 'hover:bg-white/15 border border-transparent'

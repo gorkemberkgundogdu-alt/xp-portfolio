@@ -1,4 +1,11 @@
-export type WindowId = 'readme' | 'projects' | 'browser' | 'cv' | 'contact' | 'trash' | string;
+export type WindowId =
+  | 'readme'
+  | 'projects'
+  | 'browser'
+  | 'cv'
+  | 'contact'
+  | 'trash'
+  | (string & {});
 
 export interface Position {
   x: number;
@@ -30,6 +37,7 @@ export interface WindowState {
 export interface WindowStoreState {
   windows: Record<WindowId, WindowState>;
   activeWindowId: WindowId | null;
+  selectedIconId: WindowId | null;
   maxZIndex: number;
   language: 'tr' | 'en';
   isStartMenuOpen: boolean;
@@ -38,12 +46,14 @@ export interface WindowStoreState {
   openWindow: (id: WindowId, customConfig?: Partial<WindowState>) => void;
   closeWindow: (id: WindowId) => void;
   minimizeWindow: (id: WindowId) => void;
+  minimizeAll: () => void;
   restoreWindow: (id: WindowId) => void;
   toggleMinimize: (id: WindowId) => void;
   maximizeWindow: (id: WindowId) => void;
   unmaximizeWindow: (id: WindowId) => void;
   toggleMaximize: (id: WindowId) => void;
   focusWindow: (id: WindowId) => void;
+  setSelectedIconId: (id: WindowId | null) => void;
   setLanguage: (lang: 'tr' | 'en') => void;
   toggleStartMenu: (force?: boolean) => void;
 }

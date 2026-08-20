@@ -10,7 +10,10 @@ interface WindowHeaderProps {
 }
 
 export const WindowHeader: React.FC<WindowHeaderProps> = ({ window, isActive, isMobile = false }) => {
-  const { closeWindow, minimizeWindow, toggleMaximize, language } = useWindowStore();
+  const language = useWindowStore((state) => state.language);
+  const closeWindow = useWindowStore((state) => state.closeWindow);
+  const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
+  const toggleMaximize = useWindowStore((state) => state.toggleMaximize);
 
   const title = language === 'en' && window.titleEn ? window.titleEn : window.title;
 

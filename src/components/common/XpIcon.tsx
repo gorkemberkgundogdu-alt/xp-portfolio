@@ -1,7 +1,17 @@
 import React from 'react';
 
+export type XpIconName =
+  | 'notepad'
+  | 'folder'
+  | 'ie'
+  | 'pdf'
+  | 'msn'
+  | 'computer'
+  | 'trash'
+  | (string & {});
+
 interface XpIconProps {
-  name: string;
+  name: XpIconName;
   className?: string;
   size?: number;
 }
