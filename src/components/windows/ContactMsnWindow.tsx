@@ -22,7 +22,7 @@ export const ContactMsnWindow: React.FC = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
-  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   // Clear timeouts on unmount
   useEffect(() => {
