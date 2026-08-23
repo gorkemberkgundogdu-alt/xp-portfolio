@@ -11,7 +11,7 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
     isMinimized: false,
     isMaximized: false,
     zIndex: 10,
-    defaultPosition: { x: 80, y: 50 },
+    defaultPosition: { x: -1, y: -1 },
     defaultSize: { width: 680, height: 500 },
     minSize: { width: 340, height: 280 },
     resizable: true,

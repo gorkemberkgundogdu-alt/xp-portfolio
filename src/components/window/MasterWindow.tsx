@@ -27,7 +27,10 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
   const closeWindow = useWindowStore((state) => state.closeWindow);
 
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [viewportBounds, setViewportBounds] = useState({ width: 1280, height: 800 });
+  const [viewportBounds, setViewportBounds] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1280,
+    height: typeof window !== 'undefined' ? window.innerHeight : 800,
+  });
   const dragControls = useDragControls();
   const windowRef = useRef<HTMLDivElement>(null);
 
@@ -67,11 +70,18 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   };
 
-  // Compute responsive initial spawn coordinates (centered/clamped to view)
-  const clampedWidth = Math.min(windowState.defaultSize.width, Math.max(320, viewportBounds.width - 32));
-  const clampedHeight = Math.min(windowState.defaultSize.height, Math.max(260, viewportBounds.height - 80));
-  const clampedX = Math.max(16, Math.min(windowState.defaultPosition.x, Math.max(16, viewportBounds.width - clampedWidth - 16)));
-  const clampedY = Math.max(16, Math.min(windowState.defaultPosition.y, Math.max(16, viewportBounds.height - clampedHeight - 46)));
+  // Calculate responsive dimensions
+  const winWidth = Math.min(windowState.defaultSize.width, Math.max(320, viewportBounds.width - 32));
+  const winHeight = Math.min(windowState.defaultSize.height, Math.max(260, viewportBounds.height - 80));
+
+  // If defaultPosition is centered or if spawn exceeds bounds, place nicely in viewport center
+  const initialSpawnX = windowState.defaultPosition.x === -1
+    ? Math.max(16, Math.round((viewportBounds.width - winWidth) / 2))
+    : Math.max(16, Math.min(windowState.defaultPosition.x, Math.max(16, viewportBounds.width - winWidth - 16)));
+
+  const initialSpawnY = windowState.defaultPosition.y === -1
+    ? Math.max(20, Math.round((viewportBounds.height - winHeight - 40) / 2))
+    : Math.max(16, Math.min(windowState.defaultPosition.y, Math.max(16, viewportBounds.height - winHeight - 46)));
 
   return (
     <AnimatePresence>
@@ -100,8 +110,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               isMobile
                 ? { y: '100%', opacity: 0 }
                 : {
-                    x: clampedX,
-                    y: clampedY,
+                    x: initialSpawnX,
+                    y: initialSpawnY,
                     opacity: 0,
                     scale: 0.96,
                   }
@@ -119,8 +129,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                     scale: 1,
                   }
                 : {
-                    width: clampedWidth,
-                    height: clampedHeight,
+                    width: winWidth,
+                    height: winHeight,
                     opacity: 1,
                     scale: 1,
                   }
