@@ -142,46 +142,65 @@ export const ProjectsWindow: React.FC = () => {
           </div>
 
           {/* Right panel: Details & Preview */}
-          <div className="flex-1 p-5 bg-white overflow-y-auto">
-            <div className="max-w-2xl space-y-4">
-              <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 p-5 md:p-6 bg-white overflow-y-auto w-full">
+            <div className="w-full space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 border-slate-200">
                 <div>
-                  <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-[11px] font-semibold rounded mb-1">
+                  <span className="inline-block px-2.5 py-0.5 bg-blue-100 text-blue-800 text-[11px] font-bold rounded mb-1.5 uppercase tracking-wider">
                     {selectedProject.badge}
                   </span>
-                  <h2 className="text-xl font-bold text-slate-900">{selectedProject.title}</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                    {selectedProject.title}
+                  </h2>
                 </div>
-                <div className="px-3 py-1 bg-slate-100 border border-slate-300 rounded font-mono text-[12px] text-slate-600 shrink-0">
-                  {selectedProject.date}
-                </div>
-              </div>
-
-              <p className="text-[14px] text-slate-700 leading-relaxed">
-                {selectedProject.desc}
-              </p>
-
-              <div>
-                <div className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-                  Kullanılan Teknolojiler & Yetkinlikler
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2.5 py-1 bg-slate-100 border border-slate-300 rounded-md text-[12px] font-medium text-slate-800"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                <div className="px-3 py-1 bg-slate-100 border border-slate-300 rounded font-mono text-[12px] text-slate-600 self-start sm:self-auto shrink-0 shadow-sm">
+                  📅 {selectedProject.date}
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg space-y-2">
-                <div className="font-bold text-[13px] text-blue-900">📌 UI/UX Çözüm Özeti</div>
-                <div className="text-[12px] text-blue-800 leading-relaxed">
-                  Operasyonel verimliliği artırmak amacıyla kullanıcı araştırmaları ve hızlı prototipleme ile
-                  bileşen kütüphaneleri optimize edilmiş, kullanıcıların karmaşık iş akışlarını basitleştiren
-                  modern arayüzler kurgulanmıştır.
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+                <div className="xl:col-span-2 space-y-4">
+                  <div>
+                    <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                      Proje Özeti & Vizyon
+                    </h3>
+                    <p className="text-[14px] text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+                      {selectedProject.desc}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                      Kullanılan Teknolojiler & Yetkinlikler
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="px-3 py-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 rounded-md text-[12px] font-medium transition-colors"
+                        >
+                          🏷️ {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg shadow-sm space-y-2">
+                    <div className="font-bold text-[13px] text-blue-900 flex items-center gap-1.5">
+                      <span>📌</span>
+                      <span>UI/UX Çözüm Özeti</span>
+                    </div>
+                    <div className="text-[12px] text-blue-800 leading-relaxed">
+                      Operasyonel verimliliği artırmak amacıyla kullanıcı araştırmaları ve hızlı prototipleme ile bileşen kütüphaneleri optimize edilmiş, kullanıcıların karmaşık iş akışlarını basitleştiren modern arayüzler kurgulanmıştır.
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-[12px] text-amber-900 flex items-center justify-between">
+                    <span>Durum: <strong>Tamamlandı & Yayında</strong></span>
+                    <span className="text-[11px] font-mono bg-white px-2 py-0.5 rounded border border-amber-300">v2.4</span>
+                  </div>
                 </div>
               </div>
             </div>
