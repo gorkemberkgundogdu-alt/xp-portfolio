@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useDragControls, AnimatePresence } from 'framer-motion';
+import { motion, useDragControls, useMotionValue, AnimatePresence } from 'framer-motion';
 import { useWindowStore } from '../../stores/windowStore';
 import { WindowHeader } from './WindowHeader';
 import type { WindowId } from '../../types/window';
@@ -34,6 +34,24 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
   const dragControls = useDragControls();
   const windowRef = useRef<HTMLDivElement>(null);
 
+  // Calculate responsive dimensions
+  const winWidth = Math.min(windowState?.defaultSize?.width || 680, Math.max(320, viewportBounds.width - 32));
+  const winHeight = Math.min(windowState?.defaultSize?.height || 500, Math.max(260, viewportBounds.height - 80));
+
+  // Compute initial spawn coordinates
+  const initialSpawnX = windowState?.defaultPosition?.x === -1
+    ? Math.max(16, Math.round((viewportBounds.width - winWidth) / 2))
+    : Math.max(16, Math.min(windowState?.defaultPosition?.x ?? 80, Math.max(16, viewportBounds.width - winWidth - 16)));
+
+  const initialSpawnY = windowState?.defaultPosition?.y === -1
+    ? Math.max(20, Math.round((viewportBounds.height - winHeight - 40) / 2))
+    : Math.max(16, Math.min(windowState?.defaultPosition?.y ?? 50, Math.max(16, viewportBounds.height - winHeight - 46)));
+
+  // Motion values to preserve exact drag position during maximize/restore
+  const x = useMotionValue(initialSpawnX);
+  const y = useMotionValue(initialSpawnY);
+  const prevCoords = useRef({ x: initialSpawnX, y: initialSpawnY });
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -46,6 +64,19 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Update motion values when maximize toggles
+  useEffect(() => {
+    if (isMobile) return;
+    if (windowState?.isMaximized) {
+      prevCoords.current = { x: x.get(), y: y.get() };
+      x.set(0);
+      y.set(0);
+    } else {
+      x.set(prevCoords.current.x);
+      y.set(prevCoords.current.y);
+    }
+  }, [windowState?.isMaximized, isMobile]);
 
   if (!windowState || !windowState.isOpen) {
     return null;
@@ -70,19 +101,6 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   };
 
-  // Calculate responsive dimensions
-  const winWidth = Math.min(windowState.defaultSize.width, Math.max(320, viewportBounds.width - 32));
-  const winHeight = Math.min(windowState.defaultSize.height, Math.max(260, viewportBounds.height - 80));
-
-  // If defaultPosition is centered or if spawn exceeds bounds, place nicely in viewport center
-  const initialSpawnX = windowState.defaultPosition.x === -1
-    ? Math.max(16, Math.round((viewportBounds.width - winWidth) / 2))
-    : Math.max(16, Math.min(windowState.defaultPosition.x, Math.max(16, viewportBounds.width - winWidth - 16)));
-
-  const initialSpawnY = windowState.defaultPosition.y === -1
-    ? Math.max(20, Math.round((viewportBounds.height - winHeight - 40) / 2))
-    : Math.max(16, Math.min(windowState.defaultPosition.y, Math.max(16, viewportBounds.height - winHeight - 46)));
-
   return (
     <AnimatePresence>
       {!isMinimized && (
@@ -106,12 +124,29 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
             dragListener={false}
             dragMomentum={false}
             dragElastic={0}
+            style={{
+              x: !isMobile ? x : undefined,
+              y: !isMobile ? y : undefined,
+              zIndex: isMobile ? 50 : windowState.zIndex,
+              position: 'fixed',
+              ...(isMobile
+                ? {
+                    top: '32px',
+                    left: '8px',
+                    right: '8px',
+                    bottom: '36px',
+                    width: 'auto',
+                    height: 'auto',
+                  }
+                : {
+                    top: 0,
+                    left: 0,
+                  }),
+            }}
             initial={
               isMobile
                 ? { y: '100%', opacity: 0 }
                 : {
-                    x: initialSpawnX,
-                    y: initialSpawnY,
                     opacity: 0,
                     scale: 0.96,
                   }
@@ -121,8 +156,6 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                 ? { y: 0, opacity: 1 }
                 : isMaximized
                 ? {
-                    x: 0,
-                    y: 0,
                     width: '100vw',
                     height: 'calc(100vh - 30px)',
                     opacity: 1,
@@ -146,20 +179,6 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               stiffness: isMobile ? 300 : 350,
             }}
             onPointerDown={handlePointerDown}
-            style={{
-              zIndex: isMobile ? 50 : windowState.zIndex,
-              position: 'fixed',
-              ...(isMobile
-                ? {
-                    top: '32px',
-                    left: '8px',
-                    right: '8px',
-                    bottom: '36px',
-                    width: 'auto',
-                    height: 'auto',
-                  }
-                : {}),
-            }}
             className={`flex flex-col bg-[#ECE9D8] select-none ${
               isMobile
                 ? 'rounded-t-lg rounded-b-none border-2 border-[#0055EA] shadow-2xl'
