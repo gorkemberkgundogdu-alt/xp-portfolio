@@ -67,19 +67,11 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   };
 
-  // Compute safe drag bounds and responsive initial layout
+  // Compute responsive initial spawn coordinates (centered/clamped to view)
   const clampedWidth = Math.min(windowState.defaultSize.width, Math.max(320, viewportBounds.width - 32));
   const clampedHeight = Math.min(windowState.defaultSize.height, Math.max(260, viewportBounds.height - 80));
   const clampedX = Math.max(16, Math.min(windowState.defaultPosition.x, Math.max(16, viewportBounds.width - clampedWidth - 16)));
   const clampedY = Math.max(16, Math.min(windowState.defaultPosition.y, Math.max(16, viewportBounds.height - clampedHeight - 46)));
-
-  // Framer Motion drag offsets are relative to (clampedX, clampedY).
-  // To allow dragging up to y=0: min drag y is -clampedY
-  // To allow dragging left to x=0: min drag x is -clampedX
-  const minDragTop = -clampedY;
-  const minDragLeft = -clampedX;
-  const maxDragRight = Math.max(0, viewportBounds.width - clampedX - 100);
-  const maxDragBottom = Math.max(0, viewportBounds.height - clampedY - 70);
 
   return (
     <AnimatePresence>
@@ -104,12 +96,6 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
             dragListener={false}
             dragMomentum={false}
             dragElastic={0}
-            dragConstraints={{
-              top: minDragTop,
-              left: minDragLeft,
-              right: maxDragRight,
-              bottom: maxDragBottom,
-            }}
             initial={
               isMobile
                 ? { y: '100%', opacity: 0 }
