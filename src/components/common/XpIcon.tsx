@@ -7,7 +7,8 @@ export type XpIconName =
   | 'pdf'
   | 'msn'
   | 'computer'
-  | 'trash'
+  | 'skills'
+  | 'tools'
   | (string & {});
 
 interface XpIconProps {
@@ -226,7 +227,8 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
         </svg>
       );
 
-    case 'trash':
+    case 'skills':
+    case 'tools':
       return (
         <svg
           width={size}
@@ -236,20 +238,16 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
           xmlns="http://www.w3.org/2000/svg"
           className={`inline-block select-none ${className}`}
         >
-          {/* Bin body */}
+          {/* Gear / System Tool icon */}
+          <circle cx="24" cy="24" r="14" fill="#60A5FA" stroke="#1D4ED8" strokeWidth="1.5" />
           <path
-            d="M12 16L15 40C15.2 41.5 16.5 42 18 42H30C31.5 42 32.8 41.5 33 40L36 16H12Z"
-            fill="#B0BEC5"
-            stroke="#546E7A"
-            strokeWidth="1.5"
+            d="M24 6V10M24 38V42M6 24H10M38 24H42M11.3 11.3L14.1 14.1M33.9 33.9L36.7 36.7M11.3 36.7L14.1 33.9M33.9 14.1L36.7 11.3"
+            stroke="#1E40AF"
+            strokeWidth="3.5"
+            strokeLinecap="round"
           />
-          {/* Mesh pattern */}
-          <line x1="16" y1="20" x2="18" y2="38" stroke="#78909C" strokeWidth="1.5" />
-          <line x1="24" y1="20" x2="24" y2="38" stroke="#78909C" strokeWidth="1.5" />
-          <line x1="32" y1="20" x2="30" y2="38" stroke="#78909C" strokeWidth="1.5" />
-          {/* Bin rim */}
-          <ellipse cx="24" cy="16" rx="14" ry="4" fill="#CFD8DC" stroke="#546E7A" strokeWidth="1.5" />
-          <ellipse cx="24" cy="16" rx="11" ry="2.5" fill="#37474F" />
+          <circle cx="24" cy="24" r="8" fill="#F8FAFC" stroke="#1D4ED8" strokeWidth="1.5" />
+          <circle cx="24" cy="24" r="4" fill="#3B82F6" />
         </svg>
       );
 

@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AdaptiveShell } from '../../components/AdaptiveShell';
+import { PROJECTS_DATA, type ProjectItem } from '../../data/portfolioData';
+
+export function getStaticPaths() {
+  return PROJECTS_DATA.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: ProjectItem;
+}
+
+const { project } = Astro.props;
+const currentPath = `/projeler/${project.slug}/`;
+const alternateEnPath = `/en/projects/${project.slug}/`;
+---
+
+<Layout
+  locale="tr"
+  title={`${project.titleTr} | Görkem Berk Gündoğdu`}
+  description={project.summaryTr}
+  currentPath={currentPath}
+  alternateTrPath={currentPath}
+  alternateEnPath={alternateEnPath}
+  project={project}
+>
+  <AdaptiveShell
+    client:only="react"
+    currentLocale="tr"
+    initialWindow="projects"
+    initialProjectSlug={project.slug}
+    initialPropertiesTab="projects"
+  />
+</Layout>

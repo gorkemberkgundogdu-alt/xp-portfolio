@@ -1,0 +1,95 @@
+---
+import { SITE_CONFIG, getAbsoluteUrl } from '../../config/site';
+import { IDENTITY_DATA, type ProjectItem, type ArticleItem } from '../../data/portfolioData';
+
+interface Props {
+  currentPath: string;
+  title: string;
+  description: string;
+  locale: 'tr' | 'en';
+  project?: ProjectItem;
+  article?: ArticleItem;
+}
+
+const { currentPath, title, description, locale, project, article } = Astro.props;
+const canonicalUrl = getAbsoluteUrl(currentPath);
+
+const personId = `${SITE_CONFIG.domain}/#person`;
+const websiteId = `${SITE_CONFIG.domain}/#website`;
+const webpageId = `${canonicalUrl}#webpage`;
+
+const graph: any[] = [
+  {
+    '@type': 'Person',
+    '@id': personId,
+    name: IDENTITY_DATA.name,
+    jobTitle: locale === 'tr' ? IDENTITY_DATA.titleTr : IDENTITY_DATA.titleEn,
+    url: SITE_CONFIG.domain,
+    sameAs: [IDENTITY_DATA.social.linkedin, IDENTITY_DATA.social.github],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Operater.io',
+      url: 'https://operater.io',
+    },
+    knowsAbout: [
+      'UI/UX Design',
+      'Product Interfaces',
+      'Front-End Engineering',
+      'Design Systems',
+      'Astro',
+      'Tailwind CSS',
+      'React',
+      'AI Workflows',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: SITE_CONFIG.domain,
+    name: locale === 'tr' ? SITE_CONFIG.titleTr : SITE_CONFIG.titleEn,
+    publisher: { '@id': personId },
+    inLanguage: locale,
+  },
+  {
+    '@type': project ? 'ItemPage' : 'ProfilePage',
+    '@id': webpageId,
+    url: canonicalUrl,
+    name: title,
+    description: description,
+    isPartOf: { '@id': websiteId },
+    about: { '@id': personId },
+    inLanguage: locale,
+  },
+];
+
+if (project) {
+  graph.push({
+    '@type': 'CreativeWork',
+    '@id': `${canonicalUrl}#project`,
+    name: locale === 'tr' ? project.titleTr : project.titleEn,
+    description: locale === 'tr' ? project.summaryTr : project.summaryEn,
+    creator: { '@id': personId },
+    genre: locale === 'tr' ? project.categoryTitleTr : project.categoryTitleEn,
+    keywords: project.tech.join(', '),
+  });
+}
+
+if (article) {
+  graph.push({
+    '@type': 'Article',
+    '@id': `${canonicalUrl}#article`,
+    headline: locale === 'tr' ? article.titleTr : article.titleEn,
+    description: locale === 'tr' ? article.summaryTr : article.summaryEn,
+    author: { '@id': personId },
+    publisher: { '@id': personId },
+    datePublished: article.date,
+  });
+}
+
+const schemaJson = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': graph,
+});
+---
+
+<script type="application/ld+json" set:html={schemaJson} />

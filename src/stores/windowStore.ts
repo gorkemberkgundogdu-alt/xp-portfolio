@@ -82,18 +82,18 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
     maximizable: false,
     minimizable: true,
   },
-  trash: {
-    id: 'trash',
-    title: 'Geri Dönüşüm Kutusu',
-    titleEn: 'Recycle Bin',
-    icon: 'trash',
+  skills: {
+    id: 'skills',
+    title: 'Yetenekler & Araçlar — Sistem Özellikleri',
+    titleEn: 'Skills & Tools — System Properties',
+    icon: 'skills',
     isOpen: false,
     isMinimized: false,
     isMaximized: false,
     zIndex: 1,
-    defaultPosition: { x: 200, y: 120 },
-    defaultSize: { width: 500, height: 380 },
-    minSize: { width: 300, height: 240 },
+    defaultPosition: { x: 140, y: 90 },
+    defaultSize: { width: 660, height: 480 },
+    minSize: { width: 340, height: 280 },
     resizable: true,
     maximizable: true,
     minimizable: true,
@@ -104,6 +104,8 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
   windows: INITIAL_WINDOWS,
   activeWindowId: 'readme',
   selectedIconId: null,
+  activeProjectId: 'operater',
+  activeArticleId: 'ai-driven-ui-ux',
   maxZIndex: 10,
   language: 'tr',
   isStartMenuOpen: false,
@@ -345,6 +347,14 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
 
   setSelectedIconId: (id: WindowId | null) => {
     set({ selectedIconId: id });
+  },
+
+  setActiveProjectId: (id: string | null) => {
+    set({ activeProjectId: id });
+  },
+
+  setActiveArticleId: (id: string | null) => {
+    set({ activeArticleId: id });
   },
 
   setLanguage: (lang: 'tr' | 'en') => {

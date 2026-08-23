@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useDragControls, useMotionValue, AnimatePresence } from 'framer-motion';
 import { useWindowStore } from '../../stores/windowStore';
 import { WindowHeader } from './WindowHeader';
@@ -34,18 +34,24 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
   const dragControls = useDragControls();
   const windowRef = useRef<HTMLDivElement>(null);
 
-  // Calculate responsive dimensions
-  const winWidth = Math.min(windowState?.defaultSize?.width || 680, Math.max(320, viewportBounds.width - 32));
-  const winHeight = Math.min(windowState?.defaultSize?.height || 500, Math.max(260, viewportBounds.height - 80));
+  // Calculate default responsive dimensions
+  const defaultWinWidth = Math.min(windowState?.defaultSize?.width || 680, Math.max(320, viewportBounds.width - 32));
+  const defaultWinHeight = Math.min(windowState?.defaultSize?.height || 500, Math.max(260, viewportBounds.height - 80));
+
+  // Current user-adjusted size
+  const [customSize, setCustomSize] = useState<{ width: number; height: number }>({
+    width: defaultWinWidth,
+    height: defaultWinHeight,
+  });
 
   // Compute initial spawn coordinates
   const initialSpawnX = windowState?.defaultPosition?.x === -1
-    ? Math.max(16, Math.round((viewportBounds.width - winWidth) / 2))
-    : Math.max(16, Math.min(windowState?.defaultPosition?.x ?? 80, Math.max(16, viewportBounds.width - winWidth - 16)));
+    ? Math.max(16, Math.round((viewportBounds.width - defaultWinWidth) / 2))
+    : Math.max(16, Math.min(windowState?.defaultPosition?.x ?? 80, Math.max(16, viewportBounds.width - defaultWinWidth - 16)));
 
   const initialSpawnY = windowState?.defaultPosition?.y === -1
-    ? Math.max(20, Math.round((viewportBounds.height - winHeight - 40) / 2))
-    : Math.max(16, Math.min(windowState?.defaultPosition?.y ?? 50, Math.max(16, viewportBounds.height - winHeight - 46)));
+    ? Math.max(20, Math.round((viewportBounds.height - defaultWinHeight - 40) / 2))
+    : Math.max(16, Math.min(windowState?.defaultPosition?.y ?? 50, Math.max(16, viewportBounds.height - defaultWinHeight - 46)));
 
   // Motion values to preserve exact drag position during maximize/restore
   const x = useMotionValue(initialSpawnX);
@@ -54,7 +60,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const isMob = window.innerWidth < 768 || (window.innerWidth < 1024 && window.matchMedia('(pointer: coarse)').matches);
+      setIsMobile(isMob);
       setViewportBounds({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -78,6 +85,51 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
     }
   }, [windowState?.isMaximized, isMobile]);
 
+  // Resizing logic for desktop
+  const isResizingRef = useRef(false);
+
+  const startResize = useCallback((e: React.PointerEvent, direction: 'se' | 'e' | 's') => {
+    e.preventDefault();
+    e.stopPropagation();
+    isResizingRef.current = true;
+
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startWidth = customSize.width;
+    const startHeight = customSize.height;
+    const minWidth = windowState?.minSize?.width || 340;
+    const minHeight = windowState?.minSize?.height || 260;
+
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      if (!isResizingRef.current) return;
+      const deltaX = moveEvent.clientX - startX;
+      const deltaY = moveEvent.clientY - startY;
+
+      let newWidth = startWidth;
+      let newHeight = startHeight;
+
+      if (direction === 'se' || direction === 'e') {
+        const maxW = viewportBounds.width - x.get() - 16;
+        newWidth = Math.max(minWidth, Math.min(startWidth + deltaX, maxW));
+      }
+      if (direction === 'se' || direction === 's') {
+        const maxH = viewportBounds.height - y.get() - 36;
+        newHeight = Math.max(minHeight, Math.min(startHeight + deltaY, maxH));
+      }
+
+      setCustomSize({ width: Math.round(newWidth), height: Math.round(newHeight) });
+    };
+
+    const onPointerUp = () => {
+      isResizingRef.current = false;
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+  }, [customSize, windowState, viewportBounds, x, y]);
+
   if (!windowState || !windowState.isOpen) {
     return null;
   }
@@ -85,6 +137,7 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
   const isActive = activeWindowId === id;
   const isMinimized = windowState.isMinimized;
   const isMaximized = windowState.isMaximized;
+  const isResizable = windowState.resizable !== false && !isMaximized && !isMobile;
 
   // Handle focus when clicking anywhere inside window
   const handlePointerDown = () => {
@@ -162,8 +215,8 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
                     scale: 1,
                   }
                 : {
-                    width: winWidth,
-                    height: winHeight,
+                    width: customSize.width,
+                    height: customSize.height,
                     opacity: 1,
                     scale: 1,
                   }
@@ -220,6 +273,33 @@ export const MasterWindow: React.FC<MasterWindowProps> = ({
               <div className="bg-[#ECE9D8] border-t border-[#D4D0C8] px-2 py-1 text-[11px] text-[#444444] flex items-center justify-between select-none">
                 {statusBar}
               </div>
+            )}
+
+            {/* Desktop Window Resize Handles */}
+            {isResizable && (
+              <>
+                {/* Right edge */}
+                <div
+                  onPointerDown={(e) => startResize(e, 'e')}
+                  className="absolute top-8 right-0 w-1.5 bottom-3 cursor-ew-resize hover:bg-blue-400/30 touch-none"
+                />
+                {/* Bottom edge */}
+                <div
+                  onPointerDown={(e) => startResize(e, 's')}
+                  className="absolute left-3 bottom-0 right-3 h-1.5 cursor-ns-resize hover:bg-blue-400/30 touch-none"
+                />
+                {/* Bottom-Right corner */}
+                <div
+                  onPointerDown={(e) => startResize(e, 'se')}
+                  className="absolute bottom-0 right-0 w-3.5 h-3.5 cursor-nwse-resize z-30 touch-none flex items-end justify-end p-0.5"
+                  title="Boyutlandır"
+                >
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" className="opacity-60">
+                    <line x1="6" y1="2" x2="2" y2="6" stroke="#555" strokeWidth="1" />
+                    <line x1="7" y1="5" x2="5" y2="7" stroke="#555" strokeWidth="1" />
+                  </svg>
+                </div>
+              </>
             )}
           </motion.div>
         </>

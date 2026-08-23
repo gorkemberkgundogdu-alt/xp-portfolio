@@ -1,0 +1,128 @@
+---
+import {
+  IDENTITY_DATA,
+  PROJECTS_DATA,
+  ARTICLES_DATA,
+  SKILLS_DATA,
+  type ProjectItem,
+} from '../../data/portfolioData';
+
+interface Props {
+  locale: 'tr' | 'en';
+  activeProject?: ProjectItem;
+}
+
+const { locale, activeProject } = Astro.props;
+---
+
+<!-- Semantic Server-Rendered Content & Accessible Fallback -->
+<noscript>
+  <div style="background-color: #ECE9D8; color: #111; padding: 2rem; font-family: Tahoma, Arial, sans-serif; max-width: 900px; margin: 1.5rem auto; border: 2px solid #0055EA; border-radius: 8px;">
+    <header style="border-bottom: 2px solid #0055EA; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+      <h1 style="color: #0055EA; font-size: 1.8rem; margin: 0 0 0.5rem 0;">
+        {IDENTITY_DATA.name} — {locale === 'tr' ? IDENTITY_DATA.titleTr : IDENTITY_DATA.titleEn}
+      </h1>
+      <p style="margin: 0; color: #444; font-size: 0.95rem;">
+        {locale === 'tr' ? IDENTITY_DATA.taglineTr : IDENTITY_DATA.taglineEn} | {locale === 'tr' ? IDENTITY_DATA.locationTr : IDENTITY_DATA.locationEn}
+      </p>
+    </header>
+
+    <main>
+      <section style="margin-bottom: 2rem;">
+        <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Hakkında' : 'About'}</h2>
+        <p style="line-height: 1.6; font-size: 0.95rem;">
+          {locale === 'tr' ? IDENTITY_DATA.aboutShortTr : IDENTITY_DATA.aboutShortEn}
+        </p>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Projeler' : 'Projects'}</h2>
+        <div style="display: grid; gap: 1rem;">
+          {PROJECTS_DATA.map((p) => (
+            <article style="background: #fff; padding: 1rem; border: 1px solid #ccc; border-radius: 4px;">
+              <h3 style="margin: 0 0 0.25rem 0; font-size: 1.1rem;">
+                <a href={locale === 'tr' ? `/projeler/${p.slug}/` : `/en/projects/${p.slug}/`} style="color: #0055EA; text-decoration: underline;">
+                  {locale === 'tr' ? p.titleTr : p.titleEn}
+                </a>
+              </h3>
+              <p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #666;">
+                <strong>{locale === 'tr' ? p.categoryTitleTr : p.categoryTitleEn}</strong> | {p.date}
+              </p>
+              <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; line-height: 1.5;">
+                {locale === 'tr' ? p.summaryTr : p.summaryEn}
+              </p>
+              <p style="margin: 0; font-size: 0.85rem; color: #444;">
+                <strong>{locale === 'tr' ? 'Teknolojiler:' : 'Technologies:'}</strong> {p.tech.join(', ')}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Makaleler' : 'Articles'}</h2>
+        <div style="display: grid; gap: 1rem;">
+          {ARTICLES_DATA.map((a) => (
+            <article style="background: #fff; padding: 1rem; border: 1px solid #ccc; border-radius: 4px;">
+              <h3 style="margin: 0 0 0.25rem 0; font-size: 1.1rem;">
+                <a href={locale === 'tr' ? `/makaleler/${a.slugTr}/` : `/en/articles/${a.slugEn}/`} style="color: #0055EA; text-decoration: underline;">
+                  {locale === 'tr' ? a.titleTr : a.titleEn}
+                </a>
+              </h3>
+              <p style="margin: 0; font-size: 0.9rem; line-height: 1.5;">
+                {locale === 'tr' ? a.summaryTr : a.summaryEn}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Yetkinlikler & Araçlar' : 'Skills & Tools'}</h2>
+        <div style="display: grid; gap: 0.75rem;">
+          {SKILLS_DATA.map((s) => (
+            <div>
+              <strong>{locale === 'tr' ? s.nameTr : s.nameEn}:</strong> {s.skills.join(', ')}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer style="border-top: 1px solid #ccc; padding-top: 1rem; font-size: 0.9rem;">
+        <p style="margin: 0 0 0.5rem 0;">
+          <strong>{locale === 'tr' ? 'İletişim:' : 'Contact:'}</strong>{' '}
+          <a href={`mailto:${IDENTITY_DATA.social.email}`}>{IDENTITY_DATA.social.email}</a> |{' '}
+          <a href={IDENTITY_DATA.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> |{' '}
+          <a href={IDENTITY_DATA.social.github} target="_blank" rel="noopener noreferrer">GitHub</a> |{' '}
+          <a href={IDENTITY_DATA.social.cvPath} download>CV (PDF)</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+</noscript>
+
+<!-- Semantic Crawler / Assistive Technology Header Landmarks -->
+<header class="sr-only">
+  <h1>{locale === 'tr' ? IDENTITY_DATA.name + ' — UI/UX Designer & Front-End Builder' : IDENTITY_DATA.name + ' — UI/UX Designer & Front-End Builder'}</h1>
+  <p>{locale === 'tr' ? IDENTITY_DATA.aboutShortTr : IDENTITY_DATA.aboutShortEn}</p>
+  <nav aria-label="Site Navigation">
+    <ul>
+      <li><a href={locale === 'tr' ? '/' : '/en/'}>{locale === 'tr' ? 'Ana Sayfa' : 'Home'}</a></li>
+      {PROJECTS_DATA.map((p) => (
+        <li>
+          <a href={locale === 'tr' ? `/projeler/${p.slug}/` : `/en/projects/${p.slug}/`}>
+            {locale === 'tr' ? p.titleTr : p.titleEn}
+          </a>
+        </li>
+      ))}
+      {ARTICLES_DATA.map((a) => (
+        <li>
+          <a href={locale === 'tr' ? `/makaleler/${a.slugTr}/` : `/en/articles/${a.slugEn}/`}>
+            {locale === 'tr' ? a.titleTr : a.titleEn}
+          </a>
+        </li>
+      ))}
+      <li><a href={IDENTITY_DATA.social.cvPath}>CV_2026.pdf</a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AdaptiveShell } from '../../components/AdaptiveShell';
+import { SITE_CONFIG } from '../../config/site';
+
+const title = SITE_CONFIG.titleEn;
+const description = SITE_CONFIG.descriptionEn;
+---
+
+<Layout
+  locale="en"
+  title={title}
+  description={description}
+  currentPath="/en/"
+  alternateTrPath="/"
+  alternateEnPath="/en/"
+>
+  <AdaptiveShell
+    client:only="react"
+    currentLocale="en"
+    initialWindow="readme"
+    initialPropertiesTab="general"
+  />
+</Layout>

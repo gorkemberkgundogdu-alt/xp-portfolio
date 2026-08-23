@@ -1,35 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Desktop } from '../components/desktop/Desktop';
+import { AdaptiveShell } from '../components/AdaptiveShell';
+import { SITE_CONFIG } from '../config/site';
+
+const title = SITE_CONFIG.titleTr;
+const description = SITE_CONFIG.descriptionTr;
 ---
 
-<Layout>
-  <!-- Semantic SSR Content & Fallback for Search Engines, AI Indexers & No-JS Clients -->
-  <noscript>
-    <div style="background-color: #ECE9D8; color: #000; padding: 2rem; font-family: Tahoma, sans-serif; max-width: 800px; margin: 2rem auto; border: 2px solid #0055EA; border-radius: 6px;">
-      <h1 style="color: #0055EA;">Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder</h1>
-      <p>
-        Dijital ürünler tasarlama ve inşa etme tutkum, makine mühendisliği eğitimimi son senesinde bırakma kararımla tam zamanlı bir serüvene dönüştü. Kendi girişimim olan v1be.io'nun temellerini atarken başlayan bu yolculuk, bugün Operater.io'da UI/UX Designer olarak sıfırdan ürün arayüzleri ve kullanıcı akışları kurguladığım bir noktaya evrildi.
-      </p>
-      <h2>Projeler</h2>
-      <ul>
-        <li><strong>Operater.io (Operater_SaaS.exe):</strong> Sıfırdan Ürün Arayüzü ve Sistem Tasarımı (AI destekli UX problem çözümü ve arayüz keşfi).</li>
-        <li><strong>v1be.io (v1be_Platform.exe):</strong> Kurucu Ortak Vizyonu ve Erken Aşama Ürün Tasarımı (Landing page tasarımı ve front-end mimarisi).</li>
-        <li><strong>Freelance Web Deneyimleri (E-Commerce_Bundle.zip):</strong> Rook AI & MyNessa Media - Performans ve erişilebilirlik odaklı responsive tasarımlar.</li>
-      </ul>
-      <h2>İletişim & Özgeçmiş</h2>
-      <p>E-posta: <a href="mailto:gorkemberk@operater.io">gorkemberk@operater.io</a> | CV: Gorkem_Berk_CV_2026.pdf</p>
-    </div>
-  </noscript>
-
-  <!-- Screen-reader / Search Crawler Semantic Landmarks -->
-  <header class="sr-only">
-    <h1>Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder Portfolio</h1>
-    <p>Windows XP themed interactive portfolio showcasing B2B SaaS, Design Systems, and Frontend Engineering.</p>
-  </header>
-
-  <!-- Interactive Client Islands -->
-  <main class="w-full h-full">
-    <Desktop client:only="react" />
-  </main>
+<Layout
+  locale="tr"
+  title={title}
+  description={description}
+  currentPath="/"
+  alternateTrPath="/"
+  alternateEnPath="/en/"
+>
+  <AdaptiveShell
+    client:only="react"
+    currentLocale="tr"
+    initialWindow="readme"
+    initialPropertiesTab="general"
+  />
 </Layout>

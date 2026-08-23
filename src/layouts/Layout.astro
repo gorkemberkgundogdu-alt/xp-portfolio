@@ -1,52 +1,95 @@
 ---
 import '../styles/global.css';
+import { SITE_CONFIG, getAbsoluteUrl } from '../config/site';
+import JsonLd from '../components/seo/JsonLd.astro';
+import SemanticContent from '../components/seo/SemanticContent.astro';
+import type { ProjectItem, ArticleItem } from '../data/portfolioData';
 
 interface Props {
   title?: string;
   description?: string;
+  locale?: 'tr' | 'en';
+  currentPath?: string;
+  alternateTrPath?: string;
+  alternateEnPath?: string;
+  project?: ProjectItem;
+  article?: ArticleItem;
 }
 
 const {
-  title = 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolio',
-  description = 'Görkem Berk Gündoğdu - UI/UX Designer & Front-End Builder retro Windows XP portfolio. B2B SaaS, Operater.io, v1be.io, and modern web experiences.',
+  locale = 'tr',
+  currentPath = Astro.url.pathname,
+  title = locale === 'tr' ? SITE_CONFIG.titleTr : SITE_CONFIG.titleEn,
+  description = locale === 'tr' ? SITE_CONFIG.descriptionTr : SITE_CONFIG.descriptionEn,
+  alternateTrPath = currentPath.startsWith('/en')
+    ? currentPath.replace('/en/projects/', '/projeler/').replace('/en/articles/', '/makaleler/').replace('/en/', '/').replace('/en', '/')
+    : currentPath,
+  alternateEnPath = currentPath.startsWith('/en')
+    ? currentPath
+    : currentPath === '/'
+    ? '/en/'
+    : currentPath.replace('/projeler/', '/en/projects/').replace('/makaleler/', '/en/articles/'),
+  project,
+  article,
 } = Astro.props;
+
+const canonicalUrl = getAbsoluteUrl(currentPath);
+const hreflangTrUrl = getAbsoluteUrl(alternateTrPath);
+const hreflangEnUrl = getAbsoluteUrl(alternateEnPath);
+const defaultUrl = getAbsoluteUrl(alternateTrPath); // x-default points to Turkish default
 ---
 
 <!doctype html>
-<html lang="tr">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Reciprocal Hreflang Tags -->
+    <link rel="alternate" hreflang="tr" href={hreflangTrUrl} />
+    <link rel="alternate" hreflang="en" href={hreflangEnUrl} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
+
     <!-- SEO & Metadata -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Görkem Berk Gündoğdu" />
+    <meta name="author" content={SITE_CONFIG.author} />
     <meta name="theme-color" content="#0055ea" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={project ? 'article' : 'website'} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:locale" content={locale === 'tr' ? 'tr_TR' : 'en_US'} />
 
-    <!-- Structured Data / JSON-LD -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Görkem Berk Gündoğdu",
-        "jobTitle": "UI/UX Designer & Front-End Builder",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Operater.io"
-        },
-        "knowsAbout": ["UI/UX Design", "Front-End Development", "Figma", "Tailwind CSS", "Astro", "React", "AI Workflows"]
-      }
-    </script>
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Structured Data JSON-LD Graph -->
+    <JsonLd
+      currentPath={currentPath}
+      title={title}
+      description={description}
+      locale={locale}
+      project={project}
+      article={article}
+    />
   </head>
   <body class="bg-[#004e98] overflow-hidden">
-    <slot />
+    <!-- Server-Rendered Semantic HTML Fallback & Landmarks -->
+    <SemanticContent locale={locale} activeProject={project} />
+
+    <!-- Interactive Client Shell -->
+    <div class="w-full h-full">
+      <slot />
+    </div>
   </body>
 </html>

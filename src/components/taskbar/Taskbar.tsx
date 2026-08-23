@@ -43,9 +43,50 @@ export const Taskbar: React.FC = () => {
   const isStartMenuOpen = useWindowStore((state) => state.isStartMenuOpen);
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
   const language = useWindowStore((state) => state.language);
-  const setLanguage = useWindowStore((state) => state.setLanguage);
+  const activeProjectId = useWindowStore((state) => state.activeProjectId);
 
   const openWindowsList = Object.values(windows).filter((w) => w.isOpen);
+
+  const getTargetLocaleUrl = (targetLocale: 'tr' | 'en') => {
+    if (typeof window === 'undefined') return targetLocale === 'en' ? '/en/' : '/';
+    const path = window.location.pathname;
+
+    if (targetLocale === 'en') {
+      if (path.startsWith('/projeler/')) {
+        return path.replace('/projeler/', '/en/projects/');
+      }
+      if (path.startsWith('/makaleler/')) {
+        return '/en/articles/ai-driven-ui-ux-design/';
+      }
+      if (activeWindowId === 'projects' && activeProjectId) {
+        return `/en/projects/${activeProjectId}/`;
+      }
+      if (activeWindowId === 'browser') {
+        return '/en/articles/ai-driven-ui-ux-design/';
+      }
+      return '/en/';
+    } else {
+      if (path.startsWith('/en/projects/')) {
+        return path.replace('/en/projects/', '/projeler/');
+      }
+      if (path.startsWith('/en/articles/')) {
+        return '/makaleler/ai-ile-ui-ux-tasarimi/';
+      }
+      if (activeWindowId === 'projects' && activeProjectId) {
+        return `/projeler/${activeProjectId}/`;
+      }
+      if (activeWindowId === 'browser') {
+        return '/makaleler/ai-ile-ui-ux-tasarimi/';
+      }
+      return '/';
+    }
+  };
+
+  const handleLanguageToggle = () => {
+    const nextLang = language === 'tr' ? 'en' : 'tr';
+    const targetUrl = getTargetLocaleUrl(nextLang);
+    window.location.href = targetUrl;
+  };
 
   return (
     <>
@@ -60,42 +101,43 @@ export const Taskbar: React.FC = () => {
           {/* Start Button */}
           <button
             type="button"
-            aria-label="Başlat Menüsü"
             aria-expanded={isStartMenuOpen}
+            aria-label="Başlat Menüsü"
             onClick={() => toggleStartMenu()}
-            className={`h-full px-3 xp-start-btn flex items-center gap-1.5 rounded-r-[10px] font-bold italic text-[13px] text-white cursor-pointer shadow-md transition-all ${
-              isStartMenuOpen ? 'brightness-90' : ''
-            }`}
+            className="h-full px-3.5 xp-start-btn rounded-r-[10px] flex items-center gap-1.5 shadow-[2px_0_4px_rgba(0,0,0,0.3)] cursor-pointer text-white font-black italic tracking-wide text-[13px] group focus-visible:ring-2 focus-visible:ring-white"
           >
-            {/* Windows Flag SVG */}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 5.5L10 4.5V11.5H3V5.5Z" fill="#F25022" />
-              <path d="M11 4.3L21 3V11.5H11V4.3Z" fill="#7FBA00" />
-              <path d="M3 12.5H10V18.5L3 17.5V12.5Z" fill="#00A4EF" />
-              <path d="M11 12.5H21V20L11 18.7V12.5Z" fill="#FFB900" />
-            </svg>
-            <span className="drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)]">
-              {language === 'en' ? 'start' : 'başlat'}
+            {/* Windows Flag Icon */}
+            <div className="w-4 h-4 grid grid-cols-2 gap-[1px] transform -rotate-12 group-hover:rotate-0 transition-transform">
+              <div className="bg-[#EB3C00] rounded-tl-[2px]" />
+              <div className="bg-[#4E9C00] rounded-tr-[2px]" />
+              <div className="bg-[#007AEB] rounded-bl-[2px]" />
+              <div className="bg-[#FAB800] rounded-br-[2px]" />
+            </div>
+            <span className="drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] font-sans">
+              {language === 'tr' ? 'başlat' : 'start'}
             </span>
           </button>
 
-          {/* Quick Launch separator & icons */}
-          <div className="hidden sm:flex items-center h-full px-2 border-r border-[#153D94] border-l border-[#4B8BF5] gap-1">
+          {/* Quick Launch Separator */}
+          <div className="h-4 w-[1px] bg-[#0E51B5] mx-1 border-r border-[#3C91FF]" />
+
+          {/* Quick Launch Icons */}
+          <div className="flex items-center gap-0.5 px-1">
             <button
               type="button"
-              title="Masaüstünü Göster"
-              aria-label="Masaüstünü Göster"
-              onClick={() => minimizeAll()}
-              className="p-1 hover:bg-white/20 rounded cursor-pointer"
+              title={language === 'tr' ? 'Masaüstünü Göster' : 'Show Desktop'}
+              aria-label={language === 'tr' ? 'Masaüstünü Göster' : 'Show Desktop'}
+              onClick={minimizeAll}
+              className="p-1 hover:bg-[#1E52BF] rounded-[2px] transition-colors cursor-pointer"
             >
-              <div className="w-3.5 h-3.5 border border-white bg-blue-300 rounded-[1px]" />
+              <div className="w-3.5 h-3.5 bg-gradient-to-br from-blue-300 to-blue-600 border border-white/60 shadow-xs" />
             </button>
             <button
               type="button"
               title="Internet Explorer"
               aria-label="Internet Explorer"
               onClick={() => openWindow('browser')}
-              className="p-0.5 hover:bg-white/20 rounded cursor-pointer"
+              className="p-0.5 hover:bg-[#1E52BF] rounded-[2px] transition-colors cursor-pointer"
             >
               <XpIcon name="ie" size={16} />
             </button>
@@ -104,18 +146,19 @@ export const Taskbar: React.FC = () => {
               title="MSN Messenger"
               aria-label="MSN Messenger"
               onClick={() => openWindow('contact')}
-              className="p-0.5 hover:bg-white/20 rounded cursor-pointer"
+              className="p-0.5 hover:bg-[#1E52BF] rounded-[2px] transition-colors cursor-pointer"
             >
               <XpIcon name="msn" size={16} />
             </button>
           </div>
 
+          <div className="h-4 w-[1px] bg-[#0E51B5] mx-1 border-r border-[#3C91FF]" />
+
           {/* Open Windows Tabs */}
-          <div className="flex items-center h-full px-1 gap-1 overflow-x-auto max-w-[calc(100vw-280px)]">
+          <div className="flex items-center gap-1 overflow-x-auto max-w-[calc(100vw-350px)] px-1">
             {openWindowsList.map((win) => {
               const isActive = activeWindowId === win.id && !win.isMinimized;
               const title = language === 'en' && win.titleEn ? win.titleEn : win.title;
-
               return (
                 <button
                   key={win.id}
@@ -139,15 +182,18 @@ export const Taskbar: React.FC = () => {
         {/* Right: System Tray */}
         <div className="h-full px-3 xp-tray-bg flex items-center gap-3 border-l border-[#0F77D3] shrink-0 text-white">
           {/* Language Toggle (TR / EN) */}
-          <button
-            type="button"
-            title="Dili Değiştir / Change Language"
-            aria-label="Dili Değiştir"
-            onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
-            className="px-1.5 py-0.5 bg-[#0C59B9] hover:bg-[#1E73DB] border border-[#3E98FA] rounded text-[10px] font-bold uppercase cursor-pointer"
+          <a
+            href={getTargetLocaleUrl(language === 'tr' ? 'en' : 'tr')}
+            onClick={(e) => {
+              e.preventDefault();
+              handleLanguageToggle();
+            }}
+            title={language === 'tr' ? 'English (EN)' : 'Türkçe (TR)'}
+            aria-label={language === 'tr' ? 'İngilizceye Geç' : 'Switch to Turkish'}
+            className="px-1.5 py-0.5 bg-[#0C59B9] hover:bg-[#1E73DB] border border-[#3E98FA] rounded text-[10px] font-bold uppercase cursor-pointer text-white no-underline shadow-xs"
           >
             {language.toUpperCase()}
-          </button>
+          </a>
 
           {/* Volume Icon */}
           <span className="text-[12px] opacity-90 hidden sm:inline" title="Ses">

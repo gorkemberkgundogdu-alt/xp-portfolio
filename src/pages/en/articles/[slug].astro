@@ -1,0 +1,38 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { AdaptiveShell } from '../../../components/AdaptiveShell';
+import { ARTICLES_DATA, type ArticleItem } from '../../../data/portfolioData';
+
+export function getStaticPaths() {
+  return ARTICLES_DATA.map((article) => ({
+    params: { slug: article.slugEn },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: ArticleItem;
+}
+
+const { article } = Astro.props;
+const currentPath = `/en/articles/${article.slugEn}/`;
+const alternateTrPath = `/makaleler/${article.slugTr}/`;
+---
+
+<Layout
+  locale="en"
+  title={`${article.titleEn} | Görkem Berk Gündoğdu`}
+  description={article.summaryEn}
+  currentPath={currentPath}
+  alternateTrPath={alternateTrPath}
+  alternateEnPath={currentPath}
+  article={article}
+>
+  <AdaptiveShell
+    client:only="react"
+    currentLocale="en"
+    initialWindow="browser"
+    initialArticleSlug={article.slugEn}
+    initialPropertiesTab="articles"
+  />
+</Layout>

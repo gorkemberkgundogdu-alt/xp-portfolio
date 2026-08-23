@@ -1,27 +1,42 @@
 import type { APIRoute } from 'astro';
+import { SITE_CONFIG } from '../config/site';
+import { IDENTITY_DATA, PROJECTS_DATA, ARTICLES_DATA, SKILLS_DATA } from '../data/portfolioData';
 
 export const GET: APIRoute = async () => {
-  const content = `# Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder
+  const content = `# ${IDENTITY_DATA.name} — ${IDENTITY_DATA.titleEn}
 
-> Portfolio: Interactive Windows XP Web Experience
-> Role: UI/UX Designer at Operater.io | Co-Founder at v1be.io
+> Canonical Website: ${SITE_CONFIG.domain}
+> Primary Roles: ${IDENTITY_DATA.currentRolesEn.join(' | ')}
+> Location: ${IDENTITY_DATA.locationEn}
 
-## Summary
-Görkem Berk Gündoğdu is a UI/UX Designer and Front-End Builder who transitioned from mechanical engineering to digital product design and front-end engineering. He crafts responsive, accessible, and high-performance digital experiences combining aesthetics with modern web technologies and AI-augmented workflows.
+## Professional Summary
+${IDENTITY_DATA.aboutShortEn}
 
-## Key Projects
-- **Operater.io (Operater_SaaS.exe)**: End-to-end B2B SaaS product interface design, scalable design system architecture, complex data visualizations, and AI problem-solving.
-- **v1be.io (v1be_Platform.exe)**: Co-founder vision, early-stage product prototypes, landing page design, and front-end architecture.
-- **Freelance Web Experiences (E-Commerce_Bundle.zip)**: High-converting, responsive web platforms for Rook AI & MyNessa Media.
+## Projects & Product Cases (Static Routes)
+${PROJECTS_DATA.map(
+  (p) => `- [${p.titleEn}](${SITE_CONFIG.domain}/en/projects/${p.slug}/)
+  - Category: ${p.categoryTitleEn}
+  - Role: ${p.roleEn}
+  - Tech: ${p.tech.join(', ')}
+  - Summary: ${p.summaryEn}`
+).join('\n')}
 
-## Skills & Stack
-- **Design**: Figma, UI/UX Systems, Prototyping, Wireframing, User Research
-- **Engineering**: Astro, React, TypeScript, Tailwind CSS, Framer Motion, GSAP, Zustand
-- **AI Integrations**: Prompt engineering, rapid user flow testing, AI-assisted frontend iteration
+## Articles & Insights
+${ARTICLES_DATA.map(
+  (a) => `- [${a.titleEn}](${SITE_CONFIG.domain}/en/articles/${a.slugEn}/)
+  - Date: ${a.date} | Read Time: ${a.readTimeEn}
+  - Summary: ${a.summaryEn}`
+).join('\n')}
 
-## Contact
-- Email: gorkemberk@operater.io
-- Interactive Portfolio: https://gorkemberk.design
+## Verified Skills & Competencies
+${SKILLS_DATA.map((s) => `- **${s.nameEn}**: ${s.skills.join(', ')}`).join('\n')}
+
+## Contact & Profiles
+- LinkedIn: ${IDENTITY_DATA.social.linkedin}
+- GitHub: ${IDENTITY_DATA.social.github}
+- Email: ${IDENTITY_DATA.social.email}
+- WhatsApp: ${IDENTITY_DATA.social.whatsapp}
+- CV Asset: ${SITE_CONFIG.domain}${IDENTITY_DATA.social.cvPath}
 `;
 
   return new Response(content, {

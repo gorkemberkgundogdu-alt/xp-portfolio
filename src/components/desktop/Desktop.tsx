@@ -5,6 +5,7 @@ import { Taskbar } from '../taskbar/Taskbar';
 import { ReadmeWindow } from '../windows/ReadmeWindow';
 import { ProjectsWindow } from '../windows/ProjectsWindow';
 import { BrowserWindow } from '../windows/BrowserWindow';
+import { SkillsWindow } from '../windows/SkillsWindow';
 import { CvViewerWindow } from '../windows/CvViewerWindow';
 import { ContactMsnWindow } from '../windows/ContactMsnWindow';
 
@@ -57,7 +58,7 @@ export const Desktop: React.FC = () => {
         />
       </div>
 
-      {/* Desktop Icons Grid */}
+      {/* Desktop Icons Grid (6 Content Domains + Trash) */}
       <div className="relative z-10 p-4 grid grid-flow-col grid-rows-6 gap-3 w-fit">
         <DesktopIcon
           id="readme"
@@ -81,6 +82,13 @@ export const Desktop: React.FC = () => {
         />
 
         <DesktopIcon
+          id="skills"
+          label="Yetenekler & Araçlar"
+          labelEn="Skills & Tools"
+          icon="skills"
+        />
+
+        <DesktopIcon
           id="cv"
           label="CV_2026.pdf"
           labelEn="CV_2026.pdf"
@@ -93,14 +101,6 @@ export const Desktop: React.FC = () => {
           labelEn="Contact.exe"
           icon="msn"
         />
-
-        <DesktopIcon
-          id="trash"
-          label="Geri Dönüşüm Kutusu"
-          labelEn="Recycle Bin"
-          icon="trash"
-          onClick={() => alert('Geri Dönüşüm Kutusu Boş')}
-        />
       </div>
 
       {/* Interactive Windows Layer */}
@@ -108,6 +108,7 @@ export const Desktop: React.FC = () => {
         <ReadmeWindow />
         <ProjectsWindow />
         <BrowserWindow />
+        <SkillsWindow />
         <CvViewerWindow />
         <ContactMsnWindow />
       </div>
