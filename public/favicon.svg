@@ -1,6 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <path d="M3 5.5L10 4.5V11.5H3V5.5Z" fill="#F25022" />
-  <path d="M11 4.3L21 3V11.5H11V4.3Z" fill="#7FBA00" />
-  <path d="M3 12.5H10V18.5L3 17.5V12.5Z" fill="#00A4EF" />
-  <path d="M11 12.5H21V20L11 18.7V12.5Z" fill="#FFB900" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" shape-rendering="crispEdges">
+  <!-- Window Outer Shadow / Border -->
+  <rect x="1" y="2" width="30" height="28" rx="2" fill="#002D80" />
+  
+  <!-- Window Titlebar (XP Blue Gradient) -->
+  <path d="M2 3 C2 2.5 2.5 2 3 2 L29 2 C29.5 2 30 2.5 30 3 L30 8 L2 8 Z" fill="#0055EA" />
+  <rect x="2" y="3" width="28" height="2" fill="#2A75F3" />
+  
+  <!-- Tiny Titlebar Icon -->
+  <rect x="4" y="4" width="3" height="3" fill="#FFE800" />
+  <rect x="5" y="4" width="1" height="3" fill="#0055EA" />
+  
+  <!-- Titlebar Close Button (Red) -->
+  <rect x="25" y="4" width="3" height="3" fill="#D9381E" rx="0.5" />
+  <rect x="26" y="5" width="1" height="1" fill="#FFFFFF" />
+  
+  <!-- Window Body Background -->
+  <rect x="2" y="8" width="28" height="21" fill="#ECE9D8" />
+  <rect x="3" y="9" width="26" height="19" fill="#FFFFFF" />
+  <rect x="3" y="9" width="26" height="1" fill="#7F9DB9" />
+  <rect x="3" y="9" width="1" height="19" fill="#7F9DB9" />
+  
+  <!-- Pixel-Art "GBG" Typography (Black / Slate-900) -->
+  <!-- 'G' (x: 5 to 10, y: 13 to 23) -->
+  <path d="
+    M7 13 H11 V15 H7 V21 H10 V18 H8 V16 H12 V23 H6 V14 Z
+  " fill="#0F172A" />
+  
+  <!-- 'B' (x: 13 to 18, y: 13 to 23) -->
+  <path d="
+    M13 13 H18 C19 13 19.5 14 19.5 15.5 C19.5 16.5 19 17.5 18 18 C19.5 18.5 20 19.5 20 21 C20 22.5 19 23 17.5 23 H13 Z
+    M15 15 V17 H17 C17.5 17 18 16.8 18 16 C18 15.2 17.5 15 17 15 Z
+    M15 19 V21 H17.5 C18 21 18.5 20.8 18.5 20 C18.5 19.2 18 19 17.5 19 Z
+  " fill="#0F172A" />
+  
+  <!-- 'G' (x: 21 to 26, y: 13 to 23) -->
+  <path d="
+    M23 13 H27 V15 H23 V21 H26 V18 H24 V16 H28 V23 H22 V14 Z
+  " fill="#0F172A" />
+  
+  <!-- Bottom Inset Border -->
+  <rect x="2" y="29" width="28" height="1" fill="#D4D0C8" />
 </svg>

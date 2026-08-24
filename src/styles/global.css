@@ -187,3 +187,137 @@
 .xp-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #b2c8e8;
 }
+
+/* ================= XP HOURGLASS & PRELOADER ANIMATIONS ================= */
+@keyframes xpHourglassFlip {
+  0%, 75% {
+    transform: rotate(0deg);
+  }
+  85%, 100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes xpSandStream {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+  }
+  75% {
+    stroke-dashoffset: -12;
+    opacity: 0.9;
+  }
+  76%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes xpSandTopDrain {
+  0% {
+    transform: scaleY(1);
+    transform-origin: bottom center;
+  }
+  75% {
+    transform: scaleY(0.15);
+    transform-origin: bottom center;
+  }
+  76%, 100% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes xpSandBottomFill {
+  0% {
+    transform: scaleY(0.2);
+    transform-origin: bottom center;
+  }
+  75% {
+    transform: scaleY(1);
+    transform-origin: bottom center;
+  }
+  76%, 100% {
+    transform: scaleY(1);
+  }
+}
+
+.xp-hourglass-anim {
+  animation: xpHourglassFlip 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center center;
+}
+
+.xp-sand-stream {
+  animation: xpSandStream 2.2s linear infinite;
+}
+
+.xp-sand-top {
+  animation: xpSandTopDrain 2.2s ease-in-out infinite;
+}
+
+.xp-sand-bottom {
+  animation: xpSandBottomFill 2.2s ease-in-out infinite;
+}
+
+/* Authentic XP Segmented Progress Bar */
+.xp-progress-track {
+  background-color: #ffffff;
+  border: 1px solid #7F9DB9;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes xpProgressSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+.xp-progress-bar-train {
+  display: flex;
+  gap: 3px;
+  width: 32%;
+  height: 100%;
+  animation: xpProgressSlide 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.xp-progress-block {
+  flex: 1;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #7cd924 0%,
+    #58b417 35%,
+    #3f940a 70%,
+    #2c6f05 100%
+  );
+  border-radius: 1.5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Reduced Motion Respect */
+@media (prefers-reduced-motion: reduce) {
+  .xp-hourglass-anim,
+  .xp-sand-stream,
+  .xp-sand-top,
+  .xp-sand-bottom,
+  .xp-progress-bar-train {
+    animation: none !important;
+  }
+
+  .xp-progress-bar-train {
+    transform: translateX(0);
+    width: 100%;
+  }
+
+  .xp-sand-top {
+    transform: scaleY(0.5);
+  }
+
+  .xp-sand-bottom {
+    transform: scaleY(0.5);
+  }
+}

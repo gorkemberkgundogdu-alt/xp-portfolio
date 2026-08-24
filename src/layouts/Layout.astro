@@ -37,6 +37,10 @@ const canonicalUrl = getAbsoluteUrl(currentPath);
 const hreflangTrUrl = getAbsoluteUrl(alternateTrPath);
 const hreflangEnUrl = getAbsoluteUrl(alternateEnPath);
 const defaultUrl = getAbsoluteUrl(alternateTrPath); // x-default points to Turkish default
+const ogImageUrl = `${SITE_CONFIG.domain}/assets/og-image.png`;
+const ogImageAlt = locale === 'tr'
+  ? 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolyosu'
+  : 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolio';
 ---
 
 <!doctype html>
@@ -44,7 +48,14 @@ const defaultUrl = getAbsoluteUrl(alternateTrPath); // x-default points to Turki
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Multi-Format Favicon Setup -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
     <meta name="generator" content={Astro.generator} />
 
     <!-- Canonical URL -->
@@ -67,11 +78,16 @@ const defaultUrl = getAbsoluteUrl(alternateTrPath); // x-default points to Turki
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content={locale === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter / X Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Structured Data JSON-LD Graph -->
     <JsonLd

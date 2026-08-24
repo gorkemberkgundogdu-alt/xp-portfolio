@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Desktop } from './desktop/Desktop';
 import { PropertiesDialog, type PropertiesTab } from './properties/PropertiesDialog';
+import { XpPreloader } from './common/XpPreloader';
 import { useWindowStore } from '../stores/windowStore';
 import type { WindowId } from '../types/window';
 
@@ -20,6 +21,9 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
   initialPropertiesTab,
 }) => {
   const [isPropertiesMode, setIsPropertiesMode] = useState<boolean | null>(null);
+  const [isAppReady, setIsAppReady] = useState(false);
+  const [isPreloaderDismissed, setIsPreloaderDismissed] = useState(false);
+
   const setLanguage = useWindowStore((state) => state.setLanguage);
   const openWindow = useWindowStore((state) => state.openWindow);
   const focusWindow = useWindowStore((state) => state.focusWindow);
@@ -63,6 +67,7 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
         (window.innerWidth < 1024 && !hasFinePointer);
 
       setIsPropertiesMode(useProperties);
+      setIsAppReady(true);
     };
 
     checkMode();
@@ -80,24 +85,31 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
     setActiveArticleId,
   ]);
 
-  // Before hydration, render initial container to prevent layout flash
-  if (isPropertiesMode === null) {
-    return <div className="w-screen h-screen bg-[#245EDC]" />;
-  }
+  return (
+    <div className="relative w-full h-full">
+      {/* XP Hourglass Preloader Overlay */}
+      {!isPreloaderDismissed && (
+        <XpPreloader
+          locale={currentLocale}
+          isReady={isAppReady}
+          onDismiss={() => setIsPreloaderDismissed(true)}
+        />
+      )}
 
-  if (isPropertiesMode) {
-    return (
-      <PropertiesDialog
-        currentLocale={currentLocale}
-        initialTab={
-          initialPropertiesTab ||
-          (initialProjectSlug ? 'projects' : initialArticleSlug ? 'articles' : 'general')
-        }
-        initialProjectSlug={initialProjectSlug}
-        initialArticleSlug={initialArticleSlug}
-      />
-    );
-  }
-
-  return <Desktop />;
+      {/* Main OS Interactive Shell */}
+      {isPropertiesMode ? (
+        <PropertiesDialog
+          currentLocale={currentLocale}
+          initialTab={
+            initialPropertiesTab ||
+            (initialProjectSlug ? 'projects' : initialArticleSlug ? 'articles' : 'general')
+          }
+          initialProjectSlug={initialProjectSlug}
+          initialArticleSlug={initialArticleSlug}
+        />
+      ) : (
+        <Desktop />
+      )}
+    </div>
+  );
 };

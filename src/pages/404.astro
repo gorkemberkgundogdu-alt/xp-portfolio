@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { XpIcon } from '../components/common/XpIcon';
+
+// Check if request was from an /en/ path
+const isEn = Astro.url.pathname.startsWith('/en');
+const locale = isEn ? 'en' : 'tr';
+---
+
+<Layout
+  locale={locale}
+  title={locale === 'tr' ? 'Sayfa Bulunamadı (Hata 404) | Görkem Berk Gündoğdu' : 'Page Not Found (Error 404) | Görkem Berk Gündoğdu'}
+  description={locale === 'tr' ? 'Aradığınız sayfa bulunamadı. Görkem Berk Gündoğdu Windows XP Portfolyosu.' : 'The page you are looking for could not be found. Görkem Berk Gündoğdu Windows XP Portfolio.'}
+  currentPath="/404.html"
+>
+  <div
+    class="relative w-screen h-screen overflow-hidden select-none bg-[#245EDC] flex items-center justify-center p-3 sm:p-6 font-sans"
+    style="background-image: radial-gradient(ellipse at 50% 35%, #76A9F7 0%, #3884F4 40%, #1557CB 85%, #0B398A 100%);"
+  >
+    <!-- XP Bliss Rolling Hills Illusion Background -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-90" aria-hidden="true">
+      <div
+        class="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full"
+        style="background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);"
+      ></div>
+      <div
+        class="absolute -bottom-16 -left-20 w-[120vw] h-[55vh] rounded-[50%]"
+        style="background: linear-gradient(135deg, #74BA24 0%, #4E9512 60%, #387309 100%); transform: rotate(-4deg);"
+      ></div>
+      <div
+        class="absolute -bottom-24 -right-20 w-[110vw] h-[50vh] rounded-[45%]"
+        style="background: linear-gradient(120deg, #87CF2E 0%, #5EA916 50%, #3B7E0A 100%); transform: rotate(3deg); box-shadow: 0 -10px 40px rgba(0,0,0,0.15);"
+      ></div>
+    </div>
+
+    <!-- Centered Windows XP Error Dialog -->
+    <div
+      class="relative z-10 w-full max-w-[540px] bg-[#ECE9D8] rounded-t-lg rounded-b-sm border-2 border-[#0055EA] shadow-2xl overflow-hidden flex flex-col"
+      role="dialog"
+      aria-labelledby="error-title"
+      aria-describedby="error-desc"
+    >
+      <!-- Luna Blue Titlebar -->
+      <div class="h-8 bg-gradient-to-r from-[#0058EE] via-[#2F82FF] to-[#0055EA] px-2.5 flex items-center justify-between text-white shrink-0">
+        <div class="flex items-center gap-2 font-bold text-xs">
+          <XpIcon name="folder" size={15} />
+          <span id="error-title">Windows Explorer</span>
+        </div>
+
+        <!-- Titlebar Controls (? and ✕) -->
+        <div class="flex items-center gap-1" aria-hidden="true">
+          <div class="w-4 h-4 bg-[#2A75F3] border border-white/60 rounded-xs flex items-center justify-center text-[10px] font-bold cursor-default">
+            ?
+          </div>
+          <a
+            href={locale === 'tr' ? '/' : '/en/'}
+            class="w-4 h-4 bg-[#D9381E] hover:bg-[#b5260f] border border-white/60 rounded-xs flex items-center justify-center text-[10px] font-bold text-white no-underline cursor-pointer"
+            title={locale === 'tr' ? 'Kapat' : 'Close'}
+          >
+            ✕
+          </a>
+        </div>
+      </div>
+
+      <!-- Dialog Body Content -->
+      <div class="p-4 sm:p-6 bg-[#ECE9D8] flex flex-col sm:flex-row items-start sm:items-center gap-4 text-slate-800">
+        <!-- Big XP Red Circle Error Icon -->
+        <div class="shrink-0 self-center sm:self-start mt-1">
+          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="21" fill="url(#errorGrad)" stroke="#B31E06" stroke-width="2" />
+            <path d="M16 16 L32 32 M32 16 L16 32" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+            <defs>
+              <radialGradient id="errorGrad" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#FF5A43" />
+                <stop offset="70%" stop-color="#D92B13" />
+                <stop offset="100%" stop-color="#9C1704" />
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Error Text Content -->
+        <div class="flex-1 space-y-2 min-w-0 text-center sm:text-left">
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+            {locale === 'tr' ? 'Aradığınız sayfa bulunamadı.' : 'The page you are looking for could not be found.'}
+          </h1>
+
+          <div class="text-xs font-bold text-red-700 font-mono tracking-wide">
+            {locale === 'tr' ? 'Hata 404 (Geçersiz Yol / 404 Not Found)' : 'Error 404 (Path Not Found)'}
+          </div>
+
+          <p id="error-desc" class="text-xs text-slate-700 leading-relaxed">
+            {locale === 'tr'
+              ? 'Üzgünüz, aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir.'
+              : 'The page may have been moved, deleted, or may never have existed.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons Footer -->
+      <div class="bg-[#ECE9D8] px-4 py-3 border-t border-[#D4D0C8] flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <!-- Language Switcher on 404 -->
+        <div class="flex items-center gap-1.5 text-[11px] font-bold self-start sm:self-auto">
+          <span class="text-slate-500">{locale === 'tr' ? 'Dil:' : 'Lang:'}</span>
+          <a
+            href="/"
+            class={`px-2 py-0.5 rounded border text-xs no-underline ${
+              locale === 'tr'
+                ? 'bg-blue-600 text-white border-blue-700'
+                : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+            }`}
+          >
+            TR
+          </a>
+          <a
+            href="/en/"
+            class={`px-2 py-0.5 rounded border text-xs no-underline ${
+              locale === 'en'
+                ? 'bg-blue-600 text-white border-blue-700'
+                : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+            }`}
+          >
+            EN
+          </a>
+        </div>
+
+        <!-- Real Navigable Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
+          <a
+            href={locale === 'tr' ? '/' : '/en/'}
+            class="flex-1 sm:flex-initial px-3.5 py-1.5 bg-[#F4F4F0] hover:bg-[#EBEBE4] active:bg-[#D4D0C8] border-2 border-t-white border-l-white border-r-[#7F9DB9] border-b-[#7F9DB9] rounded-[3px] text-xs font-bold text-slate-900 shadow-xs flex items-center justify-center gap-1.5 no-underline transition-transform active:translate-y-0.5"
+          >
+            <XpIcon name="computer" size={14} />
+            <span>{locale === 'tr' ? 'Masaüstüne Dön' : 'Back to Desktop'}</span>
+          </a>
+
+          <a
+            href={locale === 'tr' ? '/projeler/operater/' : '/en/projects/operater/'}
+            class="flex-1 sm:flex-initial px-3 py-1.5 bg-[#F4F4F0] hover:bg-[#EBEBE4] active:bg-[#D4D0C8] border-2 border-t-white border-l-white border-r-[#7F9DB9] border-b-[#7F9DB9] rounded-[3px] text-xs font-bold text-slate-900 shadow-xs flex items-center justify-center gap-1.5 no-underline transition-transform active:translate-y-0.5"
+          >
+            <XpIcon name="folder" size={14} />
+            <span>{locale === 'tr' ? 'Projeler' : 'Projects'}</span>
+          </a>
+
+          <a
+            href={locale === 'tr' ? '/#contact' : '/en/#contact'}
+            class="flex-1 sm:flex-initial px-3 py-1.5 bg-[#F4F4F0] hover:bg-[#EBEBE4] active:bg-[#D4D0C8] border-2 border-t-white border-l-white border-r-[#7F9DB9] border-b-[#7F9DB9] rounded-[3px] text-xs font-bold text-slate-900 shadow-xs flex items-center justify-center gap-1.5 no-underline transition-transform active:translate-y-0.5"
+          >
+            <XpIcon name="msn" size={14} />
+            <span>{locale === 'tr' ? 'İletişim' : 'Contact'}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
