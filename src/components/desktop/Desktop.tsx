@@ -23,58 +23,11 @@ export const Desktop: React.FC = () => {
   return (
     <div
       onClick={handleDesktopClick}
-      className="relative w-screen h-screen overflow-hidden select-none bg-[#1F64DE]"
+      className="relative w-screen h-screen overflow-hidden select-none bg-[#245EDC] bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: `
-          linear-gradient(to bottom, #114EBF 0%, #2A79F5 25%, #60A5FA 60%, #93C5FD 100%)
-        `,
+        backgroundImage: `url('/assets/bliss-wallpaper.webp')`,
       }}
     >
-      {/* Authentic XP Bliss Nostalgic Wallpaper Treatment */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        {/* Sky Sunlight Bloom */}
-        <div
-          className="absolute -top-40 left-1/3 w-[800px] h-[800px] rounded-full opacity-60"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 75%)',
-          }}
-        />
-
-        {/* Soft Cumulus Clouds */}
-        <div className="absolute top-[18%] left-[10%] w-[320px] h-[75px] bg-white/40 rounded-full blur-[24px]" />
-        <div className="absolute top-[22%] left-[45%] w-[480px] h-[95px] bg-white/50 rounded-full blur-[28px]" />
-        <div className="absolute top-[14%] right-[8%] w-[360px] h-[80px] bg-white/35 rounded-full blur-[22px]" />
-
-        {/* Distant Rolling Ridge (Atmospheric Soft Green) */}
-        <div
-          className="absolute -bottom-10 -left-32 w-[130vw] h-[60vh] rounded-[52%]"
-          style={{
-            background: 'linear-gradient(145deg, #62A41B 0%, #437D0E 65%, #2D5807 100%)',
-            transform: 'rotate(-5deg)',
-            opacity: 0.92,
-          }}
-        />
-
-        {/* Middle Sunlit Rolling Hill */}
-        <div
-          className="absolute -bottom-20 -right-24 w-[115vw] h-[54vh] rounded-[48%]"
-          style={{
-            background: 'linear-gradient(125deg, #8AE328 0%, #58AB14 45%, #347007 100%)',
-            transform: 'rotate(4deg)',
-            boxShadow: '0 -15px 45px rgba(0, 32, 96, 0.25)',
-          }}
-        />
-
-        {/* Foreground Lush Hill (Signature XP Emerald Curve) */}
-        <div
-          className="absolute -bottom-36 -left-16 w-[125vw] h-[52vh] rounded-[46%]"
-          style={{
-            background: 'linear-gradient(110deg, #96F02E 0%, #68BD18 40%, #428B0A 75%, #255804 100%)',
-            transform: 'rotate(-2deg)',
-            boxShadow: '0 -20px 50px rgba(0, 20, 80, 0.35)',
-          }}
-        />
-      </div>
 
       {/* Desktop Icons Grid (6 Core Content Domains + 2 Personal Easter Eggs) */}
       <div className="relative z-10 p-4 grid grid-flow-col grid-rows-6 gap-3 w-fit">

@@ -25,6 +25,7 @@ const REQUIRED_FILES = [
   'apple-touch-icon.png',
   'assets/og-image.png',
   'assets/gorkem-berk-gundogdu.jpg',
+  'assets/bliss-wallpaper.webp',
   'assets/Gorkem_Berk_Gundogdu_CV_2026.pdf',
   'projeler/operater/index.html',
   'en/projects/operater/index.html',
