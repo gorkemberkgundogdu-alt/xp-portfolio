@@ -8,6 +8,8 @@ import { BrowserWindow } from '../windows/BrowserWindow';
 import { SkillsWindow } from '../windows/SkillsWindow';
 import { CvViewerWindow } from '../windows/CvViewerWindow';
 import { ContactMsnWindow } from '../windows/ContactMsnWindow';
+import { MinesweeperWindow } from '../windows/MinesweeperWindow';
+import { ViceCityWindow } from '../windows/ViceCityWindow';
 
 export const Desktop: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
@@ -21,44 +23,60 @@ export const Desktop: React.FC = () => {
   return (
     <div
       onClick={handleDesktopClick}
-      className="relative w-screen h-screen overflow-hidden select-none bg-[#245EDC]"
+      className="relative w-screen h-screen overflow-hidden select-none bg-[#1F64DE]"
       style={{
         backgroundImage: `
-          radial-gradient(ellipse at 50% 35%, #76A9F7 0%, #3884F4 40%, #1557CB 85%, #0B398A 100%)
+          linear-gradient(to bottom, #114EBF 0%, #2A79F5 25%, #60A5FA 60%, #93C5FD 100%)
         `,
       }}
     >
-      {/* XP Bliss Rolling Hills Illusion */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-90">
-        {/* Soft Sunny Sky Light */}
+      {/* Authentic XP Bliss Nostalgic Wallpaper Treatment */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {/* Sky Sunlight Bloom */}
         <div
-          className="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full"
+          className="absolute -top-40 left-1/3 w-[800px] h-[800px] rounded-full opacity-60"
           style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)',
+            background: 'radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 75%)',
           }}
         />
 
-        {/* Back Hill */}
+        {/* Soft Cumulus Clouds */}
+        <div className="absolute top-[18%] left-[10%] w-[320px] h-[75px] bg-white/40 rounded-full blur-[24px]" />
+        <div className="absolute top-[22%] left-[45%] w-[480px] h-[95px] bg-white/50 rounded-full blur-[28px]" />
+        <div className="absolute top-[14%] right-[8%] w-[360px] h-[80px] bg-white/35 rounded-full blur-[22px]" />
+
+        {/* Distant Rolling Ridge (Atmospheric Soft Green) */}
         <div
-          className="absolute -bottom-16 -left-20 w-[120vw] h-[55vh] rounded-[50%]"
+          className="absolute -bottom-10 -left-32 w-[130vw] h-[60vh] rounded-[52%]"
           style={{
-            background: 'linear-gradient(135deg, #74BA24 0%, #4E9512 60%, #387309 100%)',
-            transform: 'rotate(-4deg)',
+            background: 'linear-gradient(145deg, #62A41B 0%, #437D0E 65%, #2D5807 100%)',
+            transform: 'rotate(-5deg)',
+            opacity: 0.92,
           }}
         />
 
-        {/* Front Hill with Lush Green Shading */}
+        {/* Middle Sunlit Rolling Hill */}
         <div
-          className="absolute -bottom-24 -right-20 w-[110vw] h-[50vh] rounded-[45%]"
+          className="absolute -bottom-20 -right-24 w-[115vw] h-[54vh] rounded-[48%]"
           style={{
-            background: 'linear-gradient(120deg, #87CF2E 0%, #5EA916 50%, #3B7E0A 100%)',
-            transform: 'rotate(3deg)',
-            boxShadow: '0 -10px 40px rgba(0,0,0,0.15)',
+            background: 'linear-gradient(125deg, #8AE328 0%, #58AB14 45%, #347007 100%)',
+            transform: 'rotate(4deg)',
+            boxShadow: '0 -15px 45px rgba(0, 32, 96, 0.25)',
+          }}
+        />
+
+        {/* Foreground Lush Hill (Signature XP Emerald Curve) */}
+        <div
+          className="absolute -bottom-36 -left-16 w-[125vw] h-[52vh] rounded-[46%]"
+          style={{
+            background: 'linear-gradient(110deg, #96F02E 0%, #68BD18 40%, #428B0A 75%, #255804 100%)',
+            transform: 'rotate(-2deg)',
+            boxShadow: '0 -20px 50px rgba(0, 20, 80, 0.35)',
           }}
         />
       </div>
 
-      {/* Desktop Icons Grid (6 Content Domains + Trash) */}
+      {/* Desktop Icons Grid (6 Core Content Domains + 2 Personal Easter Eggs) */}
       <div className="relative z-10 p-4 grid grid-flow-col grid-rows-6 gap-3 w-fit">
         <DesktopIcon
           id="readme"
@@ -101,6 +119,21 @@ export const Desktop: React.FC = () => {
           labelEn="Contact.exe"
           icon="msn"
         />
+
+        {/* Personal Shortcuts / Easter Eggs (Col 2) */}
+        <DesktopIcon
+          id="minesweeper"
+          label="Mayın Tarlası"
+          labelEn="Minesweeper"
+          icon="minesweeper"
+        />
+
+        <DesktopIcon
+          id="viceCity"
+          label="ViceCity.exe"
+          labelEn="ViceCity.exe"
+          icon="game"
+        />
       </div>
 
       {/* Interactive Windows Layer */}
@@ -111,6 +144,8 @@ export const Desktop: React.FC = () => {
         <SkillsWindow />
         <CvViewerWindow />
         <ContactMsnWindow />
+        <MinesweeperWindow />
+        <ViceCityWindow />
       </div>
 
       {/* Taskbar */}

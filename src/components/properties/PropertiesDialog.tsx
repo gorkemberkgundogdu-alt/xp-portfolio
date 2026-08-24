@@ -106,10 +106,15 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col bg-[#245EDC] p-2 sm:p-4 overflow-hidden select-none font-sans">
-      {/* Properties Dialog Outer Frame */}
-      <div className="flex-1 flex flex-col bg-[#ECE9D8] rounded-t-lg border-2 border-[#0055EA] shadow-2xl overflow-hidden max-w-4xl mx-auto w-full">
-        {/* Luna Titlebar */}
+    <div
+      className="fixed inset-0 w-full h-[100dvh] flex flex-col bg-[#1F64DE] p-1 sm:p-4 overflow-hidden select-none font-sans"
+      style={{
+        backgroundImage: 'linear-gradient(to bottom, #114EBF 0%, #2A79F5 25%, #60A5FA 60%, #93C5FD 100%)',
+      }}
+    >
+      {/* Properties Dialog Outer Frame (Fixed full-height container) */}
+      <div className="flex-1 flex flex-col bg-[#ECE9D8] rounded-t-lg rounded-b-sm border-2 border-[#0055EA] shadow-2xl overflow-hidden max-w-4xl mx-auto w-full h-full min-h-0">
+        {/* Luna Titlebar (Fixed) */}
         <div className="h-8 bg-gradient-to-r from-[#0055EA] via-[#2A75F3] to-[#0055EA] px-2 flex items-center justify-between text-white shrink-0">
           <div className="flex items-center gap-2 font-bold text-xs truncate">
             <XpIcon name="computer" size={16} />
@@ -118,7 +123,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
             </span>
           </div>
 
-          {/* Decorative Chrome Controls (purely visual for XP fidelity on touch/mobile) */}
+          {/* Decorative Chrome Controls */}
           <div
             className="flex items-center gap-1 opacity-90 pointer-events-none"
             aria-hidden="true"
@@ -136,83 +141,90 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
           </div>
         </div>
 
-        {/* 6 Tabs (Authentic 2-row multi-line XP Property Sheet with Active Row at Bottom) */}
-        {(() => {
-          const ROW_1_IDS: PropertiesTab[] = ['general', 'projects', 'articles'];
-          const ROW_2_IDS: PropertiesTab[] = ['skills', 'cv', 'contact'];
-          const row1Tabs = TABS.filter((t) => ROW_1_IDS.includes(t.id));
-          const row2Tabs = TABS.filter((t) => ROW_2_IDS.includes(t.id));
-          const isRow1Active = ROW_1_IDS.includes(activeTab);
-          const topRowTabs = isRow1Active ? row2Tabs : row1Tabs;
-          const bottomRowTabs = isRow1Active ? row1Tabs : row2Tabs;
+        {/* 6 Tabs (Stable static 2-row layout, active tab highlights in-place without moving/swapping) */}
+        <div className="bg-[#ECE9D8] pt-1.5 px-2 flex flex-col shrink-0 select-none border-b border-[#919B9C]">
+          {/* Row 1: General, Projects, Articles */}
+          <div className="grid grid-cols-3 gap-1 mb-1">
+            {TABS.slice(0, 3).map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    if (tab.id === 'projects') setSelectedProjectSlug(null);
+                    if (tab.id === 'articles') setSelectedArticleSlug(null);
+                  }}
+                  className={`px-1.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-t-md transition-colors flex items-center justify-center gap-1 cursor-pointer truncate ${
+                    isActive
+                      ? 'bg-white text-blue-900 font-bold border-t-2 border-x border-[#0055EA] border-b-transparent shadow-xs -mb-[1px] z-10'
+                      : 'bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C]'
+                  }`}
+                >
+                  <XpIcon name={tab.icon} size={13} className="shrink-0" />
+                  <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
+                </button>
+              );
+            })}
+          </div>
 
-          return (
-            <div className="bg-[#ECE9D8] pt-1.5 px-2 flex flex-col shrink-0 select-none">
-              {/* Top Row (Inactive tabs row) */}
-              <div className="grid grid-cols-3 gap-1 mb-0.5">
-                {topRowTabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      if (tab.id === 'projects') setSelectedProjectSlug(null);
-                      if (tab.id === 'articles') setSelectedArticleSlug(null);
-                    }}
-                    className="px-2 py-1 text-[11px] font-semibold rounded-t-md transition-all flex items-center justify-center gap-1 cursor-pointer bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C] truncate"
-                  >
-                    <XpIcon name={tab.icon} size={13} className="shrink-0" />
-                    <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
-                  </button>
-                ))}
-              </div>
+          {/* Row 2: Skills & Tools, CV, Contact */}
+          <div className="grid grid-cols-3 gap-1 -mb-[1px]">
+            {TABS.slice(3, 6).map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    if (tab.id === 'projects') setSelectedProjectSlug(null);
+                    if (tab.id === 'articles') setSelectedArticleSlug(null);
+                  }}
+                  className={`px-1.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-t-md transition-colors flex items-center justify-center gap-1 cursor-pointer truncate ${
+                    isActive
+                      ? 'bg-white text-blue-900 font-bold border-t-2 border-x border-[#0055EA] border-b-transparent shadow-xs -mb-[1px] z-10'
+                      : 'bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C]'
+                  }`}
+                >
+                  <XpIcon name={tab.icon} size={13} className="shrink-0" />
+                  <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-              {/* Bottom Row (Contains the Active Tab, directly touching the content container) */}
-              <div className="grid grid-cols-3 gap-1 border-b border-[#919B9C] -mb-[1px]">
-                {bottomRowTabs.map((tab) => {
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => {
-                        setActiveTab(tab.id);
-                        if (tab.id === 'projects') setSelectedProjectSlug(null);
-                        if (tab.id === 'articles') setSelectedArticleSlug(null);
-                      }}
-                      className={`px-2 py-1.5 text-xs font-semibold rounded-t-md transition-all flex items-center justify-center gap-1 cursor-pointer truncate ${
-                        isActive
-                          ? 'bg-white text-blue-900 border-t-2 border-x border-[#919B9C] border-b-transparent shadow-xs -mb-[1px] z-10'
-                          : 'bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C]'
-                      }`}
-                    >
-                      <XpIcon name={tab.icon} size={14} className="shrink-0" />
-                      <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })()}
-
-        {/* Active Tab Scrollable Content Container */}
-        <div className="flex-1 bg-white p-4 md:p-6 overflow-y-auto select-text font-sans">
+        {/* Active Tab Scrollable Content Container (Only this body scrolls) */}
+        <div className="flex-1 bg-white p-4 md:p-6 overflow-y-auto min-h-0 select-text font-sans overscroll-contain">
           {/* TAB 1: GENERAL */}
           {activeTab === 'general' && (
-            <div className="space-y-6 max-w-2xl mx-auto">
-              <div className="flex items-center gap-4 border-b pb-4 border-slate-200">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-2xl font-bold shadow-md shrink-0">
-                  GB
-                </div>
-                <div>
+            <div className="space-y-5 max-w-2xl mx-auto">
+              {/* Recruiter-friendly Profile Card with real Photo */}
+              <div className="bg-[#F8F7F2] p-4 rounded-lg border border-[#D4D0C8] shadow-xs flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                <img
+                  src="/assets/gorkem-berk-gundogdu.jpg"
+                  alt="Görkem Berk Gündoğdu"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-md object-cover border-2 border-[#7F9DB9] shadow-sm shrink-0"
+                />
+                <div className="flex-1 text-center sm:text-left space-y-1.5 min-w-0">
                   <h1 className="text-xl font-bold text-slate-900">{IDENTITY_DATA.name}</h1>
-                  <p className="text-sm font-semibold text-blue-600">
-                    {currentLocale === 'tr' ? IDENTITY_DATA.titleTr : IDENTITY_DATA.titleEn}
+                  <p className="text-xs sm:text-sm font-bold text-blue-700">
+                    UI/UX Designer &amp; Front-End Builder
                   </p>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-slate-600">
                     📍 {currentLocale === 'tr' ? IDENTITY_DATA.locationTr : IDENTITY_DATA.locationEn}
                   </p>
+                  {/* Current Roles */}
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1">
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 border border-blue-200 rounded text-[11px] font-bold">
+                      🏢 Operater.io (UI/UX)
+                    </span>
+                    <span className="px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-200 rounded text-[11px] font-bold">
+                      🚀 v1be.io (Co-Founder)
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -222,7 +234,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                   href={IDENTITY_DATA.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 bg-[#0A66C2] hover:bg-[#084e96] text-white rounded font-bold text-xs flex items-center justify-center gap-2 shadow transition-colors"
+                  className="w-full py-2.5 px-4 bg-[#0A66C2] hover:bg-[#084e96] text-white rounded font-bold text-xs flex items-center justify-center gap-2 shadow transition-colors no-underline"
                 >
                   <span>🔗</span>
                   <span>{currentLocale === 'tr' ? 'LinkedIn Profilini Ziyaret Et' : 'Connect on LinkedIn'}</span>
@@ -674,36 +686,46 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
           )}
         </div>
 
-        {/* Tab Footer (Functional Linear Navigation + TR/EN Switcher, No decorative OK/Cancel buttons) */}
-        <div className="bg-[#ECE9D8] border-t border-[#D4D0C8] px-3 py-2 flex items-center justify-between gap-2 shrink-0 select-none">
+        {/* Tab Footer (Fixed Functional Linear Navigation + TR/EN Switcher) */}
+        <div className="bg-[#ECE9D8] border-t border-[#D4D0C8] px-3 py-2.5 flex items-center justify-between gap-2 shrink-0 select-none">
           {/* Functional Linear Navigation (< Previous / Next >) */}
           <div className="flex items-center gap-2">
-            {activeTabIndex > 0 && (
-              <button
-                type="button"
-                onClick={handlePrevTab}
-                className="px-3 py-1 bg-white hover:bg-slate-100 border border-[#7F9DB9] rounded text-xs font-bold text-slate-800 shadow-xs cursor-pointer"
-              >
-                &lt; {currentLocale === 'tr' ? 'Önceki' : 'Previous'}
-              </button>
-            )}
+            <button
+              type="button"
+              disabled={activeTabIndex === 0}
+              onClick={handlePrevTab}
+              className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
+                activeTabIndex === 0
+                  ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
+                  : 'bg-[#F4F4F0] hover:bg-white text-slate-800 border-[#7F9DB9] cursor-pointer'
+              }`}
+            >
+              ◀ {currentLocale === 'tr' ? 'Önceki' : 'Previous'}
+            </button>
 
-            {activeTabIndex < TABS.length - 1 && (
-              <button
-                type="button"
-                onClick={handleNextTab}
-                className="px-3 py-1 bg-white hover:bg-slate-100 border border-[#7F9DB9] rounded text-xs font-bold text-slate-800 shadow-xs cursor-pointer"
-              >
-                {currentLocale === 'tr' ? 'Sonraki' : 'Next'} &gt;
-              </button>
-            )}
+            <button
+              type="button"
+              disabled={activeTabIndex === TABS.length - 1}
+              onClick={handleNextTab}
+              className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
+                activeTabIndex === TABS.length - 1
+                  ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
+                  : 'bg-[#0055EA] hover:bg-[#0045B8] text-white border-[#003D9E] cursor-pointer'
+              }`}
+            >
+              {currentLocale === 'tr' ? 'Sonraki' : 'Next'} ▶
+            </button>
           </div>
 
           {/* Meaningful TR / EN Navigation Switch */}
           <div className="flex items-center gap-1.5 text-xs font-bold">
+            <span className="text-[11px] text-slate-500 font-mono hidden xs:inline">
+              {activeTabIndex + 1}/{TABS.length}
+            </span>
+
             <a
               href={getLanguageToggleUrl('tr')}
-              className={`px-2 py-1 rounded border ${
+              className={`px-2 py-1 rounded border text-xs no-underline ${
                 currentLocale === 'tr'
                   ? 'bg-blue-600 text-white border-blue-700'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
@@ -713,7 +735,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
             </a>
             <a
               href={getLanguageToggleUrl('en')}
-              className={`px-2 py-1 rounded border ${
+              className={`px-2 py-1 rounded border text-xs no-underline ${
                 currentLocale === 'en'
                   ? 'bg-blue-600 text-white border-blue-700'
                   : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'

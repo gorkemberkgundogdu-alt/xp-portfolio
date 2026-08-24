@@ -13,9 +13,9 @@ export const SITE_CONFIG = {
   titleTr: 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolio',
   titleEn: 'Görkem Berk Gündoğdu — UI/UX Designer & Front-End Builder | Windows XP Portfolio',
   descriptionTr:
-    'Görkem Berk Gündoğdu retro Windows XP portfolyosu. B2B SaaS, Operater.io, v1be.io, ürün arayüzleri ve modern web deneyimleri.',
+    'Görkem Berk Gündoğdu’nun retro Windows XP portfolyosu. UI/UX tasarımı, front-end geliştirme ve AI destekli iş akışlarıyla üretilen projeler.',
   descriptionEn:
-    'Görkem Berk Gündoğdu retro Windows XP portfolio. B2B SaaS, Operater.io, v1be.io, product interfaces, and modern frontend web engineering.',
+    'Retro Windows XP portfolio of Görkem Berk Gündoğdu — UI/UX designer and front-end builder creating digital products with design, code and AI workflows.',
   defaultLocale: 'tr',
   locales: ['tr', 'en'] as const,
   social: {

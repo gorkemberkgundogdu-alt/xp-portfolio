@@ -251,6 +251,68 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
         </svg>
       );
 
+    case 'minesweeper':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={`inline-block select-none ${className}`}
+        >
+          {/* Minesweeper Window Frame */}
+          <rect x="6" y="6" width="36" height="36" rx="3" fill="#C0C0C0" stroke="#808080" strokeWidth="1.5" />
+          <rect x="9" y="9" width="30" height="30" fill="#000000" />
+          {/* Mine body */}
+          <circle cx="24" cy="24" r="9" fill="#333333" stroke="#000000" strokeWidth="1" />
+          <circle cx="21" cy="21" r="2.5" fill="#FFFFFF" opacity="0.8" />
+          {/* Spikes */}
+          <line x1="24" y1="11" x2="24" y2="37" stroke="#000000" strokeWidth="2.5" />
+          <line x1="11" y1="24" x2="37" y2="24" stroke="#000000" strokeWidth="2.5" />
+          <line x1="15" y1="15" x2="33" y2="33" stroke="#000000" strokeWidth="2.5" />
+          <line x1="15" y1="33" x2="33" y2="15" stroke="#000000" strokeWidth="2.5" />
+          {/* Red Flag indicator */}
+          <polygon points="28,10 37,14 28,18" fill="#EF4444" />
+          <line x1="28" y1="10" x2="28" y2="24" stroke="#D97706" strokeWidth="1.5" />
+        </svg>
+      );
+
+    case 'game':
+    case 'viceCity':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={`inline-block select-none ${className}`}
+        >
+          {/* 80s Retro Vice City Neon Executable Icon */}
+          <rect x="6" y="6" width="36" height="36" rx="4" fill="url(#vcGrad)" stroke="#F43F5E" strokeWidth="1.5" />
+          {/* Palm Silhouette & Sun */}
+          <circle cx="24" cy="20" r="8" fill="#FBBF24" opacity="0.9" />
+          <path d="M22 36C22 28 24 24 24 20" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M24 20C21 16 16 16 14 17" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+          <path d="M24 20C27 16 32 16 34 17" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+          <path d="M24 20C22 17 18 19 16 22" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+          <path d="M24 20C26 17 30 19 32 22" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+          {/* Mini 'EXE' tag */}
+          <rect x="14" y="30" width="20" height="9" rx="2" fill="#0F172A" />
+          <text x="24" y="37" fill="#38BDF8" fontSize="7" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
+            VC.EXE
+          </text>
+          <defs>
+            <linearGradient id="vcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#EC4899" />
+              <stop offset="50%" stop-color="#8B5CF6" />
+              <stop offset="100%" stop-color="#06B6D4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+
     default:
       return (
         <svg
