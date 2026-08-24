@@ -136,31 +136,65 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
           </div>
         </div>
 
-        {/* 6 Tabs (Natural 2-row wrapping, authentic XP bevels) */}
-        <div className="bg-[#ECE9D8] pt-2 px-2 border-b border-[#919B9C] flex flex-wrap gap-1 shrink-0">
-          {TABS.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  if (tab.id === 'projects') setSelectedProjectSlug(null);
-                  if (tab.id === 'articles') setSelectedArticleSlug(null);
-                }}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-t-md transition-all flex items-center gap-1.5 cursor-pointer ${
-                  isActive
-                    ? 'bg-white text-blue-900 border-t-2 border-x border-[#919B9C] border-b-transparent shadow-xs -mb-[1px] z-10'
-                    : 'bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2]'
-                }`}
-              >
-                <XpIcon name={tab.icon} size={14} />
-                <span>{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* 6 Tabs (Authentic 2-row multi-line XP Property Sheet with Active Row at Bottom) */}
+        {(() => {
+          const ROW_1_IDS: PropertiesTab[] = ['general', 'projects', 'articles'];
+          const ROW_2_IDS: PropertiesTab[] = ['skills', 'cv', 'contact'];
+          const row1Tabs = TABS.filter((t) => ROW_1_IDS.includes(t.id));
+          const row2Tabs = TABS.filter((t) => ROW_2_IDS.includes(t.id));
+          const isRow1Active = ROW_1_IDS.includes(activeTab);
+          const topRowTabs = isRow1Active ? row2Tabs : row1Tabs;
+          const bottomRowTabs = isRow1Active ? row1Tabs : row2Tabs;
+
+          return (
+            <div className="bg-[#ECE9D8] pt-1.5 px-2 flex flex-col shrink-0 select-none">
+              {/* Top Row (Inactive tabs row) */}
+              <div className="grid grid-cols-3 gap-1 mb-0.5">
+                {topRowTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      if (tab.id === 'projects') setSelectedProjectSlug(null);
+                      if (tab.id === 'articles') setSelectedArticleSlug(null);
+                    }}
+                    className="px-2 py-1 text-[11px] font-semibold rounded-t-md transition-all flex items-center justify-center gap-1 cursor-pointer bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C] truncate"
+                  >
+                    <XpIcon name={tab.icon} size={13} className="shrink-0" />
+                    <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Bottom Row (Contains the Active Tab, directly touching the content container) */}
+              <div className="grid grid-cols-3 gap-1 border-b border-[#919B9C] -mb-[1px]">
+                {bottomRowTabs.map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        if (tab.id === 'projects') setSelectedProjectSlug(null);
+                        if (tab.id === 'articles') setSelectedArticleSlug(null);
+                      }}
+                      className={`px-2 py-1.5 text-xs font-semibold rounded-t-md transition-all flex items-center justify-center gap-1 cursor-pointer truncate ${
+                        isActive
+                          ? 'bg-white text-blue-900 border-t-2 border-x border-[#919B9C] border-b-transparent shadow-xs -mb-[1px] z-10'
+                          : 'bg-[#DCD8CA] text-slate-700 hover:bg-[#E4E0D2] border border-[#B5B0A2] border-b-[#919B9C]'
+                      }`}
+                    >
+                      <XpIcon name={tab.icon} size={14} className="shrink-0" />
+                      <span className="truncate">{currentLocale === 'tr' ? tab.labelTr : tab.labelEn}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Active Tab Scrollable Content Container */}
         <div className="flex-1 bg-white p-4 md:p-6 overflow-y-auto select-text font-sans">
