@@ -6,6 +6,8 @@
     "dev": "astro dev --host",
     "start": "astro dev --host",
     "build": "astro build",
+    "check": "tsc --noEmit",
+    "validate:build": "node scripts/validate-build.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

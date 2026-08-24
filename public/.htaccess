@@ -1,0 +1,94 @@
+# ====================================================================
+# Apache / LiteSpeed Production Configuration (.htaccess)
+# Domain: https://gorkemberkgundogdu.com
+# Environment: DirectAdmin / Guzel Hosting
+# ====================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Canonical Non-WWW (redirect www.gorkemberkgundogdu.com to gorkemberkgundogdu.com)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # 3. Protect hosting-managed cgi-bin directory from rewrites
+  RewriteRule ^cgi-bin/ - [L]
+</IfModule>
+
+# ====================================================================
+# Custom Error Document (Serves authentic XP 404 with HTTP 404 status)
+# ====================================================================
+ErrorDocument 404 /404.html
+
+# ====================================================================
+# Character Encoding & MIME Types
+# ====================================================================
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType image/x-icon .ico
+  AddType image/png .png
+  AddType application/pdf .pdf
+  AddType text/plain .txt
+  AddType text/xml .xml
+</IfModule>
+
+# ====================================================================
+# Security Headers
+# ====================================================================
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ====================================================================
+# Compression (mod_deflate / GZIP)
+# ====================================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ====================================================================
+# Browser Caching Headers
+# ====================================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Default expiration
+  ExpiresDefault "access plus 1 day"
+
+  # Immutable hashed build assets & images
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType application/pdf "access plus 1 month"
+
+  # Do NOT cache dynamic entry HTML, sitemaps, robots.txt, llms.txt
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/xml "access plus 0 seconds"
+  ExpiresByType text/plain "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Explicitly prevent stale caching on HTML, sitemaps, robots, llms.txt
+  <FilesMatch "\.(html|htm|xml|txt)$">
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # Cache immutable hashed assets under _astro/ and assets/
+  <FilesMatch "\.(js|css|png|jpg|jpeg|svg|pdf|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>

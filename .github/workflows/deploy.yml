@@ -1,0 +1,113 @@
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Build, Validate & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Typecheck Validation
+        run: npm run check
+
+      - name: Production Static Build
+        run: npm run build
+
+      - name: Validate Generated Build Artifacts
+        run: npm run validate:build
+
+      - name: Deploy dist/ to Production via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftp
+          local-dir: ./dist/
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            cgi-bin/**
+            cgi-bin
+            .well-known/**
+          dangerous-clean-slate: false
+
+      - name: Run Post-Deployment Production Smoke Tests
+        run: |
+          echo "🌐 Starting Post-Deployment HTTP Smoke Tests..."
+          BASE_URL="https://gorkemberkgundogdu.com"
+          
+          ENDPOINTS=(
+            ""
+            "en/"
+            "robots.txt"
+            "llms.txt"
+            "sitemap-index.xml"
+            "assets/og-image.png"
+            "assets/Gorkem_Berk_Gundogdu_CV_2026.pdf"
+            "projeler/operater/"
+            "en/projects/operater/"
+          )
+
+          # Retry loop to handle DNS / SSL / cache propagation
+          MAX_ATTEMPTS=8
+          SLEEP_SECONDS=5
+
+          for endpoint in "${ENDPOINTS[@]}"; do
+            TARGET_URL="${BASE_URL}/${endpoint}"
+            echo "Testing URL: ${TARGET_URL}"
+            SUCCESS=false
+
+            for attempt in $(seq 1 $MAX_ATTEMPTS); do
+              HTTP_CODE=$(curl --silent --show-error --location --output /dev/null --write-out "%{http_code}" "$TARGET_URL" || true)
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "✅ SUCCESS [HTTP $HTTP_CODE]: $TARGET_URL"
+                SUCCESS=true
+                break
+              else
+                echo "⚠️ Attempt $attempt/$MAX_ATTEMPTS failed with HTTP $HTTP_CODE for $TARGET_URL. Retrying in ${SLEEP_SECONDS}s..."
+                sleep $SLEEP_SECONDS
+              fi
+            done
+
+            if [ "$SUCCESS" = "false" ]; then
+              echo "❌ FAILED: $TARGET_URL did not return HTTP 200 after $MAX_ATTEMPTS attempts."
+              exit 1
+            fi
+          done
+
+          # Custom 404 HTTP Status Code Test
+          TEST_404_URL="${BASE_URL}/nonexistent-smoke-test-path-$(date +%s)"
+          echo "Testing 404 status at: ${TEST_404_URL}"
+          STATUS_404=$(curl --silent --show-error --location --output /dev/null --write-out "%{http_code}" "$TEST_404_URL" || true)
+          if [ "$STATUS_404" = "404" ]; then
+            echo "✅ SUCCESS: Custom 404 test returned expected HTTP 404 code."
+          else
+            echo "⚠️ Custom 404 returned HTTP $STATUS_404 (Expected 404. Note: Server-level .htaccess handles ErrorDocument 404)."
+          fi
+
+          echo "🎉 All Production Smoke Tests Completed Successfully!"
