@@ -27,19 +27,23 @@ export const ViceCityWindow: React.FC = () => {
     >
       <div className="bg-[#111827] text-white p-5 space-y-4 font-sans h-full overflow-y-auto select-text">
         {/* Retro Neon Banner */}
-        <div className="rounded-lg p-4 bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 shadow-lg text-center relative overflow-hidden">
-          <div className="absolute -right-4 -bottom-4 text-6xl opacity-20 select-none pointer-events-none">
-            🌴
+        <div className="rounded-lg p-4 bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 shadow-lg flex flex-col sm:flex-row items-center gap-4 relative overflow-hidden">
+          <img
+            src="/assets/vice-city-icon.webp"
+            alt="GTA Vice City"
+            className="w-20 h-20 rounded-md border-2 border-white/80 shadow-md shrink-0 object-cover"
+          />
+          <div className="flex-1 text-center sm:text-left">
+            <div className="text-xs font-mono font-bold tracking-widest text-pink-200 uppercase">
+              {language === 'tr' ? 'Çocukluk & Nostalji Köşesi' : 'Childhood & Nostalgia Corner'}
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black italic tracking-wide text-white drop-shadow-[2px_2px_0_rgba(0,0,0,0.8)] mt-0.5">
+              GRAND THEFT AUTO: VICE CITY
+            </h2>
+            <p className="text-xs text-cyan-100 mt-1 font-mono">
+              {language === 'tr' ? 'CRT Monitörler · 2000\'ler Başı · İlk Dijital Kıvılcım' : 'CRT Monitors · Early 2000s · The First Digital Spark'}
+            </p>
           </div>
-          <div className="text-xs font-mono font-bold tracking-widest text-pink-200 uppercase">
-            {language === 'tr' ? 'Çocukluk & Nostalji Köşesi' : 'Childhood & Nostalgia Corner'}
-          </div>
-          <h2 className="text-2xl font-black italic tracking-wide text-white drop-shadow-[2px_2px_0_rgba(0,0,0,0.8)] mt-1">
-            GRAND THEFT AUTO: VICE CITY
-          </h2>
-          <p className="text-xs text-cyan-100 mt-1 font-mono">
-            {language === 'tr' ? 'CRT Monitörler · 2000\'ler Başı · İlk Dijital Kıvılcım' : 'CRT Monitors · Early 2000s · The First Digital Spark'}
-          </p>
         </div>
 
         {/* Story / Personal Note */}

@@ -281,36 +281,14 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
     case 'game':
     case 'viceCity':
       return (
-        <svg
+        <img
+          src="/assets/vice-city-icon.webp"
+          alt="Vice City"
           width={size}
           height={size}
-          viewBox="0 0 48 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={`inline-block select-none ${className}`}
-        >
-          {/* 80s Retro Vice City Neon Executable Icon */}
-          <rect x="6" y="6" width="36" height="36" rx="4" fill="url(#vcGrad)" stroke="#F43F5E" strokeWidth="1.5" />
-          {/* Palm Silhouette & Sun */}
-          <circle cx="24" cy="20" r="8" fill="#FBBF24" opacity="0.9" />
-          <path d="M22 36C22 28 24 24 24 20" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M24 20C21 16 16 16 14 17" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
-          <path d="M24 20C27 16 32 16 34 17" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
-          <path d="M24 20C22 17 18 19 16 22" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
-          <path d="M24 20C26 17 30 19 32 22" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
-          {/* Mini 'EXE' tag */}
-          <rect x="14" y="30" width="20" height="9" rx="2" fill="#0F172A" />
-          <text x="24" y="37" fill="#38BDF8" fontSize="7" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">
-            VC.EXE
-          </text>
-          <defs>
-            <linearGradient id="vcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#EC4899" />
-              <stop offset="50%" stop-color="#8B5CF6" />
-              <stop offset="100%" stop-color="#06B6D4" />
-            </linearGradient>
-          </defs>
-        </svg>
+          className={`inline-block select-none rounded-[3px] shadow-xs object-cover ${className}`}
+          style={{ width: size, height: size }}
+        />
       );
 
     default:
