@@ -4,6 +4,7 @@ import {
   PROJECTS_DATA,
   ARTICLES_DATA,
   SKILLS_DATA,
+  ABOUT_SECTIONS,
   type ProjectItem,
 } from '../../data/portfolioData';
 
@@ -30,9 +31,20 @@ const { locale, activeProject } = Astro.props;
     <main>
       <section style="margin-bottom: 2rem;">
         <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Hakkında' : 'About'}</h2>
-        <p style="line-height: 1.6; font-size: 0.95rem;">
-          {locale === 'tr' ? IDENTITY_DATA.aboutShortTr : IDENTITY_DATA.aboutShortEn}
-        </p>
+        <div style="display: grid; gap: 1rem;">
+          {ABOUT_SECTIONS.map((sec) => (
+            <article style="background: #fff; padding: 1rem; border: 1px solid #ccc; border-radius: 4px;">
+              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.05rem; color: #003399;">
+                {locale === 'tr' ? sec.titleTr : sec.titleEn}
+              </h3>
+              {(locale === 'tr' ? sec.contentTr : sec.contentEn).map((p) => (
+                <p style="margin: 0 0 0.5rem 0; line-height: 1.6; font-size: 0.95rem;">
+                  {p}
+                </p>
+              ))}
+            </article>
+          ))}
+        </div>
       </section>
 
       <section style="margin-bottom: 2rem;">

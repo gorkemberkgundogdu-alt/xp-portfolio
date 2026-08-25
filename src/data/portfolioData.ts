@@ -49,6 +49,80 @@ export interface SkillCategory {
   skills: string[];
 }
 
+export interface AboutSection {
+  id: string;
+  titleTr: string;
+  titleEn: string;
+  contentTr: string[];
+  contentEn: string[];
+}
+
+export const ABOUT_SECTIONS: AboutSection[] = [
+  {
+    id: '01',
+    titleTr: '01 — Tasarıma Nasıl Başladım',
+    titleEn: '01 — How I Started Designing',
+    contentTr: [
+      'Hayata geçirmek istediğim bir startup vardı ve onun dijital varlığını oluşturmam gerekiyordu. Web sitesi tasarlamaya başladığımda UI/UX diye başlı başına bir disiplin olduğunu bile bilmiyordum. Öğrendikçe ilgim büyüdü ve bir noktada dijital ürün tasarlamanın yapmak istediğim şey olduğunu fark ettim.',
+    ],
+    contentEn: [
+      'I had a startup I wanted to bring to life, and I needed to create its digital presence. When I started designing its website, I didn’t even know UI/UX existed as a discipline of its own. The more I learned, the more interested I became, until I realized that designing digital products was what I wanted to pursue.',
+    ],
+  },
+  {
+    id: '02',
+    titleTr: '02 — Nasıl Düşünüyorum',
+    titleEn: '02 — How I Think',
+    contentTr: [
+      "Bugün bir ekrana başlamadan önce neyi çözdüğümüzü anlamaya çalışıyorum. Problem gerçekten var mı, ürün açısından neden önemli ve kullanıcı için en akıcı hale nasıl gelir? Güzel görünen bir arayüz işin yalnızca bir kısmı. PM'lerle çalışma deneyimim de tasarıma yalnızca ekran üzerinden değil, ürünün bütünü üzerinden bakmayı öğretti.",
+      'Aynı merak beni build tarafına da taşıdı. Tasarladığım şeyleri web ortamında kendim geliştirebilmek, fikir ile çalışan ürün arasındaki mesafeyi ciddi biçimde kısaltıyor. Bir şeyi tasarlayıp hemen tarayıcıda görmek, test etmek, bozmak ve yeniden şekillendirmek hoşuma gidiyor.',
+    ],
+    contentEn: [
+      'Before I start designing a screen, I try to understand what we’re actually solving. Is the problem real, why does it matter to the product, and how can the experience become as frictionless as possible for the user? A good-looking interface is only one part of the work. Working with PMs has also taught me to look beyond individual screens and think about the product as a whole.',
+      'That same curiosity pulled me into building as well. Being able to develop what I design for the web significantly shortens the distance between an idea and a working product. I enjoy designing something, seeing it immediately in the browser, testing it, breaking it, and shaping it again.',
+    ],
+  },
+  {
+    id: '03',
+    titleTr: '03 — AI ile Nasıl Çalışıyorum',
+    titleEn: '03 — How I Work with AI',
+    contentTr: [
+      "AI çalışma biçimimin hemen her noktasında var ama her yerde aynı rolü üstlenmiyor. Araştırmada otonom agent'larla geniş alanları taratabiliyor, geliştirmede coder ve QA agent'larıyla çalışabiliyorum. Tasarımda ise hızlı prototipleme, alternatif üretme ve düşüncelerimi sınama aracı olarak kullanıyorum. UX kararları, akışlar ve ürünün yönü gibi noktalarda kontrolü kendimde tutmayı tercih ediyorum.",
+      "Benim için mesele AI'ın işi yapması değil; hangi işi ona bırakacağımı, nerede yöneteceğimi ve nerede kararı kendim vereceğimi bilmek.",
+    ],
+    contentEn: [
+      'AI is present across almost every part of my workflow, but it doesn’t play the same role everywhere. In research, I can use autonomous agents to explore a much wider surface area. In development, I work with coder and QA agents. In design, I use it for rapid prototyping, exploring alternatives, and challenging my own thinking. When it comes to UX decisions, flows, and product direction, I prefer keeping the judgment with me.',
+      'For me, it’s not about letting AI do the work; it’s about knowing what to delegate, what to direct, and where the decision should remain mine.',
+    ],
+  },
+  {
+    id: '04',
+    titleTr: '04 — Neden XP Desktop Portfolyo?',
+    titleEn: '04 — Why an XP Desktop Portfolio?',
+    contentTr: [
+      'Uzun zamandır kişisel bir portfolyo yapmak istiyordum ama klasik scroll edilen portfolyo siteleri hiçbir zaman tam olarak içime sinmedi. Sonra XP pencere estetiğiyle yapılmış bir web deneyimine denk geldim. Windows XP benim de bilgisayarla ilk tanıştığım dönemlerden bir parçaydı ve fikir hemen aklıma yattı: mobilde bir Properties penceresi, masaüstünde ise neden doğrudan bir XP desktop deneyimi olmasın dedim?',
+      "Oradan sonra fikir büyüdü. Pencereler, kişisel uygulamalar, küçük detaylar ve easter egg'ler ekledim. Tasarımın yanında build, copywriting, SEO, GEO ve deployment katmanlarını da kendim yöneterek bu siteyi yalnızca işlerimi gösteren bir yer değil, nasıl çalıştığımı gösteren işlerden biri haline getirmek istedim.",
+    ],
+    contentEn: [
+      'I’d wanted to build a personal portfolio for a long time, but the usual scroll-through portfolio never quite felt right to me. Then I came across a web experience built around the Windows XP window aesthetic. XP was also part of my first experience with computers, and the idea immediately clicked: if mobile could feel like a Properties window, why couldn’t desktop become an actual XP-style desktop experience?',
+      'The idea kept growing from there. I added windows, personal apps, small details, and easter eggs. Alongside the design, I handled the build, copywriting, SEO, GEO, and deployment myself, turning this site into more than a place that displays my work. I wanted it to become one of the projects that shows how I work.',
+    ],
+  },
+  {
+    id: '05',
+    titleTr: '05 — İşin Dışında',
+    titleEn: '05 — Outside of Work',
+    contentTr: [
+      'İşin dışında keyifli bir hayat yaşamaya çalışıyorum ve anların kıymetini biliyorum. Kendime bakıyor, sağlıklı yaşamaya özen gösteriyor, spor yapıyor ve koşuyorum. Oyun oynuyorum, sevdiğim tarzlarda müzik dinliyor ve yenilerini keşfediyorum. Çoğu zaman da yine bir şeyler kurcalarken buluyorum kendimi.',
+      'Sanırım ortak nokta hep aynı: güzel zaman geçirmek, yeni bir şey keşfetmek, nasıl çalıştığını anlamak ve mümkünse kendim denemek.',
+    ],
+    contentEn: [
+      'Outside of work, I try to enjoy life and appreciate the moments that make it up. I take care of myself, try to live healthy, train, and run. I play games, listen to the music I love, and keep discovering new sounds. And more often than not, I still end up tinkering with something.',
+      'I guess the pattern is pretty consistent: enjoy the time I have, discover something new, understand how it works, and if possible, try it myself.',
+    ],
+  },
+];
+
 export const IDENTITY_DATA = {
   name: 'Görkem Berk Gündoğdu',
   titleTr: 'UI/UX Designer — Web & SaaS · Front-end Builder',

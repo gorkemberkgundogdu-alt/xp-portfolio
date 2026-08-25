@@ -8,6 +8,7 @@ import {
   type ArticleItem,
 } from '../../data/portfolioData';
 import { XpIcon } from '../common/XpIcon';
+import { AboutAccordion } from '../common/AboutAccordion';
 
 export type PropertiesTab = 'general' | 'projects' | 'articles' | 'skills' | 'cv' | 'contact';
 
@@ -271,16 +272,12 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                 </a>
               </div>
 
-              {/* Personal Introductory About */}
-              <div className="space-y-3">
+              {/* Personal About Sections (Multi-open progressive disclosure accordion) */}
+              <div className="space-y-2.5">
                 <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                   {currentLocale === 'tr' ? 'Hakkında' : 'About'}
                 </h2>
-                <div className="text-xs md:text-sm text-slate-700 leading-relaxed space-y-2.5">
-                  {(currentLocale === 'tr' ? IDENTITY_DATA.aboutFullTr : IDENTITY_DATA.aboutFullEn).map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))}
-                </div>
+                <AboutAccordion locale={currentLocale} variant="properties" />
               </div>
 
               {/* External Links */}
