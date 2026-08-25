@@ -27,6 +27,8 @@ const REQUIRED_FILES = [
   'assets/gorkem-berk-gundogdu.jpg',
   'assets/bliss-wallpaper.webp',
   'assets/vice-city-icon.webp',
+  'assets/operater-logo.webp',
+  'assets/v1be-logo.webp',
   'assets/Gorkem_Berk_Gundogdu_CV_2026.pdf',
   'projeler/operater/index.html',
   'en/projects/operater/index.html',

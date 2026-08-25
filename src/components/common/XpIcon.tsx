@@ -261,20 +261,68 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
           xmlns="http://www.w3.org/2000/svg"
           className={`inline-block select-none ${className}`}
         >
-          {/* Minesweeper Window Frame */}
-          <rect x="6" y="6" width="36" height="36" rx="3" fill="#C0C0C0" stroke="#808080" strokeWidth="1.5" />
-          <rect x="9" y="9" width="30" height="30" fill="#000000" />
-          {/* Mine body */}
-          <circle cx="24" cy="24" r="9" fill="#333333" stroke="#000000" strokeWidth="1" />
-          <circle cx="21" cy="21" r="2.5" fill="#FFFFFF" opacity="0.8" />
-          {/* Spikes */}
-          <line x1="24" y1="11" x2="24" y2="37" stroke="#000000" strokeWidth="2.5" />
-          <line x1="11" y1="24" x2="37" y2="24" stroke="#000000" strokeWidth="2.5" />
-          <line x1="15" y1="15" x2="33" y2="33" stroke="#000000" strokeWidth="2.5" />
-          <line x1="15" y1="33" x2="33" y2="15" stroke="#000000" strokeWidth="2.5" />
-          {/* Red Flag indicator */}
-          <polygon points="28,10 37,14 28,18" fill="#EF4444" />
-          <line x1="28" y1="10" x2="28" y2="24" stroke="#D97706" strokeWidth="1.5" />
+          {/* Ground / Base Drop Shadow */}
+          <ellipse cx="22" cy="42" rx="14" ry="4" fill="#000000" opacity="0.35" />
+
+          {/* Bomb Body (Spherical Dark Metal with Retro Radial Gradient) */}
+          <defs>
+            <radialGradient id="bombSphere" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#6B7280" />
+              <stop offset="25%" stopColor="#374151" />
+              <stop offset="70%" stopColor="#111827" />
+              <stop offset="100%" stopColor="#030712" />
+            </radialGradient>
+            <linearGradient id="fuseCollar" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#D4AF37" />
+              <stop offset="50%" stopColor="#92400E" />
+              <stop offset="100%" stopColor="#451A03" />
+            </linearGradient>
+          </defs>
+
+          {/* Metallic Studs/Spikes of the Mine */}
+          <line x1="22" y1="9" x2="22" y2="43" stroke="#1F2937" strokeWidth="3" strokeLinecap="round" />
+          <line x1="5" y1="26" x2="39" y2="26" stroke="#1F2937" strokeWidth="3" strokeLinecap="round" />
+          <line x1="10" y1="14" x2="34" y2="38" stroke="#1F2937" strokeWidth="3" strokeLinecap="round" />
+          <line x1="10" y1="38" x2="34" y2="14" stroke="#1F2937" strokeWidth="3" strokeLinecap="round" />
+
+          {/* Main Bomb Sphere */}
+          <circle cx="22" cy="26" r="14" fill="url(#bombSphere)" stroke="#0F172A" strokeWidth="1.5" />
+
+          {/* Specular Highlight on Sphere */}
+          <ellipse cx="17" cy="20" rx="4.5" ry="2.5" transform="rotate(-30 17 20)" fill="#FFFFFF" opacity="0.65" />
+          <circle cx="21" cy="18" r="1.5" fill="#FFFFFF" opacity="0.45" />
+
+          {/* Fuse Collar (Brass/Gold Mount) */}
+          <rect x="18" y="10" width="8" height="4" rx="1" fill="url(#fuseCollar)" stroke="#78350F" strokeWidth="1" />
+
+          {/* Curved Rope Fuse */}
+          <path
+            d="M22 10C22 6 26 5 28 6C30 7 32 6 34 4"
+            stroke="#D97706"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M22 10C22 6 26 5 28 6C30 7 32 6 34 4"
+            stroke="#FEF08A"
+            strokeWidth="1"
+            strokeDasharray="1 2"
+            strokeLinecap="round"
+          />
+
+          {/* Glowing Fuse Spark / Ember */}
+          {/* Spark Rays */}
+          <line x1="34" y1="4" x2="38" y2="1" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="34" y1="4" x2="39" y2="6" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="34" y1="4" x2="31" y2="1" stroke="#FBBF24" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1="34" y1="4" x2="35" y2="9" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" />
+
+          {/* Outer Orange Flame */}
+          <circle cx="35" cy="4" r="3" fill="#F97316" />
+          {/* Bright Yellow Core */}
+          <circle cx="35" cy="4" r="1.8" fill="#FDE047" />
+          {/* White Center Hotspot */}
+          <circle cx="35" cy="4" r="0.8" fill="#FFFFFF" />
         </svg>
       );
 

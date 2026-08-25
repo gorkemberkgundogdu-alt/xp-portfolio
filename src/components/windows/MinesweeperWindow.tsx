@@ -8,13 +8,15 @@ interface Cell {
   isMine: boolean;
   isRevealed: boolean;
   isFlagged: boolean;
+  isTriggeredMine?: boolean;
+  isFalseFlag?: boolean;
   neighborMines: number;
 }
 
 const GRID_SIZE = 8;
 const NUM_MINES = 10;
 
-const createBoard = (): Cell[][] => {
+const createEmptyBoard = (): Cell[][] => {
   const board: Cell[][] = [];
   for (let r = 0; r < GRID_SIZE; r++) {
     const row: Cell[] = [];
@@ -25,47 +27,20 @@ const createBoard = (): Cell[][] => {
         isMine: false,
         isRevealed: false,
         isFlagged: false,
+        isTriggeredMine: false,
+        isFalseFlag: false,
         neighborMines: 0,
       });
     }
     board.push(row);
   }
-
-  // Place mines randomly
-  let minesPlaced = 0;
-  while (minesPlaced < NUM_MINES) {
-    const r = Math.floor(Math.random() * GRID_SIZE);
-    const c = Math.floor(Math.random() * GRID_SIZE);
-    if (!board[r][c].isMine) {
-      board[r][c].isMine = true;
-      minesPlaced++;
-    }
-  }
-
-  // Calculate neighbor counts
-  for (let r = 0; r < GRID_SIZE; r++) {
-    for (let c = 0; c < GRID_SIZE; c++) {
-      if (board[r][c].isMine) continue;
-      let count = 0;
-      for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-          const nr = r + dr;
-          const nc = c + dc;
-          if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && board[nr][nc].isMine) {
-            count++;
-          }
-        }
-      }
-      board[r][c].neighborMines = count;
-    }
-  }
-
   return board;
 };
 
 export const MinesweeperWindow: React.FC = () => {
   const language = useWindowStore((state) => state.language);
-  const [board, setBoard] = useState<Cell[][]>(createBoard);
+  const [board, setBoard] = useState<Cell[][]>(createEmptyBoard);
+  const [minesInitialized, setMinesInitialized] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [timer, setTimer] = useState(0);
@@ -80,11 +55,51 @@ export const MinesweeperWindow: React.FC = () => {
   }, [timerActive, gameOver, gameWon]);
 
   const resetGame = () => {
-    setBoard(createBoard());
+    setBoard(createEmptyBoard());
+    setMinesInitialized(false);
     setGameOver(false);
     setGameWon(false);
     setTimer(0);
     setTimerActive(false);
+  };
+
+  // Step 1: Initialize mines AFTER first click ensuring (firstR, firstC) is always 100% safe
+  const populateMinesAndCalculate = (currentBoard: Cell[][], firstR: number, firstC: number): Cell[][] => {
+    const newBoard = currentBoard.map((row) => row.map((cell) => ({ ...cell })));
+
+    let minesPlaced = 0;
+    while (minesPlaced < NUM_MINES) {
+      const r = Math.floor(Math.random() * GRID_SIZE);
+      const c = Math.floor(Math.random() * GRID_SIZE);
+
+      // Never place a mine on the first-clicked cell
+      if ((r === firstR && c === firstC) || newBoard[r][c].isMine) {
+        continue;
+      }
+
+      newBoard[r][c].isMine = true;
+      minesPlaced++;
+    }
+
+    // Calculate neighbor counts
+    for (let r = 0; r < GRID_SIZE; r++) {
+      for (let c = 0; c < GRID_SIZE; c++) {
+        if (newBoard[r][c].isMine) continue;
+        let count = 0;
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr;
+            const nc = c + dc;
+            if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE && newBoard[nr][nc].isMine) {
+              count++;
+            }
+          }
+        }
+        newBoard[r][c].neighborMines = count;
+      }
+    }
+
+    return newBoard;
   };
 
   const revealCell = (r: number, c: number) => {
@@ -92,13 +107,32 @@ export const MinesweeperWindow: React.FC = () => {
 
     if (!timerActive) setTimerActive(true);
 
-    const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
+    let activeBoard = board;
 
+    // Step 1: First click safe guarantee
+    if (!minesInitialized) {
+      activeBoard = populateMinesAndCalculate(board, r, c);
+      setMinesInitialized(true);
+    }
+
+    const newBoard = activeBoard.map((row) => row.map((cell) => ({ ...cell })));
+
+    // Step 3: Hit a mine - distinguish triggered mine, unexploded mines, and false flags
     if (newBoard[r][c].isMine) {
-      // Game Over! Reveal all mines
       for (let row of newBoard) {
         for (let cell of row) {
-          if (cell.isMine) cell.isRevealed = true;
+          if (cell.row === r && cell.col === c) {
+            // The exact mine that was clicked (Red background explosion)
+            cell.isRevealed = true;
+            cell.isTriggeredMine = true;
+          } else if (cell.isMine && !cell.isFlagged) {
+            // Other unflagged mines (Standard gray background)
+            cell.isRevealed = true;
+          } else if (!cell.isMine && cell.isFlagged) {
+            // False flags: Flag placed where there was no mine
+            cell.isRevealed = true;
+            cell.isFalseFlag = true;
+          }
         }
       }
       setBoard(newBoard);
@@ -133,7 +167,15 @@ export const MinesweeperWindow: React.FC = () => {
       }
     }
 
+    // Step 2: Auto-flag remaining mines upon winning
     if (unrevealedSafeCells === 0) {
+      for (let row of newBoard) {
+        for (let cell of row) {
+          if (cell.isMine) {
+            cell.isFlagged = true;
+          }
+        }
+      }
       setGameWon(true);
       setTimerActive(false);
     }
@@ -154,7 +196,9 @@ export const MinesweeperWindow: React.FC = () => {
     (acc, row) => acc + row.filter((cell) => cell.isFlagged).length,
     0
   );
-  const remainingMines = Math.max(0, NUM_MINES - flaggedCount);
+
+  // Step 2: When won, lock LCD counter to 000
+  const remainingMines = gameWon ? 0 : Math.max(0, NUM_MINES - flaggedCount);
 
   const getNumberColor = (num: number) => {
     switch (num) {
@@ -190,7 +234,19 @@ export const MinesweeperWindow: React.FC = () => {
       }
       statusBar={
         <div className="flex items-center justify-between w-full text-[11px] text-slate-600">
-          <span>{gameOver ? (language === 'tr' ? '💥 Kaybettin!' : '💥 Game Over!') : gameWon ? (language === 'tr' ? '🎉 Kazandın!' : '🎉 You Won!') : (language === 'tr' ? 'Sağ tık: Bayrak' : 'Right-click: Flag')}</span>
+          <span>
+            {gameOver
+              ? language === 'tr'
+                ? '💥 Kaybettin!'
+                : '💥 Game Over!'
+              : gameWon
+              ? language === 'tr'
+                ? '🎉 Kazandın!'
+                : '🎉 You Won!'
+              : language === 'tr'
+              ? 'Sağ tık: Bayrak'
+              : 'Right-click: Flag'}
+          </span>
           <span>8x8 · 10 {language === 'tr' ? 'Mayın' : 'Mines'}</span>
         </div>
       }
@@ -231,15 +287,21 @@ export const MinesweeperWindow: React.FC = () => {
                   onContextMenu={(e) => handleContextMenu(e, r, c)}
                   className={`w-6 h-6 text-xs font-bold flex items-center justify-center cursor-pointer transition-none ${
                     cell.isRevealed
-                      ? cell.isMine
+                      ? cell.isTriggeredMine
                         ? 'bg-red-600 text-white border border-[#404040]'
+                        : cell.isFalseFlag
+                        ? 'bg-[#C0C0C0] border border-[#A0A0A0] text-red-600 font-extrabold'
+                        : cell.isMine
+                        ? 'bg-[#C0C0C0] border border-[#A0A0A0]'
                         : 'bg-[#C0C0C0] border border-[#A0A0A0]'
                       : 'bg-[#C0C0C0] border-2 border-t-white border-l-white border-r-[#808080] border-b-[#808080] active:border-t-[#808080] active:border-l-[#808080] active:border-r-white active:border-b-white'
                   }`}
                 >
                   {cell.isRevealed ? (
-                    cell.isMine ? (
+                    cell.isTriggeredMine || cell.isMine ? (
                       '💣'
+                    ) : cell.isFalseFlag ? (
+                      '❌'
                     ) : cell.neighborMines > 0 ? (
                       <span className={getNumberColor(cell.neighborMines)}>
                         {cell.neighborMines}

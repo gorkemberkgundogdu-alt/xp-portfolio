@@ -39,12 +39,12 @@ export const ReadmeWindow: React.FC = () => {
         {language === 'tr' ? (
           <div className="space-y-5 max-w-4xl">
             <div className="font-bold text-[15px] border-b pb-2 border-slate-200 text-blue-900 flex items-center justify-between">
-              <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER & FRONT-END BUILDER</span>
+              <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER — WEB &amp; SAAS · FRONT-END BUILDER</span>
               <span className="text-[11px] font-normal text-slate-500 font-sans">v2026.1</span>
             </div>
 
             {/* Profile Photo Header Card */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-3 bg-slate-50 border border-slate-200 rounded-sm">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-3.5 bg-slate-50 border border-slate-200 rounded-sm">
               <img
                 src="/assets/gorkem-berk-gundogdu.jpg"
                 alt="Görkem Berk Gündoğdu"
@@ -52,8 +52,11 @@ export const ReadmeWindow: React.FC = () => {
               />
               <div className="space-y-1 text-center sm:text-left font-sans">
                 <div className="font-bold text-slate-900 text-sm">Görkem Berk Gündoğdu</div>
-                <div className="text-xs text-blue-700 font-semibold">UI/UX Designer &amp; Front-End Builder</div>
-                <div className="text-[11px] text-slate-600">🏢 Operater.io (UI/UX) · 🚀 v1be.io (Co-Founder) · 📍 İstanbul, TR</div>
+                <div className="text-xs text-blue-700 font-semibold">UI/UX Designer — Web &amp; SaaS · Front-end Builder</div>
+                <div className="text-[11px] text-slate-600 leading-relaxed max-w-2xl">
+                  Çoğunlukla web ve SaaS için tasarlıyorum. Tasarladıklarımı web ortamında geliştiriyorum. Son zamanlarda mobil tarafı da daha fazla keşfediyorum.
+                </div>
+                <div className="text-[11px] text-slate-500 pt-0.5">🏢 Operater.io (UI/UX) · 🚀 v1be.io (Co-Founder) · 📍 İstanbul, TR</div>
               </div>
             </div>
 
@@ -115,12 +118,12 @@ export const ReadmeWindow: React.FC = () => {
         ) : (
           <div className="space-y-4">
             <div className="font-bold text-[15px] border-b pb-2 border-slate-200 text-blue-900 flex items-center justify-between">
-              <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER & FRONT-END BUILDER</span>
+              <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER — WEB &amp; SAAS · FRONT-END BUILDER</span>
               <span className="text-[11px] font-normal text-slate-500 font-sans">v2026.1</span>
             </div>
 
             {/* Profile Photo Header Card */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-3 bg-slate-50 border border-slate-200 rounded-sm">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-3.5 bg-slate-50 border border-slate-200 rounded-sm">
               <img
                 src="/assets/gorkem-berk-gundogdu.jpg"
                 alt="Görkem Berk Gündoğdu"
@@ -128,7 +131,10 @@ export const ReadmeWindow: React.FC = () => {
               />
               <div className="space-y-1 text-center sm:text-left font-sans">
                 <div className="font-bold text-slate-900 text-sm">Görkem Berk Gündoğdu</div>
-                <div className="text-xs text-blue-700 font-semibold">UI/UX Designer &amp; Front-End Builder</div>
+                <div className="text-xs text-blue-700 font-semibold">UI/UX Designer — Web &amp; SaaS · Front-end Builder</div>
+                <div className="text-[11px] text-slate-600 leading-relaxed max-w-2xl">
+                  Mostly designing for web and SaaS. Often building what I design for the web. Lately, exploring more of mobile too.
+                </div>
                 <div className="text-[11px] text-slate-600">🏢 Operater.io (UI/UX) · 🚀 v1be.io (Co-Founder) · 📍 Istanbul, TR</div>
               </div>
             </div>

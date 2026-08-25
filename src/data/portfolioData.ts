@@ -51,8 +51,12 @@ export interface SkillCategory {
 
 export const IDENTITY_DATA = {
   name: 'Görkem Berk Gündoğdu',
-  titleTr: 'UI/UX Designer & Front-End Builder',
-  titleEn: 'UI/UX Designer & Front-End Builder',
+  titleTr: 'UI/UX Designer — Web & SaaS · Front-end Builder',
+  titleEn: 'UI/UX Designer — Web & SaaS · Front-end Builder',
+  subtextTr:
+    'Çoğunlukla web ve SaaS için tasarlıyorum. Tasarladıklarımı web ortamında geliştiriyorum. Son zamanlarda mobil tarafı da daha fazla keşfediyorum.',
+  subtextEn:
+    'Mostly designing for web and SaaS. Often building what I design for the web. Lately, exploring more of mobile too.',
   taglineTr: 'UI/UX Designer · Ürün Arayüzleri · Yapay Zeka Destekli Tasarım',
   taglineEn: 'UI/UX Designer · Product Interfaces · AI-Assisted Design',
   locationTr: 'İstanbul, Türkiye',

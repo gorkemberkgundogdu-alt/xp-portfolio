@@ -29,8 +29,9 @@ export const Desktop: React.FC = () => {
       }}
     >
 
-      {/* Desktop Icons Grid (6 Core Content Domains + 2 Personal Easter Eggs) */}
-      <div className="relative z-10 p-4 grid grid-flow-col grid-rows-6 gap-3 w-fit">
+      {/* Desktop Shortcuts (Single Continuous Vertical Column) */}
+      <div className="relative z-10 p-4 flex flex-col gap-3 w-fit">
+        {/* Primary Portfolio Shortcuts */}
         <DesktopIcon
           id="readme"
           label="Gorkem_Berk_Beni_Oku.txt"
@@ -73,7 +74,7 @@ export const Desktop: React.FC = () => {
           icon="msn"
         />
 
-        {/* Personal Shortcuts / Easter Eggs (Col 2) */}
+        {/* Secondary / Personal Shortcuts (Directly continuing in the same column) */}
         <DesktopIcon
           id="minesweeper"
           label="Mayın Tarlası"

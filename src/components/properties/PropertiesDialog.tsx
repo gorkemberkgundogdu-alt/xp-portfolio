@@ -210,20 +210,50 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                 />
                 <div className="flex-1 text-center sm:text-left space-y-1.5 min-w-0">
                   <h1 className="text-xl font-bold text-slate-900">{IDENTITY_DATA.name}</h1>
-                  <p className="text-xs sm:text-sm font-bold text-blue-700">
-                    UI/UX Designer &amp; Front-End Builder
+                  <p className="text-xs sm:text-sm font-bold text-blue-700 leading-snug">
+                    {currentLocale === 'tr' ? IDENTITY_DATA.titleTr : IDENTITY_DATA.titleEn}
                   </p>
-                  <p className="text-xs text-slate-600">
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed max-w-xl">
+                    {currentLocale === 'tr' ? IDENTITY_DATA.subtextTr : IDENTITY_DATA.subtextEn}
+                  </p>
+                  <p className="text-xs text-slate-500">
                     📍 {currentLocale === 'tr' ? IDENTITY_DATA.locationTr : IDENTITY_DATA.locationEn}
                   </p>
-                  {/* Current Roles */}
-                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1">
-                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 border border-blue-200 rounded text-[11px] font-bold">
-                      🏢 Operater.io (UI/UX)
-                    </span>
-                    <span className="px-2 py-0.5 bg-emerald-100 text-emerald-900 border border-emerald-200 rounded text-[11px] font-bold">
-                      🚀 v1be.io (Co-Founder)
-                    </span>
+                  {/* Current Professional Role Badges (Clickable external links with official logos) */}
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1.5">
+                    <a
+                      href="https://operater.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-950 border border-blue-200 hover:border-blue-300 rounded-md text-[11px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 no-underline max-w-full"
+                      title="Operater.io · UI/UX Designer"
+                    >
+                      <img
+                        src="/assets/operater-logo.webp"
+                        alt="Operater.io"
+                        width={14}
+                        height={14}
+                        className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                      />
+                      <span className="truncate">Operater.io · UI/UX Designer</span>
+                    </a>
+
+                    <a
+                      href="https://v1be.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200 hover:border-emerald-300 rounded-md text-[11px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 no-underline max-w-full"
+                      title="v1be.io · Co-Founder"
+                    >
+                      <img
+                        src="/assets/v1be-logo.webp"
+                        alt="v1be.io"
+                        width={14}
+                        height={14}
+                        className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                      />
+                      <span className="truncate">v1be.io · Co-Founder</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -234,26 +264,11 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                   href={IDENTITY_DATA.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 bg-[#0A66C2] hover:bg-[#084e96] text-white rounded font-bold text-xs flex items-center justify-center gap-2 shadow transition-colors no-underline"
+                  className="w-full py-2.5 px-4 bg-[#0A66C2] hover:bg-[#084e96] text-white rounded font-bold text-xs flex items-center justify-center gap-2 shadow transition-colors no-underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                 >
                   <span>🔗</span>
                   <span>{currentLocale === 'tr' ? 'LinkedIn Profilini Ziyaret Et' : 'Connect on LinkedIn'}</span>
                 </a>
-              </div>
-
-              {/* Currently / Roles */}
-              <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-lg space-y-1.5">
-                <div className="text-[11px] font-bold text-blue-900 uppercase tracking-wider">
-                  {currentLocale === 'tr' ? 'Şu Anda / Mevcut Görevler' : 'Currently'}
-                </div>
-                <ul className="text-xs text-blue-900 font-medium space-y-1">
-                  {(currentLocale === 'tr' ? IDENTITY_DATA.currentRolesTr : IDENTITY_DATA.currentRolesEn).map((role) => (
-                    <li key={role} className="flex items-center gap-1.5">
-                      <span>⚡</span>
-                      <span>{role}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               {/* Personal Introductory About */}
