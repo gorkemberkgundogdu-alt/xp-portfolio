@@ -15,8 +15,8 @@ export interface OperaterCaseStudyProps {
 }
 
 export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = 'tr' }) => {
-  // Multi-open state: 01 Onboarding and 02 Dashboard open by default
-  const [openSections, setOpenSections] = useState<Set<string>>(new Set(['onboarding', 'dashboard']));
+  // Default open state: 01 Onboarding open; 02 Dashboard & 03 Governance closed with magnetic invite styling
+  const [openSections, setOpenSections] = useState<Set<string>>(new Set(['onboarding']));
 
   const toggleSection = (sectionId: string) => {
     setOpenSections((prev) => {
@@ -1251,128 +1251,508 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       {/* ========================================================================= */}
       {/* 03 — SETTINGS & GOVERNANCE SECTION (Preserved)                            */}
       {/* ========================================================================= */}
+      {/* ========================================================================= */}
+      {/* 03 — SETTINGS, GOVERNANCE & OPERATIONAL CONTROL                           */}
+      {/* ========================================================================= */}
       <CaseAccordionSection
         id="settings"
         numberPrefix="03"
-        titleTr="Ayarlar & Kurumsal Yönetişim: Dereceli Otonomi"
-        titleEn="Settings & Enterprise Governance: Graduated Autonomy"
+        titleTr="Governance: Kademeli Otonomi & Sistem Kuralları"
+        titleEn="Governance: Graduated Autonomy & System Rules"
         subtitleTr="Farklı departman ve risk seviyelerine göre ajanların bağımsız hareket alanını kademeli olarak belirleyen kurallar bütünü."
         subtitleEn="A granular governance system configuring autonomous boundaries based on department risk tiers and escalation policies."
         isOpen={openSections.has('settings')}
         onToggle={() => toggleSection('settings')}
         locale={locale}
       >
-        {/* Intro */}
-        <div className="space-y-3">
-          <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
-            {locale === 'tr' ? 'Her Şirket İçin Uyarlanabilir Otonomi Seviyeleri' : 'Adaptable Autonomy Tiers for Enterprise'}
-          </h4>
-          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
+        {/* Section Opening Editorial Lead */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              03 / GOVERNANCE
+            </span>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-slate-100 tracking-tight">
+              {locale === 'tr'
+                ? 'Otonomi arttıkça kontrolün de ölçeklenmesi gerekir.'
+                : 'As autonomy increases, control must scale with it.'}
+            </h3>
+          </div>
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 font-sans leading-relaxed max-w-4xl">
             {locale === 'tr'
-              ? 'Her şirketin risk toleransı farklıdır. Kimi ekipler ajanın her adımını onaylamak isterken, kimi ekipler rutin operasyonların tam otonom akmasını tercih eder. Settings & Governance mimarisi, bu spektrumu tek bir anahtar yerine kademeli kurallarla çözdü.'
-              : 'Risk tolerance varies across organizations. Some teams require explicit sign-off on every action, while others demand fully hands-off automation. Our settings architecture resolved this through graduated autonomy rules rather than an inflexible global switch.'}
+              ? 'Birden fazla ajan farklı araçlara bağlanıp farklı seviyelerde bağımsız çalışmaya başladığında kontrolü tek tek ekranlar üzerinden yürütmek yeterli değil. Bu bölümde odağım, kimin neye erişebildiğini, hangi ajanın ne kadar bağımsız davranabildiğini ve hangi durumlarda insan kararına dönülmesi gerektiğini sistem seviyesinde görünür hale getirmekti.'
+              : 'When multiple agents connect to diverse tools and operate with varying degrees of independence, managing control screen-by-screen is no longer viable. My focus here was to make access permissions, autonomy boundaries, and human escalation triggers visible at the systemic level.'}
           </p>
-        </div>
-
-        {/* Sub-section: Graduated autonomy */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '1. Kademeli Otonomi Modeli (Graduated Autonomy)' : '1. Graduated Autonomy Framework'}
-          </h4>
-          <FeatureVisual
-            slotId="SETTINGS_AUTONOMY_LEVELS"
-            titleTr="Kademeli Otonomi Seviyeleri ve Güvenlik Eşikleri"
-            titleEn="Graduated Autonomy Tiers & Safety Thresholds"
-            tagTr="Otonomi Kontrolü"
-            tagEn="Autonomy Control"
-            captionTr="Departman veya ajan bazında bağımsız otonomi seviyesi atama paneli."
-            captionEn="Granular autonomy level assignment matrix per department or individual agent."
-            locale={locale}
-          />
-        </div>
-
-        {/* Sub-section: Governance through rules and access */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '2. Kurallar ve Erişim Kontrolü ile Yönetişim' : '2. Governance via Escalation Rules & RBAC'}
-          </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <DetailCrop
-              slotId="SETTINGS_GOVERNANCE_CROPS_ESCALATION"
-              titleTr="Eskalasyon Kuralları Konfigürasyonu"
-              titleEn="Escalation Rules Engine"
-              badgeTr="Kural Motoru"
-              badgeEn="Rule Engine"
-              locale={locale}
-            />
-            <DetailCrop
-              slotId="SETTINGS_GOVERNANCE_CROPS_ACCESS"
-              titleTr="Ajan Erişim ve İzin Matrisi"
-              titleEn="Agent Access & Permissions"
-              badgeTr="Erişim İzni"
-              badgeEn="Access Control"
-              locale={locale}
-            />
-            <DetailCrop
-              slotId="SETTINGS_GOVERNANCE_CROPS_CONNECTIONS"
-              titleTr="Kurumsal Araç Entegrasyon Sağlığı"
-              titleEn="Tool Connection Health"
-              badgeTr="Bağlantı"
-              badgeEn="Connection"
-              locale={locale}
-            />
+          <div className="border-l-2 border-purple-500 pl-4 py-1">
+            <p className="text-xs sm:text-sm md:text-base font-display font-bold text-slate-200">
+              “{locale === 'tr' ? 'Ajanlar bağımsız olabilir. Sistem kuralsız olmamalı.' : 'Agents can be autonomous. The system must not be lawless.'}”
+            </p>
           </div>
         </div>
 
-        {/* Sub-section: Operational visibility */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '3. Operasyonel Görünürlük & Kullanım Analitiği' : '3. Operational Visibility & Usage Analytics'}
-          </h4>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03A — CONNECTIONS                                                         */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              TOOL LAYER
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Bağlantı bir özellik değil, ortak altyapı.'
+                : 'A connection is not a feature, it is shared infrastructure.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Entegrasyonları tek tek ajanların içine gömmek yerine çalışma alanının ortak kaynakları olarak ele aldım. Böylece bağlı araçlar merkezi olarak görülebiliyor, yeniden kullanılabiliyor ve bağlantı sağlığı tek bir yerden yönetilebiliyor.'
+                : 'Rather than burying integrations inside individual agents, I treated them as shared workspace infrastructure. Connected tools are centrally visible, reusable across agents, and managed from a single control surface.'}
+            </p>
+          </div>
+
+          {/* Wide Establishing Screenshot */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-settings-connections.webp"
+            alt="Operater Connections Entegrasyon Altyapısı Ekranı"
+            captionTr="Çalışma alanının kullandığı araçlar, bağlantı durumları ve erişilebilir entegrasyonlar tek yüzeyde."
+            captionEn="Workspace tools, live connection statuses, and available integrations unified on a single surface."
+            showMinimalBar={true}
+            locale={locale}
+          />
+
+          {/* Minimal Callout Strip */}
+          <div className="pt-1">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>CONNECTED</span>
+              <span className="text-slate-500">→</span>
+              <span>AVAILABLE</span>
+              <span className="text-slate-500">→</span>
+              <span>REQUEST ACCESS</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03B — AGENT ACCESS                                                        */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              PERMISSION MODEL
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Her ajan her araca erişmek zorunda değil.'
+                : 'Not every agent needs access to every tool.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Aynı çalışma alanındaki ajanların görevleri farklı olduğu için erişimlerinin de aynı olması gerekmiyor. Agent Access matrisiyle hangi ajanın hangi entegrasyonu kullanabileceğini açık ve doğrudan yönetilebilir hale getirdim.'
+                : 'Because agents within the same workspace own distinct missions, their permissions should never be uniform. With the Agent Access matrix, I made tool authorizations explicit and instantly governable per agent.'}
+            </p>
+          </div>
+
+          {/* Focused Horizontal Crop Emphasizing Permission Matrix */}
+          <ArtifactFrame
+            src="/assets/case-study/operater/crop-settings-agent-access.webp"
+            alt="Space Settings Agent Access Yetki Matrisi"
+            titleTr="Ajan & Araç Erişim Matrisi (Agent Access)"
+            titleEn="Agent & Tool Access Matrix"
+            badgeTr="Erişim Matrisi"
+            badgeEn="Access Matrix"
+            captionTr="Sales, Dev ve Support ajanlarının Slack, GitHub, Jira, Linear ve Gmail erişim yetkilerini gösteren matris görünümü."
+            captionEn="Granular permissions matrix mapping Sales, Dev, and Support agents across connected enterprise tools."
+            maxWidth="max-w-4xl"
+            locale={locale}
+          />
+
+          {/* Annotations & Editorial Note */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center pt-2">
+            <div className="md:col-span-6 flex flex-wrap items-center gap-2 font-mono text-[11px] text-purple-300">
+              <span className="px-2 py-1 bg-[#0F172A] border border-slate-800 rounded">AGENT</span>
+              <span className="text-slate-500">·</span>
+              <span className="px-2 py-1 bg-[#0F172A] border border-slate-800 rounded">TOOL</span>
+              <span className="text-slate-500">·</span>
+              <span className="px-2 py-1 bg-[#0F172A] border border-slate-800 rounded">ACCESS</span>
+            </div>
+            <div className="md:col-span-6">
+              <p className="text-xs text-slate-300 font-sans border-l border-purple-500/60 pl-3">
+                {locale === 'tr'
+                  ? 'Yetkiyi ajan seviyesinde görünür kılmak, otonomiyi daha güvenli hale getiriyor.'
+                  : 'Surfacing permissions at the agent level makes autonomy fundamentally safer.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03C — MEMBERS & PERMISSIONS                                               */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              HUMAN ACCESS
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kontrol yalnızca ajanlar için değil, insanlar için de tanımlanmalı.'
+                : 'Control must be defined for humans, not just agents.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Workspace büyüdükçe yalnızca ajanların değil ekip üyelerinin de hangi seviyede kontrol sahibi olduğu önem kazanıyor. Owner, Admin ve Member rollerini; ajan yönetimi ve ayar yetkileriyle birlikte aynı tabloda görünür hale getirdim.'
+                : 'As workspaces scale, governing human authority becomes as critical as managing agent permissions. I surfaced Owner, Admin, and Member roles alongside agent-management and configuration privileges in a unified matrix.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
             <div className="lg:col-span-8">
-              <DetailCrop
-                slotId="SETTINGS_ANALYTICS_OVERVIEW"
-                titleTr="Kurumsal Kullanım & Performans Analitiği"
-                titleEn="Enterprise Usage & Performance Analytics"
-                badgeTr="Analitik Pano"
-                badgeEn="Analytics Board"
-                aspectRatio="16/10"
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-settings-members-permissions.webp"
+                alt="Space Settings Members & Permissions Tablosu"
+                titleTr="Üye Rolleri & Yönetim Yetkileri"
+                titleEn="Member Roles & Authority Matrix"
+                badgeTr="İnsan Yetkilendirme"
+                badgeEn="Human Access"
+                captionTr="Üyelik rolü ile gerçek yönetim yetkisinin aynı şey olmadığı netleştirildi."
+                captionEn="Clarifying that workspace membership role and granular execution authority are distinct."
+                maxWidth="max-w-3xl"
+                locale={locale}
+              />
+            </div>
+            <div className="lg:col-span-4 space-y-3 font-sans text-xs">
+              <div className="p-4 bg-[#0F172A]/80 border border-slate-800 rounded-lg space-y-2">
+                <div className="font-mono text-[11px] font-bold text-purple-400">
+                  ROLE ≠ ACCESS ≠ RESPONSIBILITY
+                </div>
+                <p className="text-slate-300 leading-relaxed">
+                  {locale === 'tr'
+                    ? 'Owner (Tam Yetki), Admin (Ajan Yönetimi / Salt Okunur Ayarlar) ve Member (Salt Okunur) yetki sınırları.'
+                    : 'Owner (Full Access), Admin (Manage Agents / View Only Settings), and Member (Read-only output) boundaries.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03D — AUTONOMY LEVEL (THE VISUAL HERO OF SECTION 03)                      */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              AUTONOMY MODEL
+            </span>
+            <h4 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-100">
+              {locale === 'tr'
+                ? 'Tek bir otonomi seviyesi yerine kademeli kontrol.'
+                : 'Graduated control instead of a single autonomy tier.'}
+            </h4>
+            <p className="text-xs sm:text-sm md:text-base text-slate-300 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Tüm ajanları aynı seviyede bağımsız çalıştırmak yerine üç kademeli bir model tasarladım. Her ajan görevine, risk seviyesine ve ekibin güven düzeyine göre Supervised, Semi-Auto veya Full-Auto çalışabiliyor.'
+                : 'Rather than forcing all agents into uniform independence, I engineered a 3-tier graduated model. Each agent operates under Supervised, Semi-Auto, or Full-Auto mode based on its operational scope, risk profile, and team trust.'}
+            </p>
+          </div>
+
+          {/* Large Dominant Visual Hero Frame */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-settings-autonomy-levels.webp"
+            alt="Space Settings Kademeli Otonomi Seviyeleri (Supervised, Semi-Auto, Full-Auto)"
+            captionTr="Section 03 Ana Görseli: Sales Agent (Semi-Auto), Dev Agent (Full-Auto) ve Support Agent (Supervised) otonomi mimarisi."
+            captionEn="Section 03 Visual Hero: The 3-tier autonomy architecture across Sales (Semi-Auto), Dev (Full-Auto), and Support (Supervised)."
+            showMinimalBar={true}
+            locale={locale}
+          />
+
+          {/* 3 Editorial Mini-Points */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="p-4 bg-[#0F172A]/70 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                01 / SUPERVISED
+              </span>
+              <p className="text-xs font-display font-semibold text-slate-200">
+                “{locale === 'tr' ? 'Ajan önerir. İnsan onaylar.' : 'Agent proposes. Human approves.'}”
+              </p>
+              <p className="text-[11px] text-slate-400 font-sans">
+                {locale === 'tr'
+                  ? 'Her aksiyon insan onayına sunulur.'
+                  : 'Proposes every action and awaits explicit human sign-off.'}
+              </p>
+            </div>
+
+            <div className="p-4 bg-[#0F172A]/70 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                02 / SEMI-AUTO
+              </span>
+              <p className="text-xs font-display font-semibold text-slate-200">
+                “{locale === 'tr' ? 'Ajan rutin işleri yürütür. Kullanıcı haberdar edilir.' : 'Agent executes routine tasks. User is notified.'}”
+              </p>
+              <p className="text-[11px] text-slate-400 font-sans">
+                {locale === 'tr'
+                  ? 'Rutin aksiyonlar otomatik icra edilir, 30 dk içinde geri alınabilir.'
+                  : 'Acts automatically on routine workflows, reversible within 30m.'}
+              </p>
+            </div>
+
+            <div className="p-4 bg-[#0F172A]/70 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                03 / FULL-AUTO
+              </span>
+              <p className="text-xs font-display font-semibold text-slate-200">
+                “{locale === 'tr' ? 'Ajan bağımsız çalışır. Yalnızca istisnalarda insan devreye girer.' : 'Agent runs autonomously. Human intervenes only on exceptions.'}”
+              </p>
+              <p className="text-[11px] text-slate-400 font-sans">
+                {locale === 'tr'
+                  ? 'Sessizce çalışır, yalnızca eskalasyon kurallarında bildirim düşer.'
+                  : 'Operates silently in the background; escalates only on threshold breaches.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Strong Pull Quote */}
+          <div className="pt-2">
+            <div className="border-l-2 border-purple-500 pl-4 py-1.5">
+              <p className="text-sm sm:text-base md:text-lg font-display font-bold text-slate-200 leading-snug">
+                “{locale === 'tr' ? 'Otonomi bir aç/kapa seçeneği değil.' : 'Autonomy is not a binary toggle.'}”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03E — ESCALATION RULES                                                    */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              WHEN HUMAN INTERVENES
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Ne zaman durması gerektiğini de tasarlamak.' : 'Designing when to pause and escalate.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Otonomi seviyesini belirlemek tek başına yeterli değildi. Düşük güven skoru, toplu aksiyonlar veya finansal verilere erişim gibi durumlarda ajanların otomatik olarak durup insan kararına dönmesini sağlayan escalation kuralları tasarladım.'
+                : 'Defining autonomy levels was only half the equation. I architected escalation triggers that mandate automated pauses and human sign-off when confidence drops below 70%, bulk actions exceed thresholds, or financial data is touched.'}
+            </p>
+          </div>
+
+          {/* Escalation Rules Crop */}
+          <ArtifactFrame
+            src="/assets/case-study/operater/crop-settings-escalation-rules.webp"
+            alt="Space Settings Escalation Kuralları ve Güvenlik Eşikleri"
+            titleTr="Eskalasyon Kuralları & Durdurma Eşikleri"
+            titleEn="Escalation Rules & Halt Thresholds"
+            badgeTr="Eskalasyon Motoru"
+            badgeEn="Escalation Engine"
+            captionTr="İnsan müdahalesi rastgele değil, sistem tarafından önceden tanımlanan koşullara bağlandı."
+            captionEn="Human intervention is never arbitrary; it is anchored in deterministic systemic boundaries."
+            maxWidth="max-w-4xl"
+            locale={locale}
+          />
+
+          {/* 3 Callout Chips */}
+          <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-[11px] text-purple-300">
+            <span className="px-2.5 py-1 bg-[#0F172A] border border-slate-800 rounded">LOW CONFIDENCE (&lt;70%)</span>
+            <span className="px-2.5 py-1 bg-[#0F172A] border border-slate-800 rounded">BULK ACTION (&gt;10 records)</span>
+            <span className="px-2.5 py-1 bg-[#0F172A] border border-slate-800 rounded">SENSITIVE FINANCIAL DATA</span>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03F — GOVERNANCE PAIR (Paired Composition)                                */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Erişim ne yapabileceğini, kurallar ne zaman yapabileceğini belirliyor.'
+                : 'Access defines capability; rules dictate when it can act.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bu iki yüzey birlikte governance modelinin temelini oluşturuyor: biri ajanın yetki alanını, diğeri o yetkiyi hangi koşullarda kullanabileceğini sınırlar.'
+                : 'These two surfaces anchor the governance model: one defines an agent’s permissible domain, while the other bounds the exact conditions under which that authority can be exercised.'}
+            </p>
+          </div>
+
+          {/* Side-by-side Paired Governance Visuals */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <ArtifactFrame
+              src="/assets/case-study/operater/crop-settings-agent-access.webp"
+              alt="Ajan Erişim Sınırları"
+              titleTr="Yetki Alanı (Agent Access)"
+              titleEn="Capability Scope (Agent Access)"
+              badgeTr="İzinler"
+              badgeEn="Permissions"
+              locale={locale}
+            />
+            <ArtifactFrame
+              src="/assets/case-study/operater/crop-settings-escalation-rules.webp"
+              alt="Eskalasyon Kuralları"
+              titleTr="Kural Sınırları (Escalation Rules)"
+              titleEn="Rule Boundaries (Escalation Rules)"
+              badgeTr="Koşullar"
+              badgeEn="Conditions"
+              locale={locale}
+            />
+          </div>
+
+          <div className="pt-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>ACCESS</span>
+              <span className="text-slate-500">→</span>
+              <span>AUTONOMY</span>
+              <span className="text-slate-500">→</span>
+              <span>ESCALATION</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03G — ANALYTICS                                                           */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              OBSERVABILITY
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kontrol yalnızca izin vermek değil, sonucu görebilmek.'
+                : 'Control is not just granting permissions, but observing outcomes.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Ajanların ne kadar aktif olduğunu görmek yetmiyordu. Performans, entegrasyon kullanımı, escalation sayıları ve tamamlanan işler aynı operasyonel görünürlük katmanında birleştirildi.'
+                : 'Observing raw activity volume was not enough. Execution performance, integration loads, escalation frequencies, and completed workflows were synthesized into a unified operational telemetry layer.'}
+            </p>
+          </div>
+
+          {/* Strong Wide Analytics Screenshot */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-settings-analytics.webp"
+            alt="Operater Analytics Genel Performans ve Eskalasyon Panosu"
+            captionTr="Analytics ekranı yalnızca hacmi değil, sistemin ne kadar sağlıklı ve kontrollü çalıştığını okumaya yarıyor."
+            captionEn="Analytics surfaces not just volume, but the operational health and governance fidelity of the agent ecosystem."
+            showMinimalBar={true}
+            locale={locale}
+          />
+
+          {/* Short Metric Model */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="p-3 bg-[#0F172A]/70 border border-slate-800 rounded-lg text-center font-mono text-[11px] text-purple-300">
+              ACTIONS
+            </div>
+            <div className="p-3 bg-[#0F172A]/70 border border-slate-800 rounded-lg text-center font-mono text-[11px] text-purple-300">
+              PERFORMANCE
+            </div>
+            <div className="p-3 bg-[#0F172A]/70 border border-slate-800 rounded-lg text-center font-mono text-[11px] text-purple-300">
+              INTEGRATIONS
+            </div>
+            <div className="p-3 bg-[#0F172A]/70 border border-slate-800 rounded-lg text-center font-mono text-[11px] text-purple-300">
+              ESCALATIONS
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 03H — USAGE / ACCOUNT VISIBILITY (+ Billing Support)                      */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              RESOURCE VISIBILITY
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kaynak kullanımı da ürün davranışının bir parçası.'
+                : 'Resource consumption is an intrinsic product behavior.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Otonom sistemlerde kullanım yalnızca maliyet konusu değil, operasyonel bir sınır. Agent actions, token kullanımı, API çağrıları ve workspace kapasitesi görünür olduğunda ekip kullanımın nerede yoğunlaştığını ve hangi limite yaklaşıldığını anlayabiliyor.'
+                : 'In autonomous agent systems, consumption is not merely a financial line item—it is an operational boundary. By surfacing agent actions, token burn rates, API limits, and workspace quotas, teams clearly anticipate bottlenecks before hitting hard thresholds.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+            <div className="lg:col-span-8">
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-settings-usage.webp"
+                alt="Account Settings Usage Kaynak Kotaları ve Uyarı Eşikleri"
+                titleTr="Kaynak Kotaları & Limit Uyarıları (Usage)"
+                titleEn="Resource Quotas & Limit Warnings"
+                badgeTr="Kota Takibi"
+                badgeEn="Usage Quotas"
+                captionTr="Ajan aksiyonları, token tüketimi, entegrasyon API limitleri (%80 uyarı barı) ve ajan bazlı döküm."
+                captionEn="Granular breakdown of agent actions, LLM token burn, API rate limits (80% warning bar), and per-agent telemetry."
+                maxWidth="max-w-3xl"
                 locale={locale}
               />
             </div>
             <div className="lg:col-span-4">
-              <DetailCrop
-                slotId="SETTINGS_USAGE_SUPPORTING"
-                titleTr="Maliyet & Token Tüketim Detayı"
-                titleEn="Cost & Token Consumption Breakdown"
-                badgeTr="Token Analitiği"
-                badgeEn="Token Analytics"
-                aspectRatio="4/3"
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-settings-billing.webp"
+                alt="Account Settings Billing Plan ve Fatura Geçmişi"
+                titleTr="Plan & Faturalandırma (Billing)"
+                titleEn="Plan & Invoices (Billing)"
+                badgeTr="Plan Yönetimi"
+                badgeEn="Plan Tiers"
+                captionTr="Pro / Enterprise plan sınırları ve geçmiş faturalar."
+                captionEn="Enterprise plan bounds and verified invoice history."
+                maxWidth="max-w-sm"
                 locale={locale}
               />
             </div>
           </div>
         </div>
 
-        {/* Settings Reflection */}
-        <ReflectionBlock
-          titleTr="Yönetişim & Ayarlar Çıkarımları"
-          titleEn="Governance & Settings Key Takeaways"
-          takeawaysTr={[
-            'Kurumsal müşterilerin yapay zekayı benimsemesindeki ana etken özellik sayısı değil, kontrol ve eskalasyon kurallarının sağlamlığıdır.',
-            'Kademeli otonomi, ekiplerin ürüne duyduğu güven arttıkça ajanı daha bağımsız bırakmasına olanak tanıdı.',
-            'Görünür maliyet ve token analitiği bütçe sürprizlerini tamamen engelledi.',
-          ]}
-          takeawaysEn={[
-            'Enterprise adoption is driven not by raw feature count, but by the rigor of governance and escalation controls.',
-            'Graduated autonomy enabled organizations to systematically expand automation as confidence matured.',
-            'Transparent token and cost attribution prevented unexpected billing friction.',
-          ]}
-          lessonTr="Kurumsal güvenilirlik, yapay zekaya sınırsız özgürlük vermekle değil; net sınırlar çizip denetlenebilir kılmakla sağlanır."
-          lessonEn="Enterprise trust is built not by granting unconstrained autonomy, but by defining verifiable operational boundaries."
-          locale={locale}
-        />
+        {/* ------------------------------------------------------------------------- */}
+        {/* SECTION 03 CLOSING REFLECTION                                             */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="pt-8 border-t border-slate-800/80 space-y-5">
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              03 / GOVERNANCE
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kontrolü sürekli istemek yerine, kuralların içine yerleştirmek.'
+                : 'Instead of demanding constant control, embed it into the rules.'}
+            </h4>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
+            {locale === 'tr'
+              ? 'Bu bölümde odağım kullanıcıya her aksiyonda yeniden karar verdirmek değildi. Bunun yerine erişim, otonomi, escalation ve görünürlük katmanlarını baştan tanımlayarak sistemin güvenli sınırlar içinde kendi başına çalışabilmesini sağlamaktı.'
+              : 'My focus in this layer was not forcing users to adjudicate every routine action. Instead, by defining permissions, autonomy tiers, escalation gates, and telemetry upfront, the system is empowered to execute reliably within verifiable boundaries.'}
+          </p>
+
+          {/* Monospace Progression */}
+          <div className="pt-2">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>TOOLS</span>
+              <span className="text-slate-500">→</span>
+              <span>ACCESS</span>
+              <span className="text-slate-500">→</span>
+              <span>AUTONOMY</span>
+              <span className="text-slate-500">→</span>
+              <span>RULES</span>
+              <span className="text-slate-500">→</span>
+              <span>VISIBILITY</span>
+            </div>
+          </div>
+
+          {/* Closing Quote */}
+          <div className="pt-4">
+            <blockquote className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-100 leading-snug pl-4 border-l-2 border-purple-500">
+              “{locale === 'tr'
+                ? 'İyi otonomi, kontrolün kaybolduğu değil; doğru yerde görünmezleştiği sistemdir.'
+                : 'True autonomy is not where control vanishes, but where it becomes seamlessly invisible in the right places.'}”
+            </blockquote>
+          </div>
+        </div>
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
