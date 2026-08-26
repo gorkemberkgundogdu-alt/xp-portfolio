@@ -3,6 +3,7 @@ import { MasterWindow } from '../window/MasterWindow';
 import { XpIcon } from '../common/XpIcon';
 import { useWindowStore } from '../../stores/windowStore';
 import { PROJECTS_DATA, type ProjectItem } from '../../data/portfolioData';
+import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
 
 export const ProjectsWindow: React.FC = () => {
   const language = useWindowStore((state) => state.language);
@@ -143,93 +144,97 @@ export const ProjectsWindow: React.FC = () => {
             </div>
           </div>
 
-          {/* Right panel: Details & Mini Case Study */}
-          <div className="flex-1 p-5 md:p-6 bg-white overflow-y-auto w-full">
-            <div className="w-full space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 border-slate-200">
-                <div>
-                  <span className="inline-block px-2.5 py-0.5 bg-blue-100 text-blue-800 text-[11px] font-bold rounded mb-1.5 uppercase tracking-wider">
-                    {language === 'tr' ? selectedProject.badgeTr : selectedProject.badgeEn}
-                  </span>
-                  <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
-                    {language === 'tr' ? selectedProject.titleTr : selectedProject.titleEn}
-                  </h2>
-                </div>
-                <div className="px-3 py-1 bg-slate-100 border border-slate-300 rounded font-mono text-[12px] text-slate-600 self-start sm:self-auto shrink-0 shadow-xs">
-                  📅 {selectedProject.date}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
-                <div className="xl:col-span-2 space-y-4">
+          {/* Right panel: Details & Deep Case Study / Mini Case Study */}
+          <div className={`flex-1 overflow-y-auto w-full ${selectedProject.slug === 'operater' ? 'bg-[#060911] p-4 sm:p-6 md:p-8' : 'bg-white p-5 md:p-6'}`}>
+            {selectedProject.slug === 'operater' ? (
+              <OperaterCaseStudy locale={language} />
+            ) : (
+              <div className="w-full space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 border-slate-200">
                   <div>
-                    <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-                      {language === 'tr' ? 'Proje Özeti & Açıklama' : 'Project Summary & Overview'}
-                    </h3>
-                    <p className="text-[14px] text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-lg border border-slate-200">
-                      {language === 'tr' ? selectedProject.descriptionTr : selectedProject.descriptionEn}
-                    </p>
+                    <span className="inline-block px-2.5 py-0.5 bg-blue-100 text-blue-800 text-[11px] font-bold rounded mb-1.5 uppercase tracking-wider">
+                      {language === 'tr' ? selectedProject.badgeTr : selectedProject.badgeEn}
+                    </span>
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                      {language === 'tr' ? selectedProject.titleTr : selectedProject.titleEn}
+                    </h2>
                   </div>
+                  <div className="px-3 py-1 bg-slate-100 border border-slate-300 rounded font-mono text-[12px] text-slate-600 self-start sm:self-auto shrink-0 shadow-xs">
+                    📅 {selectedProject.date}
+                  </div>
+                </div>
 
-                  <div>
-                    <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-                      {language === 'tr' ? 'Kullanılan Teknolojiler & Yetkinlikler' : 'Technologies & Competencies'}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-3 py-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 rounded-md text-[12px] font-medium transition-colors"
-                        >
-                          🏷️ {t}
-                        </span>
-                      ))}
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+                  <div className="xl:col-span-2 space-y-4">
+                    <div>
+                      <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                        {language === 'tr' ? 'Proje Özeti & Açıklama' : 'Project Summary & Overview'}
+                      </h3>
+                      <p className="text-[14px] text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+                        {language === 'tr' ? selectedProject.descriptionTr : selectedProject.descriptionEn}
+                      </p>
                     </div>
-                  </div>
 
-                  {selectedProject.highlightsTr && (
                     <div>
                       <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2">
-                        {language === 'tr' ? 'Önemli Çıktılar & Odak Noktaları' : 'Key Highlights'}
+                        {language === 'tr' ? 'Kullanılan Teknolojiler & Yetkinlikler' : 'Technologies & Competencies'}
                       </h3>
-                      <ul className="space-y-1.5 text-xs text-slate-700 list-disc list-inside bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        {(language === 'tr' ? selectedProject.highlightsTr : selectedProject.highlightsEn || []).map((h) => (
-                          <li key={h}>{h}</li>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="px-3 py-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 rounded-md text-[12px] font-medium transition-colors"
+                          >
+                            🏷️ {t}
+                          </span>
                         ))}
-                      </ul>
+                      </div>
                     </div>
-                  )}
-                </div>
 
-                <div className="space-y-3">
-                  <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg shadow-xs space-y-2">
-                    <div className="font-bold text-[13px] text-blue-900 flex items-center gap-1.5">
-                      <span>📌</span>
-                      <span>{language === 'tr' ? 'Rol & Katkı' : 'Role & Impact'}</span>
-                    </div>
-                    <div className="text-[12px] text-blue-800 leading-relaxed">
-                      <strong>{language === 'tr' ? selectedProject.roleTr : selectedProject.roleEn}</strong>
-                    </div>
+                    {selectedProject.highlightsTr && (
+                      <div>
+                        <h3 className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                          {language === 'tr' ? 'Önemli Çıktılar & Odak Noktaları' : 'Key Highlights'}
+                        </h3>
+                        <ul className="space-y-1.5 text-xs text-slate-700 list-disc list-inside bg-slate-50 p-3 rounded-lg border border-slate-200">
+                          {(language === 'tr' ? selectedProject.highlightsTr : selectedProject.highlightsEn || []).map((h) => (
+                            <li key={h}>{h}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
-                  {selectedProject.liveUrl && (
-                    <a
-                      href={selectedProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-lg text-xs font-semibold text-emerald-900 transition-colors text-center"
-                    >
-                      🌐 {language === 'tr' ? 'Canlı Bağlantıyı Ziyaret Et' : 'Visit Live Project'} →
-                    </a>
-                  )}
+                  <div className="space-y-3">
+                    <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg shadow-xs space-y-2">
+                      <div className="font-bold text-[13px] text-blue-900 flex items-center gap-1.5">
+                        <span>📌</span>
+                        <span>{language === 'tr' ? 'Rol & Katkı' : 'Role & Impact'}</span>
+                      </div>
+                      <div className="text-[12px] text-blue-800 leading-relaxed">
+                        <strong>{language === 'tr' ? selectedProject.roleTr : selectedProject.roleEn}</strong>
+                      </div>
+                    </div>
 
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-[11px] text-slate-600 space-y-1">
-                    <div><strong>{language === 'tr' ? 'Kategori:' : 'Category:'}</strong> {language === 'tr' ? selectedProject.categoryTitleTr : selectedProject.categoryTitleEn}</div>
-                    <div><strong>{language === 'tr' ? 'Slug / Rota:' : 'Slug / Route:'}</strong> <code className="text-blue-700 font-mono">/projeler/{selectedProject.slug}/</code></div>
+                    {selectedProject.liveUrl && (
+                      <a
+                        href={selectedProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-lg text-xs font-semibold text-emerald-900 transition-colors text-center"
+                      >
+                        🌐 {language === 'tr' ? 'Canlı Bağlantıyı Ziyaret Et' : 'Visit Live Project'} →
+                      </a>
+                    )}
+
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-[11px] text-slate-600 space-y-1">
+                      <div><strong>{language === 'tr' ? 'Kategori:' : 'Category:'}</strong> {language === 'tr' ? selectedProject.categoryTitleTr : selectedProject.categoryTitleEn}</div>
+                      <div><strong>{language === 'tr' ? 'Slug / Rota:' : 'Slug / Route:'}</strong> <code className="text-blue-700 font-mono">/projeler/{selectedProject.slug}/</code></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

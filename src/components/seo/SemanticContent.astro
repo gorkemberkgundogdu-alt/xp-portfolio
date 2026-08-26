@@ -66,6 +66,20 @@ const { locale, activeProject } = Astro.props;
               <p style="margin: 0; font-size: 0.85rem; color: #444;">
                 <strong>{locale === 'tr' ? 'Teknolojiler:' : 'Technologies:'}</strong> {p.tech.join(', ')}
               </p>
+              {p.slug === 'operater' && (
+                <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f5f5f5; border-left: 3px solid #7C3AED; font-size: 0.85rem;">
+                  <h4 style="margin: 0 0 0.25rem 0; color: #5B21B6;">
+                    {locale === 'tr' ? 'Operater.io Detaylı Ürün Vaka Çalışması Bölümleri:' : 'Operater.io Detailed Product Case Study Sections:'}
+                  </h4>
+                  <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.5;">
+                    <li><strong>01 — Onboarding:</strong> {locale === 'tr' ? 'İlk Karşılaşmadan Değer Üretimine (Hesap, Şirket Bağlamı, Ajan Seçimi, Araç Entegrasyonları)' : 'From First Touch to Value (Account, Context, Agents, Tools)'}</li>
+                    <li><strong>02 — Dashboard:</strong> {locale === 'tr' ? 'Operasyonel Genel Bakış & İnsan Denetimi (HITL, Akıl Yürütme İzleri, Durum Yönetimi)' : 'Operational Overview & Human-in-the-Loop (HITL, Reasoning, States)'}</li>
+                    <li><strong>03 — Settings & Governance:</strong> {locale === 'tr' ? 'Ayarlar & Kurumsal Yönetişim (Kademeli Otonomi Seviyeleri, Eskalasyon Kuralları, Analitik)' : 'Settings & Enterprise Governance (Graduated Autonomy, Rules, Analytics)'}</li>
+                    <li><strong>{locale === 'tr' ? 'Tasarım Süreci:' : 'Design Process:'}</strong> {locale === 'tr' ? 'Keşif, Tasarım Sistemi Mimarisi, Kod Prototipleme, Geliştirici Teslimi' : 'Discovery, Design System Architecture, Prototyping, Handoff'}</li>
+                    <li><strong>{locale === 'tr' ? 'Çıktılar:' : 'Outcomes:'}</strong> {locale === 'tr' ? 'Yayına Alınan Kapsam, Tasarım Sistemi Temeli, Ekiplere Sağlanan Yetkinlikler' : 'Shipped Scope, Design System Foundation, Enabled Team Velocity'}</li>
+                  </ul>
+                </div>
+              )}
             </article>
           ))}
         </div>

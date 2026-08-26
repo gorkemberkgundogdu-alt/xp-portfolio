@@ -9,6 +9,7 @@ import {
 } from '../../data/portfolioData';
 import { XpIcon } from '../common/XpIcon';
 import { AboutAccordion } from '../common/AboutAccordion';
+import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
 
 export type PropertiesTab = 'general' | 'projects' | 'articles' | 'skills' | 'cv' | 'contact';
 
@@ -396,65 +397,73 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                     ← {currentLocale === 'tr' ? 'Tüm Projelere Dön' : 'Back to Projects'}
                   </button>
 
-                  <div className="border-b pb-3 border-slate-200 space-y-1.5">
-                    <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-bold rounded uppercase">
-                      {currentLocale === 'tr' ? currentProject.badgeTr : currentProject.badgeEn}
-                    </span>
-                    <h2 className="text-lg md:text-xl font-bold text-slate-900">
-                      {currentLocale === 'tr' ? currentProject.titleTr : currentProject.titleEn}
-                    </h2>
-                    <div className="text-xs text-slate-500">
-                      📅 {currentProject.date} • <strong>{currentLocale === 'tr' ? currentProject.roleTr : currentProject.roleEn}</strong>
+                  {currentProject.slug === 'operater' ? (
+                    <div className="bg-[#060911] p-4 sm:p-5 rounded-xl border border-slate-800">
+                      <OperaterCaseStudy locale={currentLocale} />
                     </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      {currentLocale === 'tr' ? 'Açıklama & Kapsam' : 'Overview & Scope'}
-                    </h3>
-                    <p className="text-xs md:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-200">
-                      {currentLocale === 'tr' ? currentProject.descriptionTr : currentProject.descriptionEn}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      {currentLocale === 'tr' ? 'Kullanılan Teknolojiler' : 'Technologies & Skills'}
-                    </h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {currentProject.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-2.5 py-1 bg-blue-50 border border-blue-200 text-blue-900 rounded text-xs font-medium"
-                        >
-                          🏷️ {t}
+                  ) : (
+                    <div className="space-y-5">
+                      <div className="border-b pb-3 border-slate-200 space-y-1.5">
+                        <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-bold rounded uppercase">
+                          {currentLocale === 'tr' ? currentProject.badgeTr : currentProject.badgeEn}
                         </span>
-                      ))}
-                    </div>
-                  </div>
+                        <h2 className="text-lg md:text-xl font-bold text-slate-900">
+                          {currentLocale === 'tr' ? currentProject.titleTr : currentProject.titleEn}
+                        </h2>
+                        <div className="text-xs text-slate-500">
+                          📅 {currentProject.date} • <strong>{currentLocale === 'tr' ? currentProject.roleTr : currentProject.roleEn}</strong>
+                        </div>
+                      </div>
 
-                  {currentProject.highlightsTr && (
-                    <div className="space-y-2">
-                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        {currentLocale === 'tr' ? 'Önemli Çıktılar' : 'Key Highlights'}
-                      </h3>
-                      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        {(currentLocale === 'tr' ? currentProject.highlightsTr : currentProject.highlightsEn || []).map((h) => (
-                          <li key={h}>{h}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                      <div className="space-y-3">
+                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                          {currentLocale === 'tr' ? 'Açıklama & Kapsam' : 'Overview & Scope'}
+                        </h3>
+                        <p className="text-xs md:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-200">
+                          {currentLocale === 'tr' ? currentProject.descriptionTr : currentProject.descriptionEn}
+                        </p>
+                      </div>
 
-                  {currentProject.liveUrl && (
-                    <a
-                      href={currentProject.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded text-center transition-colors shadow-xs"
-                    >
-                      🌐 {currentLocale === 'tr' ? 'Canlı Projeyi Ziyaret Et' : 'Visit Live Project'} →
-                    </a>
+                      <div className="space-y-2">
+                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                          {currentLocale === 'tr' ? 'Kullanılan Teknolojiler' : 'Technologies & Skills'}
+                        </h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          {currentProject.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="px-2.5 py-1 bg-blue-50 border border-blue-200 text-blue-900 rounded text-xs font-medium"
+                            >
+                              🏷️ {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {currentProject.highlightsTr && (
+                        <div className="space-y-2">
+                          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            {currentLocale === 'tr' ? 'Önemli Çıktılar' : 'Key Highlights'}
+                          </h3>
+                          <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            {(currentLocale === 'tr' ? currentProject.highlightsTr : currentProject.highlightsEn || []).map((h) => (
+                              <li key={h}>{h}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {currentProject.liveUrl && (
+                        <a
+                          href={currentProject.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded text-center transition-colors shadow-xs"
+                        >
+                          🌐 {currentLocale === 'tr' ? 'Canlı Projeyi Ziyaret Et' : 'Visit Live Project'} →
+                        </a>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
