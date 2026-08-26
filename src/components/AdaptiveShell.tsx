@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Desktop } from './desktop/Desktop';
 import { PropertiesDialog, type PropertiesTab } from './properties/PropertiesDialog';
 import { XpPreloader } from './common/XpPreloader';
+import { XpNotificationBalloon } from './common/XpNotificationBalloon';
 import { useWindowStore } from '../stores/windowStore';
 import type { WindowId } from '../types/window';
 
@@ -110,6 +111,9 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
       ) : (
         <Desktop />
       )}
+
+      {/* Temporary Notice Balloon (Desktop & Mobile Adaptive) */}
+      <XpNotificationBalloon locale={currentLocale} />
     </div>
   );
 };
