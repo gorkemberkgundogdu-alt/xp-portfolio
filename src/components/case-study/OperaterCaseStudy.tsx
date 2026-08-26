@@ -3,9 +3,6 @@ import { HeroPair } from './primitives/HeroPair';
 import { FeatureVisual } from './primitives/FeatureVisual';
 import { AnnotatedVisual } from './primitives/AnnotatedVisual';
 import { DetailCrop } from './primitives/DetailCrop';
-import { FloatingPanelComposition } from './primitives/FloatingPanelComposition';
-import { StateStrip } from './primitives/StateStrip';
-import { SideBySideDecision } from './primitives/SideBySideDecision';
 import { FlowStrip } from './primitives/FlowStrip';
 import { ReflectionBlock } from './primitives/ReflectionBlock';
 import { CaseAccordionSection } from './primitives/CaseAccordionSection';
@@ -18,8 +15,8 @@ export interface OperaterCaseStudyProps {
 }
 
 export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = 'tr' }) => {
-  // Multi-open state: 01 Onboarding open by default, 02 & 03 closed by default
-  const [openSections, setOpenSections] = useState<Set<string>>(new Set(['onboarding']));
+  // Multi-open state: 01 Onboarding and 02 Dashboard open by default
+  const [openSections, setOpenSections] = useState<Set<string>>(new Set(['onboarding', 'dashboard']));
 
   const toggleSection = (sectionId: string) => {
     setOpenSections((prev) => {
@@ -143,7 +140,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </header>
 
       {/* ========================================================================= */}
-      {/* 01 — ONBOARDING SECTION (Refined Copy & Narrative)                         */}
+      {/* 01 — ONBOARDING SECTION (Frozen / Preserved)                               */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="onboarding"
@@ -627,232 +624,632 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 02 — DASHBOARD SECTION (Untouched)                                        */}
+      {/* 02 — DASHBOARD SECTION (Art-Directed Redesign)                            */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="dashboard"
         numberPrefix="02"
-        titleTr="Dashboard: Operasyonel Genel Bakış & İnsan Denetimi (HITL)"
-        titleEn="Dashboard: Operational Overview & Human-in-the-Loop"
-        subtitleTr="Otonom ajanların kararlarını şeffaf, izlenebilir ve gerektiğinde insan müdahalesine açık tutan kontrol merkezi."
-        subtitleEn="A control center keeping autonomous decisions transparent, traceable, and open to human review when confidence thresholds require."
+        titleTr="Dashboard: Çalışan Ajanları Görünür Kılmak"
+        titleEn="Dashboard: Making Working Agents Visible"
+        subtitleTr="Birden fazla yapay zeka ajanının eş zamanlı çalıştığı bir sistemde dikkat, onay, durum ve izlenebilirlik hiyerarşisi kurmak."
+        subtitleEn="Establishing attention, review, state, and traceability hierarchies in an ecosystem where multiple autonomous agents operate simultaneously."
         isOpen={openSections.has('dashboard')}
         onToggle={() => toggleSection('dashboard')}
         locale={locale}
       >
-        {/* Intro */}
-        <div className="space-y-3">
-          <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
-            {locale === 'tr' ? 'Kara Kutu Yerine Açıklanabilir Yapay Zeka' : 'Explainable AI Over Black-Box Behavior'}
-          </h4>
-          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
+        {/* Section Opening Editorial Lead */}
+        <div className="space-y-4">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold text-slate-100 tracking-tight">
+            {locale === 'tr' ? 'Çalışan ajanları görünür kılmak.' : 'Making working agents visible.'}
+          </h3>
+          <p className="text-xs sm:text-sm md:text-base text-slate-300 font-sans leading-relaxed max-w-4xl">
             {locale === 'tr'
-              ? 'Otonom sistemlerde en büyük tehlike kullanıcının arkada ne döndüğünü anlamamasıdır. Dashboard arayüzü, ajanların aldığı her kararı, başvurduğu araçları ve bekleyen onayları tek bir bakışta anlaşılır kılan bir operasyon masası olarak tasarlandı.'
-              : 'The greatest pitfall in autonomous systems is opacity. The Operater dashboard was engineered as an operations flight deck where every agent decision, tool invocation, and pending human review is instantly parseable.'}
+              ? 'Birden fazla AI agent aynı anda çalışırken yalnızca sonuçları göstermek yeterli değildi. Kullanıcının hangi işin devam ettiğini, neyin tamamlandığını, neyin başarısız olduğunu ve hangi noktada kendisinin devreye girmesi gerektiğini anlayabileceği ortak bir durum dili gerekiyordu. Dashboard\'u bu yüzden yalnızca bir overview ekranı olarak değil, sistemin o anda ne yaptığını okunabilir hale getiren operasyon katmanı olarak ele aldım.'
+              : 'When multiple AI agents work in parallel, merely surfacing outputs is insufficient. Users require a cohesive operational vocabulary to parse ongoing tasks, completed milestones, system failures, and the exact moments requiring human intervention. I treated the dashboard not as a passive overview, but as an active operational layer making real-time agent execution readable.'}
           </p>
         </div>
 
-        {/* Sub-section: Home as an operational overview */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '1. Operasyonel Genel Bakış: Home Ekranı' : '1. Operational Overview: Home Dashboard'}
-          </h4>
-          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
-            {locale === 'tr'
-              ? 'Home ekranı, statik bir analitik panosu değil; anlık operasyon durumunu, bekleyen insan onaylarını ve kritik olayları önceliklendiren dinamik bir komut merkezidir.'
-              : 'The Home view is not a passive analytics board; it is a prioritized operational command desk highlighting real-time agent activity, pending approvals, and system alerts.'}
-          </p>
-          <AnnotatedVisual
-            slotId="DASHBOARD_HOME_OVERVIEW"
-            titleTr="Operater.io Ana Kontrol Masası (Home Overview)"
-            titleEn="Operater.io Main Operations Desk (Home Overview)"
-            annotations={[
-              {
-                id: 'ann-1',
-                pinNumber: 1,
-                labelTr: 'İnceleme Bekleyenler (Items to Review)',
-                labelEn: 'Items to Review Queue',
-                descriptionTr: 'Düşük güven skorlu veya hassas işlem onayları en üstte vurgulanır.',
-                descriptionEn: 'High-risk or low-confidence agent actions surfaced prominently for quick review.',
-              },
-              {
-                id: 'ann-2',
-                pinNumber: 2,
-                labelTr: 'Canlı Ajan Akışı (Live Stream)',
-                labelEn: 'Live Agent Stream',
-                descriptionTr: 'Ajanların anlık işlem logları ve araç çağrıları adım adım izlenir.',
-                descriptionEn: 'Step-by-step visibility into tool invocations and live reasoning traces.',
-              },
-              {
-                id: 'ann-3',
-                pinNumber: 3,
-                labelTr: 'Operasyonel Sağlık Metrikleri',
-                labelEn: 'Operational Health Metrics',
-                descriptionTr: 'Hata oranları, yanıt süreleri ve başarılı tamamlanma grafikleri.',
-                descriptionEn: 'Success rates, latency breakdowns, and agent health indicators.',
-              },
-            ]}
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02A — OPERATIONS OVERVIEW                                                 */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              OPERATIONS OVERVIEW
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Önce: Şu anda ne oluyor?' : 'First: What is happening right now?'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Home ekranında farklı bilgi türlerini aynı ağırlıkta göstermek yerine, kullanıcının önce dikkat gerektiren işleri, ardından sistem aktivitesini ve çalışan ajanları okuyabileceği bir hiyerarşi kurdum.'
+                : 'Rather than displaying disparate information streams with equal visual weight, I engineered a structured hierarchy allowing users to absorb critical attention items first, followed by system telemetry and agent fleet states.'}
+            </p>
+          </div>
+
+          {/* Full-Width Home Dashboard Screen */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-dashboard-home.webp"
+            alt="Operater.io Ana Operasyon Masası (Home Overview)"
+            captionTr="Home ekranı: En üstte dikkat gerektiren 4 görev (Needs You), öneriler (Suggestions) ve ajan bazlı onay kuyruğu hiyerarşisi."
+            captionEn="Home flight deck: Prioritizing 'Needs You' blockers upfront, operational suggestions, and agent review queues."
+            showMinimalBar={true}
             locale={locale}
           />
+
+          {/* Editorial Index / Legend */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="p-3 bg-[#0F172A]/50 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                01 / ATTENTION
+              </span>
+              <div className="font-display font-semibold text-xs text-slate-200">
+                Items to Review
+              </div>
+              <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'İnsan kararı ve anında dikkat gerektiren işler.'
+                  : 'Human decisions and attention-required work.'}
+              </p>
+            </div>
+
+            <div className="p-3 bg-[#0F172A]/50 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                02 / TRACE
+              </span>
+              <div className="font-display font-semibold text-xs text-slate-200">
+                Activity
+              </div>
+              <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'Ajanların icra ettiği geçmiş ve güncel olay logları.'
+                  : 'Recent and historical work performed by agents.'}
+              </p>
+            </div>
+
+            <div className="p-3 bg-[#0F172A]/50 border-l-2 border-purple-500/80 rounded-r-lg space-y-1">
+              <span className="font-mono text-[11px] font-bold text-purple-400 block tracking-wider">
+                03 / CONTROL
+              </span>
+              <div className="font-display font-semibold text-xs text-slate-200">
+                Agents
+              </div>
+              <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'Çalışan ajan ekibinin anlık durumu ve yönetimi.'
+                  : 'Current state and management of the agent team.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Intentional Editorial Pull Quote */}
+          <div className="pt-4">
+            <div className="border-l-2 border-purple-500 pl-4 py-2 space-y-1">
+              <div className="font-mono text-xs text-purple-400 uppercase tracking-widest font-bold">
+                NOT EVERYTHING NEEDS YOUR ATTENTION.
+              </div>
+              <div className="font-display font-bold text-slate-200 text-sm sm:text-base">
+                {locale === 'tr'
+                  ? 'Ama neyin gerektirdiği hemen anlaşılmalı.'
+                  : 'But what does need attention should be obvious.'}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Sub-section: Human-in-the-loop by design */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '2. Tasarımla Gelen İnsan Denetimi (Human-in-the-Loop)' : '2. Human-in-the-Loop by Design'}
-          </h4>
-          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
-            {locale === 'tr'
-              ? 'Ajanın güven skoru belirlenen eşiğin altına düştüğünde veya dış dünyayı etkileyen bir işlem yapacağı zaman, işlem otomatik olarak insan onayına düşer.'
-              : 'Whenever an agent encounters ambiguous intent or initiates an external action, the action is suspended in a review drawer until confirmed by a human.'}
-          </p>
-          <SideBySideDecision
-            problemTr="Onay bekleyen maddeler klasik e-posta tarzı liste yapıldığında aciliyet ve bağlam kayboluyordu."
-            problemEn="Traditional table-row review items lacked contextual urgency and reasoning visibility."
-            decisionTr="Ajanın niyetini, taslak mesajını ve karar gerekçesini tek tıkla onaylama veya düzenleme olanağı sunan zenginleştirilmiş 'İnceleme Çekmecesi' tasarlandı."
-            decisionEn="We designed a rich 'Review Drawer' displaying intent, draft output, and reasoning chain with inline edit and one-click approve/reject actions."
-            tradeoffTr="Daha geniş bir modal alanı gerektirdi ancak onaylama süresini hızlandırdı."
-            tradeoffEn="Required a wider drawer canvas but reduced decision time significantly."
-            slotId="DASHBOARD_ITEMS_REVIEW_PANEL"
-            slotTitleTr="İnceleme Bekleyenler & Onay Arayüzü"
-            slotTitleEn="Items to Review & Approval Interface"
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02B — ITEMS TO REVIEW / HUMAN DECISION LAYER                              */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              HUMAN DECISION LAYER
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Ajanın durduğu yer, insanın başladığı yer.' : 'Where the agent stops, the human steps in.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bazı aksiyonlar ajanın kendi başına ilerlemesi için uygunken bazıları insan kararı gerektiriyor. Items to Review alanını bu ayrımın görünür olduğu yer olarak tasarladım. Kullanıcı bütün agent activity\'yi takip etmek yerine yalnızca karar vermesi gereken işleri önünde buluyor.'
+                : 'While routine tasks proceed autonomously, high-stake actions mandate explicit human sign-off. I designed Items to Review as the dedicated surface where this threshold is made visible. Instead of parsing endless agent telemetry, users encounter only tasks requiring decisive human judgment.'}
+            </p>
+          </div>
+
+          {/* Master Screen + Large Overlapping Review Drawer Composition */}
+          <div className="space-y-4">
+            <ProductFrame
+              src="/assets/case-study/operater/operater-items-review-main.webp"
+              alt="Operater Items to Review Ana İnceleme Listesi ve Çekmece Görünümü"
+              captionTr="Items to Review: Sol listede bekleyen onaylar, sağda Maria Chen için hazırlanan detaylı e-posta taslak inceleme çekmecesi."
+              captionEn="Items to Review: Action item queue on the left, paired with the granular email draft review drawer on the right."
+              showMinimalBar={true}
+              locale={locale}
+            />
+
+            {/* Focused Crop of the Review Drawer Artifact with Concrete UI Annotations */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+              <div className="lg:col-span-7">
+                <ArtifactFrame
+                  src="/assets/case-study/operater/crop-review-drawer.webp"
+                  alt="Items to Review Sağ İnceleme Çekmecesi Detayı"
+                  titleTr="İnceleme Çekmecesi (AWAITING YOUR CALL)"
+                  titleEn="Review Drawer (AWAITING YOUR CALL)"
+                  badgeTr="İnsan Onayı"
+                  badgeEn="Human Gate"
+                  maxWidth="max-w-md"
+                  locale={locale}
+                />
+              </div>
+
+              {/* Verified UI Element Annotations */}
+              <div className="lg:col-span-5 space-y-3 font-sans text-xs">
+                <div className="space-y-1 border-b border-slate-800 pb-2">
+                  <span className="font-mono text-[10px] text-purple-400 uppercase tracking-wider block">
+                    {locale === 'tr' ? 'Sorumlu Ajan' : 'Responsible Agent'}
+                  </span>
+                  <p className="text-slate-300">
+                    {locale === 'tr'
+                      ? 'Outreach Agent (12 dk önce taslak oluşturuldu)'
+                      : 'Outreach Agent (Drafted 12m ago)'}
+                  </p>
+                </div>
+
+                <div className="space-y-1 border-b border-slate-800 pb-2">
+                  <span className="font-mono text-[10px] text-purple-400 uppercase tracking-wider block">
+                    {locale === 'tr' ? 'Karar Gerekçesi (Why this draft)' : 'Reasoning Context'}
+                  </span>
+                  <p className="text-slate-300">
+                    {locale === 'tr'
+                      ? 'ICP match (%80+), Seniority (VP), 3-günlük temas kuralı ve şirket tonu.'
+                      : 'ICP match, domain seniority, 3-day spacing rule, brand voice alignment.'}
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="font-mono text-[10px] text-purple-400 uppercase tracking-wider block">
+                    {locale === 'tr' ? 'İnsan Aksiyonları' : 'Human Actions'}
+                  </span>
+                  <p className="text-slate-300">
+                    {locale === 'tr'
+                      ? 'Approve and next (Mor), Reject (Kırmızı), Save changes (Gri).'
+                      : 'Approve & Next (Purple), Reject (Red), Save Changes (Inline edit).'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Subheading & In-Context Decision Reasoning */}
+          <div className="space-y-2 pt-4">
+            <h5 className="font-display font-bold text-slate-200 text-sm sm:text-base">
+              {locale === 'tr' ? 'Bağlamı kaybetmeden karar vermek' : 'Deciding Without Context Loss'}
+            </h5>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bir öğe açıldığında kullanıcıyı başka bir sayfaya taşımak yerine detayları mevcut çalışma alanının üzerinde açtım. Böylece hem işin geldiği bağlam korunuyor hem de inceleme ve karar verme işlemi aynı akış içinde tamamlanabiliyor.'
+                : 'Rather than routing users to a separate subpage upon clicking a pending item, I anchored the details within an overlay drawer above the current workspace. This preserves operational context while enabling review, inline adjustments, and decisions in a single seamless flow.'}
+            </p>
+          </div>
+
+          {/* Editorial Statement */}
+          <div className="pt-4">
+            <div className="border-l-2 border-purple-500 pl-4 py-2">
+              <p className="text-sm sm:text-base md:text-lg font-display font-bold text-slate-200 leading-snug">
+                “{locale === 'tr'
+                  ? 'Ajan işi yapabilir. Kararın ağırlığı arttığında insan devreye girer.'
+                  : 'The agent can do the work. When the decision carries more weight, the human steps in.'}”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02C — OPERATIONAL STATE SYSTEM                                            */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              STATE SYSTEM
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Durum değişince yalnızca renk değişmemeli.'
+                : 'A state change should change more than color.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bir agent action oluşturulduğu andan tamamlanana kadar tek bir durumda kalmıyor. Bekleyebilir, tamamlanabilir, başarısız olabilir veya geçmişe taşınabilir. Bu yüzden aynı component\'in farklı durumlarda ne söylemesi ve hangi aksiyonları sunması gerektiğini ayrıca tasarladım.'
+                : 'An agent action never exists in a static state from initiation to resolution. It transitions across execution queues, completions, rate-limited failures, and archived traces. I engineered each state artifact to explicitly communicate what happened and surface contextual recovery actions.'}
+            </p>
+          </div>
+
+          {/* Staggered / Editorial 4-State Grid Sequence (Real Product Modal Artifacts) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            {/* 1. SENDING... (Pending) */}
+            <div className="space-y-2">
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-action-state-sending.webp"
+                alt="Operater Aksiyon Durumu: Sending..."
+                titleTr="SENDING... (İşlem Sürüyor)"
+                titleEn="SENDING... (Pending Execution)"
+                badgeTr="Beklemede"
+                badgeEn="In Progress"
+                locale={locale}
+              />
+              <p className="text-[11px] font-mono text-slate-400 px-1">
+                {locale === 'tr'
+                  ? '→ Beklenen süre (~2 sn) ve ilerleme çubuğu ile anlık geri bildirim.'
+                  : '→ Expected duration (~2s) and dynamic progress bar providing immediate feedback.'}
+              </p>
+            </div>
+
+            {/* 2. SENT (Completed) */}
+            <div className="space-y-2 sm:mt-6">
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-action-state-sent.webp"
+                alt="Operater Aksiyon Durumu: Sent at 14:08"
+                titleTr="SENT (Başarıyla Tamamlandı)"
+                titleEn="SENT (Verified Complete)"
+                badgeTr="Tamamlandı"
+                badgeEn="Success"
+                locale={locale}
+              />
+              <p className="text-[11px] font-mono text-slate-400 px-1">
+                {locale === 'tr'
+                  ? '→ Teslim teyidi, açılma zamanı ve sonraki takip adımı (Touch 2 in 3 days).'
+                  : '→ Delivery timestamp, open metrics, and scheduled follow-up cadence (Touch 2 in 3 days).'}
+              </p>
+            </div>
+
+            {/* 3. FAILED (Rate Limit & Safe Recovery) */}
+            <div className="space-y-2">
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-action-state-failed.webp"
+                alt="Operater Aksiyon Durumu: Send Failed (Gmail 429 rate limit)"
+                titleTr="FAILED (Hata & Güvenli Kurtarma)"
+                titleEn="FAILED (Rate Limit & Safe State)"
+                badgeTr="Hata Durumu"
+                badgeEn="Error State"
+                locale={locale}
+              />
+              <p className="text-[11px] font-mono text-slate-400 px-1">
+                {locale === 'tr'
+                  ? '→ Hata nedeni (Gmail 429), otomatik deneme süresi ve CRM veri güvenliği teyidi.'
+                  : '→ Explicit error reason (Gmail 429), auto-retry window, and CRM safety confirmation.'}
+              </p>
+            </div>
+
+            {/* 4. REJECTED / ARCHIVED */}
+            <div className="space-y-2 sm:mt-6">
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-action-state-rejected.webp"
+                alt="Operater Aksiyon Durumu: Rejected & Archived"
+                titleTr="REJECTED · ARCHIVED (Red & Öğrenme)"
+                titleEn="REJECTED · ARCHIVED (Feedback Loop)"
+                badgeTr="Arşivlendi"
+                badgeEn="Archived"
+                locale={locale}
+              />
+              <p className="text-[11px] font-mono text-slate-400 px-1">
+                {locale === 'tr'
+                  ? '→ Reddetme kaydı, HubSpot durumu ve ajana özel geri bildirim notu alanı.'
+                  : '→ Rejection logged, CRM state preserved, and optional feedback note input to improve drafts.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Product Design Takeaway Insight */}
+          <div className="pt-4">
+            <div className="border-l-2 border-purple-500 pl-4 py-2">
+              <p className="text-sm sm:text-base md:text-lg font-display font-bold text-slate-200 leading-snug">
+                “{locale === 'tr'
+                  ? 'State değiştiğinde yalnızca badge değil, kullanıcının yapabileceği şey de değişmeli.'
+                  : 'When the state changes, the user\'s available actions should change with it.'}”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02D — SECTION INFO / CONTEXTUAL HELP (Design Ownership)                    */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+                CONTEXT, BEFORE INTERACTION
+              </span>
+              <span className="px-2 py-0.5 bg-purple-950/80 border border-purple-800/60 rounded text-[9px] font-mono text-purple-300 uppercase">
+                {locale === 'tr' ? 'Kendi Önerim' : 'My Initiative'}
+              </span>
+            </div>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kullanıcıya yalnızca ne olduğunu değil, neden orada olduğunu anlatmak.'
+                : 'Explain not only what it is, but why it is there.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bazı bölümler ürünün iç yapısını bilen ekip için açık olsa da ilk kez kullanan biri için aynı derecede anlaşılır değildi. Bu yüzden brief’te olmamasına rağmen açıklamayı ihtiyaç duyulan yüzeye taşıyan kısa bilgi kartları önerdim.'
+                : 'Some areas were obvious to the internal team, but not equally clear to a first-time user. Although they were not part of the original brief, I proposed short contextual info cards that explain the page exactly where the user needs it.'}
+            </p>
+          </div>
+
+          {/* Real Section Info Cards Cluster */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <ArtifactFrame
+              src="/assets/case-study/operater/operater-items-review-modal.webp"
+              alt="Items to Review Bilgi Kartı"
+              titleTr="Items to Review Bilgisi"
+              titleEn="Items to Review Info"
+              badgeTr="Bilgi Modalı"
+              badgeEn="Context Card"
+              captionTr="'Yalnızca engellenen işler burada yaşar' net ayrımı."
+              captionEn="'Only blocked items live here' explicit functional boundary."
+              locale={locale}
+            />
+
+            <ArtifactFrame
+              src="/assets/case-study/operater/operater-activity-info-modal.webp"
+              alt="Activity Bilgi Kartı"
+              titleTr="Activity Bilgisi"
+              titleEn="Activity Info"
+              badgeTr="Salt Okunur"
+              badgeEn="Read-Only"
+              captionTr="'Bu sayfa salt okunurdur' karar netliği."
+              captionEn="'This page is read-only' operational clarity."
+              locale={locale}
+            />
+
+            <ArtifactFrame
+              src="/assets/case-study/operater/operater-agents-info-modal.webp"
+              alt="Agents Bilgi Kartı"
+              titleTr="Agents Bilgisi"
+              titleEn="Agents Info"
+              badgeTr="Ajan Rehberi"
+              badgeEn="Agent Guide"
+              captionTr="'Dikkat gerektiren ajanlar en üstte listelenir' kuralı."
+              captionEn="'Agents that need you are surfaced first' prioritization rule."
+              locale={locale}
+            />
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02E — ACTIVITY OF AGENTS (Traceability)                                   */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              TRACEABILITY
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Bir sonuçtan geriye doğru yürüyebilmek.' : 'Being able to trace a result backwards.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bir aksiyon tamamlandıktan sonra da kullanıcı ‘bunu hangi ajan yaptı?’ veya ‘burada ne oldu?’ diye sorabilir. Activity alanını, ajanların yaptığı işleri geriye dönük okunabilir tutmak için tasarladım.'
+                : 'Even after an action is executed, founders and operators need to answer ‘Which agent triggered this?’ or ‘Why was this lead skipped?’. I designed Activity as the retrospective timeline keeping autonomous agent history verifiable.'}
+            </p>
+          </div>
+
+          {/* Master Activity Screen */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-activity-feed-main.webp"
+            alt="Operater.io Activity Feed ve Ajan Olay Geçmişi"
+            captionTr="Activity Feed: Zaman kazancı özeti, filtreler (Done, Skipped, Failed) ve sağ tarafta Lead Gen karar gerekçesi çekmecesi."
+            captionEn="Activity Feed: Time saved telemetry, status filters, and the granular Lead Gen reasoning drawer."
+            showMinimalBar={true}
             locale={locale}
           />
-        </div>
 
-        {/* Sub-section: Designing operational states */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '3. Operasyonel Durumların Tasarımı' : '3. Designing Operational States'}
-          </h4>
-          <StateStrip
-            titleTr="Ajan Aksiyon Yaşam Döngüsü Durumları"
-            titleEn="Agent Action Lifecycle States"
-            states={[
-              {
-                id: 'sending',
-                type: 'pending',
-                labelTr: 'Gönderiliyor',
-                labelEn: 'Sending',
-                badgeTr: 'PENDING',
-                badgeEn: 'PENDING',
-                descTr: 'Ajan araca istek gönderdi, yanıt bekleniyor.',
-                descEn: 'Request dispatched to tool endpoint.',
-              },
-              {
-                id: 'sent',
-                type: 'success',
-                labelTr: 'Tamamlandı',
-                labelEn: 'Completed',
-                badgeTr: 'SUCCESS',
-                badgeEn: 'SUCCESS',
-                descTr: 'İşlem başarıyla icra edildi.',
-                descEn: 'Action verified and logged in CRM/Slack.',
-              },
-              {
-                id: 'review',
-                type: 'warning',
-                labelTr: 'İnceleme Gerekli',
-                labelEn: 'Review Required',
-                badgeTr: 'HITL',
-                badgeEn: 'HITL',
-                descTr: 'Güven skoru eşik altında, insan onayı bekliyor.',
-                descEn: 'Awaiting operator review and decision.',
-              },
-              {
-                id: 'rejected',
-                type: 'error',
-                labelTr: 'Reddedildi',
-                labelEn: 'Rejected',
-                badgeTr: 'CANCELLED',
-                badgeEn: 'CANCELLED',
-                descTr: 'Operatör tarafından iptal edildi.',
-                descEn: 'Action rejected with feedback note.',
-              },
-              {
-                id: 'retrying',
-                type: 'neutral',
-                labelTr: 'Yeniden Deneniyor',
-                labelEn: 'Retrying',
-                badgeTr: 'RETRY',
-                badgeEn: 'RETRY',
-                descTr: 'Hata sonrası otomatik kurtarma devrede.',
-                descEn: 'Exponential backoff retry triggered.',
-              },
-            ]}
-            locale={locale}
-          />
-        </div>
-
-        {/* Sub-section: Explainability */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '4. Açıklanabilirlik & Akıl Yürütme İncelemesi' : '4. Explainability & Reasoning Inspection'}
-          </h4>
-          <FeatureVisual
-            slotId="DASHBOARD_ACTIVITY_REASONING"
-            titleTr="Ajan Aktivite Akışı & Akıl Yürütme Detay Paneli"
-            titleEn="Agent Activity Timeline & Reasoning Inspection Panel"
-            tagTr="Açıklanabilir AI"
-            tagEn="Explainable AI"
-            captionTr="Ajanın hangi verilere dayanarak karar aldığını gösteren şeffaf düşünce zinciri."
-            captionEn="Transparent thought-process breakdown citing referenced documents and API calls."
-            locale={locale}
-          />
-        </div>
-
-        {/* Sub-section: Destructive Actions */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-display font-bold text-slate-100">
-            {locale === 'tr' ? '5. Yıkıcı Eylemlerin Güvenli Tasarımı & Ajan Detay Çekmecesi' : '5. De-emphasizing Destructive Actions & Agent Detail Drawer'}
-          </h4>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-            <div className="md:col-span-8">
-              <DetailCrop
-                slotId="DASHBOARD_AGENTS_DRAWER"
-                titleTr="Ajan Yönetim & Sağ Çekmece Görünümü"
-                titleEn="Agent Management & Right Drawer View"
-                badgeTr="Ajan Çekmecesi"
-                badgeEn="Agent Drawer"
-                aspectRatio="16/10"
+          {/* Activity Detail / Reasoning Drawers (Master-Detail Relationship) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            <div>
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-activity-skipped-drawer.webp"
+                alt="Activity Detay: Atlanan Aday ve Karar Ağacı"
+                titleTr="Neden atlandı?"
+                titleEn="Why was it skipped?"
+                badgeTr="DECISION TREE"
+                badgeEn="DECISION TREE"
+                captionTr="3-günlük temas kuralı nedeniyle adayın neden atlandığını adım adım gösteren şeffaf karar ağacı."
+                captionEn="Transparent 4-step decision tree explaining why a duplicate outreach touch was suppressed."
                 locale={locale}
               />
             </div>
-            <div className="md:col-span-4">
-              <DetailCrop
-                slotId="DASHBOARD_DESTRUCTIVE_KEBAB_CROP"
-                titleTr="Yıkıcı Eylem Kebab Menü & Onay Katmanı"
-                titleEn="Destructive Action Kebab Menu & Confirmation Gate"
-                captionTr="Kazara tetiklemeleri önleyen güvenlik katmanı."
-                captionEn="Safety gate preventing accidental destruction."
+
+            <div>
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-activity-reasoning-drawer.webp"
+                alt="Activity Detay: Hata Analizi ve Akıl Yürütme İzi"
+                titleTr="Neden başarısız oldu?"
+                titleEn="Why did it fail?"
+                badgeTr="REASONING TRACE"
+                badgeEn="REASONING TRACE"
+                captionTr="3 deneme sonrası durdurulan e-posta gönderimi ve 'Decide in Items to Review' aksiyon köprüsü."
+                captionEn="Gmail rate-limit trace citing exhausted retries and routing to 'Decide in Items to Review'."
+                locale={locale}
+              />
+            </div>
+          </div>
+
+          {/* Minimal System Model */}
+          <div className="pt-2">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>WHO</span>
+              <span className="text-slate-500">→</span>
+              <span>WHAT</span>
+              <span className="text-slate-500">→</span>
+              <span>STATUS</span>
+              <span className="text-slate-500">→</span>
+              <span>WHEN</span>
+            </div>
+            <span className="text-xs text-slate-400 font-sans ml-3">
+              {locale === 'tr' ? 'Ajan aktivitesini taranabilir kılmak için kullandığım temel bilgi sırası.' : 'This was the information model that needed to look effortless.'}
+            </span>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02F — AGENTS OVERVIEW (Agent Management)                                  */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+                AGENT MANAGEMENT
+              </span>
+              <span className="text-[10px] font-mono text-slate-500">·</span>
+              <span className="text-[10px] font-mono text-purple-300/90 tracking-wider">
+                OVERVIEW → RULES → ACTIONS
+              </span>
+            </div>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Tek tek özellikler değil, çalışan bir ekip.' : 'Not isolated features, but a working team.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Agent ekranında odağım yalnızca hangi ajanların aktif olduğunu göstermek değildi. Kullanıcının her ajanın rolünü, durumunu ve gerektiğinde yönetim seçeneklerini anlayabileceği ortak bir model kurmaya çalıştım.'
+                : 'On the Agents surface, the objective was not merely listing active toggles. I established a cohesive operational model where users configure an agent\'s mission brief, tune score weights, and govern autonomy tiers.'}
+            </p>
+          </div>
+
+          {/* Master Agents Overview Screen */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-agents-main-overview.webp"
+            alt="Operater.io Ajan Yönetim Masası ve Lead Gen Detay Çekmecesi"
+            captionTr="Agents Masası: Sol tarafta ajan filosu sağlık durumları, sağ tarafta seçili ajanın genel bakış çekmecesi."
+            captionEn="Agents Desk: Agent fleet health indicators on the left, paired with the selected agent's overview drawer on the right."
+            showMinimalBar={true}
+            locale={locale}
+          />
+
+          {/* Granular Agent Configuration Drawers */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            <div>
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-agent-brief-rules-drawer.webp"
+                alt="Ajan Görev Tanımı ve Puan Ağırlıkları Paneli"
+                titleTr="Görev Tanımı & Puan Ağırlıkları (Brief & Rules)"
+                titleEn="Mission Brief & Score Weights"
+                badgeTr="Ajan Kuralları"
+                badgeEn="Rules Engine"
+                captionTr="ICP eşleşmesi, kıdem ve sinyal gücü kaydırıcıları ile ajanın değerlendirme kriterlerini ayarlama paneli."
+                captionEn="Configurable sliders tuning ICP match, seniority, and signal thresholds per agent."
+                locale={locale}
+              />
+            </div>
+
+            <div>
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-agent-drawer-overview.webp"
+                alt="Ajan Sağ Çekmece Görünümü"
+                titleTr="Ajan Durum & Yetki Genel Bakışı"
+                titleEn="Agent State & Access Overview"
+                badgeTr="Ajan Çekmecesi"
+                badgeEn="Agent Drawer"
+                captionTr="Ajanın gerçekleştirdiği eylemler, son aktivite zamanı ve anlık aç/kapa anahtarı."
+                captionEn="Tracked actions, recency telemetry, and non-destructive pause/resume toggle."
                 locale={locale}
               />
             </div>
           </div>
         </div>
 
-        {/* Dashboard Reflection */}
-        <ReflectionBlock
-          titleTr="Dashboard Tasarımı Çıkarımları"
-          titleEn="Dashboard Key Takeaways"
-          takeawaysTr={[
-            'İnsan-yapay zeka iş birliğinde en kritik bileşen hızlı ve bağlamından kopmayan inceleme arayüzüdür.',
-            'Yapay zekanın neden hata yaptığını veya neden onay istediğini net açıklamak kullanıcı stresini sıfıra indirir.',
-            'Yıkıcı butonların gizlenmesi operasyon güvenliğini doğrudan teminat altına aldı.',
-          ]}
-          takeawaysEn={[
-            'The pivotal element in human-AI collaboration is a fast, context-preserving review interface.',
-            'Clearly explaining why an agent requires human validation eliminates operator friction and anxiety.',
-            'Safeguarding destructive actions behind secondary gates guaranteed enterprise-level operational safety.',
-          ]}
-          lessonTr="Operatör yapay zekayı bir tehdit veya kontrolsüz bir güç olarak değil, yetkin bir yardımcı olarak görmelidir."
-          lessonEn="The operator should perceive the AI not as a high-risk black box, but as a transparent and collaborative coworker."
-          locale={locale}
-        />
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02G — DESTRUCTIVE ACTION DESIGN DECISION (Real Feedback Story)             */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              VISIBLE ≠ EQUALLY IMPORTANT
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Her aksiyon aynı ağırlığı hak etmiyor.' : 'Not every action deserves the same weight.'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'İlk tasarımda agent üzerinde değişiklik yapma ve silme gibi aksiyonlar ekran üzerinde daha görünürdü. PM feedback\'iyle birlikte özellikle geri döndürülmesi zor aksiyonların ana kullanım akışıyla aynı ağırlıkta olmaması gerektiğini fark ettim. Delete Agent aksiyonunu bunun üzerine kebab menünün içine taşıdım, listenin en altına yerleştirdim ve diğer aksiyonlardan separator ile ayırdım.'
+                : 'In initial iterations, administrative actions like renaming and deletion were exposed prominently on the main canvas. Following product feedback, I recognized that irreversible destructive actions should never compete visually with daily operational tasks. I relocated ‘Delete Agent’ inside a secondary kebab menu, pinned it to the bottom, and isolated it behind a clear visual separator.'}
+            </p>
+          </div>
+
+          {/* Focused Kebab Menu Crop & UX Decision Annotation */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-2">
+            <div className="md:col-span-5 flex justify-center md:justify-start">
+              <ArtifactFrame
+                src="/assets/case-study/operater/operater-agent-kebab-menu-crop.webp"
+                alt="Ajan Sağ Tık Kebab Menüsü ve Delete Agent Ayracı"
+                titleTr="İkincil Kebab Menü"
+                titleEn="Secondary Kebab Menu"
+                badgeTr="Yıkıcı Eylem Güvenliği"
+                badgeEn="Destructive Safety"
+                maxWidth="max-w-xs"
+                locale={locale}
+              />
+            </div>
+
+            <div className="md:col-span-7 space-y-3 font-sans text-xs sm:text-sm text-slate-300">
+              <div className="p-4 bg-[#0F172A]/80 border border-slate-800 rounded-lg space-y-2">
+                <div className="font-display font-bold text-slate-100 text-sm">
+                  {locale === 'tr' ? 'Görünür olmak, aynı önemde olmak demek değil.' : 'Being visible does not mean equally important.'}
+                </div>
+                <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
+                  <li>{locale === 'tr' ? 'Rutin Eylemler: Duplicate, Rename, Export Config üstte.' : 'Routine Actions: Duplicate, Rename, Export Config at the top.'}</li>
+                  <li>{locale === 'tr' ? 'Görsel Ayraç: Kazara tıklamayı önleyen separator çizgisi.' : 'Visual Separator: Clear divider preventing accidental mis-clicks.'}</li>
+                  <li>{locale === 'tr' ? 'Yıkıcı Eylem: Kırmızı vurgulu Delete Agent en altta izole edildi.' : 'Destructive Action: Red-accented Delete Agent isolated at the bottom.'}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 02H — SECTION CONCLUSION & PROGRESSION                                    */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="pt-8 border-t border-slate-800/80 space-y-5">
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              02 / DASHBOARD
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr'
+                ? 'Kontrolü sürekli istemek yerine, ne zaman gerekli olduğunu görünür kılmak.'
+                : 'Instead of demanding constant control, make it clear when control is needed.'}
+            </h4>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
+            {locale === 'tr'
+              ? 'Dashboard üzerinde çalışırken odağım zamanla ekranın kendisinden, sistemin farklı durumlarda kullanıcıyla nasıl iletişim kurduğuna kaydı. Ajanlar arka planda çalışabilir; fakat ne yaptıkları, hangi durumda oldukları ve ne zaman insan kararına ihtiyaç duydukları görünmez kalmamalı.'
+              : 'Working through the dashboard, my focus transitioned from static layouts to orchestrating how the system communicates across operational thresholds. Agents can operate quietly in the background; but what they do, their current state, and the moments requiring human judgment must remain legible.'}
+          </p>
+
+          {/* Minimal System Progression */}
+          <div className="pt-2">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>AGENT ACTS</span>
+              <span className="text-slate-500">→</span>
+              <span>STATE CHANGES</span>
+              <span className="text-slate-500">→</span>
+              <span>SYSTEM SURFACES</span>
+              <span className="text-slate-500">→</span>
+              <span>HUMAN INTERVENES</span>
+            </div>
+          </div>
+
+          {/* Section 02 Closing Statement */}
+          <div className="pt-4">
+            <blockquote className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-100 leading-snug pl-4 border-l-2 border-purple-500">
+              “{locale === 'tr' ? 'Otonomi görünmezlik değil.' : 'Autonomy is not invisibility.'}”
+            </blockquote>
+          </div>
+        </div>
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 03 — SETTINGS & GOVERNANCE SECTION (Untouched)                            */}
+      {/* 03 — SETTINGS & GOVERNANCE SECTION (Preserved)                            */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="settings"
@@ -1038,7 +1435,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </section>
 
       {/* ========================================================================= */}
-      {/* 10. RETROSPECTIVE (Replaced "A Personal Milestone")                        */}
+      {/* RETROSPECTIVE (Preserved)                                                 */}
       {/* ========================================================================= */}
       <section className="p-6 sm:p-8 bg-gradient-to-br from-[#0F172A] to-[#1E1B4B]/20 border border-purple-900/40 rounded-2xl space-y-3">
         <div className="space-y-1">
