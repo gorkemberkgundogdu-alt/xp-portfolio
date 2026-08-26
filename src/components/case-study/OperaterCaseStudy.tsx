@@ -36,7 +36,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
   return (
     <article className="w-full max-w-5xl mx-auto space-y-12 select-text font-sans text-slate-200">
       {/* ========================================================================= */}
-      {/* PROJECT COVER / HERO                                                      */}
+      {/* PROJECT COVER / HERO (Preserved)                                          */}
       {/* ========================================================================= */}
       <header className="space-y-8 pb-8 border-b border-slate-800">
         {/* Top Badges & Live Platform Link */}
@@ -143,7 +143,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </header>
 
       {/* ========================================================================= */}
-      {/* 01 — ONBOARDING SECTION                                                   */}
+      {/* 01 — ONBOARDING SECTION (Refined Copy & Narrative)                         */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="onboarding"
@@ -156,32 +156,32 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
         onToggle={() => toggleSection('onboarding')}
         locale={locale}
       >
-        {/* Editorial Statement 1: Trust Before Autonomy */}
+        {/* 1. OPENING STATEMENT */}
         <EditorialStatement
           quoteTr="Otonomiden önce güven gelir."
           quoteEn="Before autonomy comes trust."
-          subtextTr="Otonom yapay zeka ajanları, şirket verilerine ve iş araçlarına doğrudan erişim gerektirir. Kullanıcının kontrolü kaybetme korkusunu aşmanın tek yolu; açılış deneyimini sürtünmesiz, şeffaf ve her aşamada net kılmaktır."
-          subtextEn="Autonomous AI agents request direct access to enterprise tools and proprietary context. Overcoming initial security friction requires an onboarding experience engineered around transparency, clarity, and zero ambiguity."
+          subtextTr="Otonom ajanlar şirket verilerine ve kullanılan araçlara doğrudan erişiyor. Bu yüzden onboarding'deki ilk problem kullanıcıyı mümkün olduğunca hızlı ilerletmek değil, neye erişildiğini ve kontrolün kimde olduğunu her adımda anlaşılır kılmaktı."
+          subtextEn="Autonomous agents access company data and core tools directly. Therefore, the primary challenge in onboarding was not pushing users through as fast as possible, but making data access and user control transparent at every step."
           locale={locale}
         />
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01A — EMAIL VERIFICATION (Transitional Artifact)                           */}
+        {/* 2. EMAIL VERIFICATION / TRANSITION                                        */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left Column: Narrative */}
             <div className="md:col-span-6 space-y-3">
               <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
-                {locale === 'tr' ? 'Adım 01 · Geçiş Katmanı' : 'Step 01 · Transitional Step'}
+                {locale === 'tr' ? 'ADIM 01 · GEÇİŞ KATMANI' : 'STEP 01 · TRANSITIONAL STEP'}
               </span>
               <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
                 {locale === 'tr' ? 'Hesap Açılışından Ürün Kurulumuna Kesintisiz Geçiş' : 'A Frictionless Bridge into Product Setup'}
               </h4>
               <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
                 {locale === 'tr'
-                  ? 'Kayıt işlemi tamamlandıktan hemen sonra kullanıcıyı karmaşık bir form yığını yerine 6 haneli odaklanmış doğrulama ekranı karşılar. Boş alanlardan arındırılmış bu ara durak, kullanıcıyı bilişsel olarak bir sonraki şirket kurulumuna hazırlar.'
-                  : 'Immediately after account creation, users encounter a focused 6-digit verification modal rather than cognitive clutter. Stripped of excess canvas, it acts as a lightweight security bridge directly into workspace configuration.'}
+                  ? 'Kayıt tamamlandıktan sonra kullanıcıyı uzun bir kurulum formuna göndermek yerine araya yalnızca e-posta doğrulamasını koydum. Altı haneli kod ekranı hem hesabı güvenceye alıyor hem de kayıt ile şirket kurulumu arasında kısa ve anlaşılır bir geçiş yaratıyor.'
+                  : 'Rather than routing users into a long setup form immediately after signup, I placed only email verification in between. The 6-digit code screen secures the account while creating a brief, focused transition into company onboarding.'}
               </p>
             </div>
 
@@ -193,9 +193,9 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
                 titleTr="6 Haneli Güvenlik Doğrulaması"
                 titleEn="6-Digit Security Verification"
                 badgeTr="Geçiş Arayüzü"
-                badgeEn="Transitional Artifact"
-                captionTr="Gereksiz boşluklardan arındırılmış, sürtünmesiz doğrulama modalı."
-                captionEn="Clean, cropped verification modal maintaining momentum into setup."
+                badgeEn="Transitional Step"
+                captionTr="6 haneli doğrulama, kayıt ile şirket kurulumu arasındaki tek ara adım."
+                captionEn="6-digit verification: the single focused step between signup and company onboarding."
                 maxWidth="max-w-xs"
                 locale={locale}
               />
@@ -204,14 +204,14 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01B — COMPANY CONTEXT (User Input -> Agent Context)                       */}
+        {/* 3. COMPANY CONTEXT                                                        */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-8 border-t border-slate-800/80">
           <EditorialStatement
             quoteTr="Aksiyondan önce bağlam."
             quoteEn="Context before action."
-            subtextTr="Arayüz sadece şirket bilgisi toplamaz; girilen bilginin yapay zeka ajanlarının kavrayışını ve çalışma kalitesini nasıl şekillendireceğini anlık olarak kullanıcıya kanıtlar."
-            subtextEn="The interface does not merely collect static domain fields; it actively proves in real time how supplied context empowers autonomous agent understanding."
+            subtextTr="Şirket bilgileri yalnızca profil oluşturmak için toplanmıyor. Kullanıcının girdiği bağlam, ajanların şirketi nasıl anlayacağını ve sonraki aksiyonlarını doğrudan etkiliyor. Bu ilişkiyi form doldurulurken görünür hale getirdim."
+            subtextEn="Company data is not collected merely for profile creation. The context provided directly shapes how agents understand the business and take action. I made this causal relationship visible as the form is completed."
             locale={locale}
           />
 
@@ -234,8 +234,8 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           <ProductFrame
             src="/assets/case-study/operater/operater-company-setup.webp"
             alt="Operater Şirket Tanımlama ve Canlı Önizleme Ekranı"
-            captionTr="Sol tarafta şirket bilgileri tanımlanırken, sağ tarafta 'YOUR AGENTS WILL SEE' alanında ajanın veriyi nasıl yorumlayacağı anlık simüle edilir."
-            captionEn="While defining company domain inputs on the left, the 'YOUR AGENTS WILL SEE' container previews live agent reasoning."
+            captionTr="Şirket bilgisi girildikçe ajan bağlamının nasıl oluşacağı eş zamanlı gösteriliyor."
+            captionEn="Live preview demonstrating how agent context is generated in real time as company details are input."
             showMinimalBar={true}
             locale={locale}
           />
@@ -248,8 +248,8 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
                 alt="Canlı Ajan Bağlam Simülasyonu Kırpması"
                 titleTr="Canlı Bağlam Simülasyonu (YOUR AGENTS WILL SEE)"
                 titleEn="Live Context Simulation (YOUR AGENTS WILL SEE)"
-                badgeTr="Mikro-Etkileşim Kanıtı"
-                badgeEn="Micro-Interaction Evidence"
+                badgeTr="Canlı Önizleme"
+                badgeEn="Live Preview"
                 maxWidth="max-w-lg"
                 locale={locale}
               />
@@ -260,28 +260,28 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
               </h5>
               <p className="text-slate-400 leading-relaxed text-xs">
                 {locale === 'tr'
-                  ? 'Kullanıcı form doldurmayı sıkıcı bir formalite olarak değil, kendi yapay zeka çalışanını eğittiği interaktif bir hazırlık süreci olarak deneyimler.'
-                  : 'Transforms static form completion into an engaging training loop where users observe their input shaping autonomous behavior in real time.'}
+                  ? 'Kullanıcı şirketini tanımlarken sağ taraftaki önizleme aynı bilgiyi ajanın göreceği bağlama dönüştürüyor. Böylece girilen bilginin sistemde nereye gittiği daha kurulum sırasında görülebiliyor.'
+                  : 'As users define their company, the live preview translates that information into the context agents will see. This allows users to understand where their input lands in the system during initial setup.'}
               </p>
             </div>
           </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01C — ENABLE AGENTS (The Inflection Moment)                                */}
+        {/* 4. ENABLE AGENTS                                                          */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-8 border-t border-slate-800/80">
           <div className="space-y-2">
             <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
-              {locale === 'tr' ? 'Adım 02 · Kırılma Anı' : 'Step 02 · The Core Mental Model'}
+              {locale === 'tr' ? 'ADIM 02 · AJAN SEÇİMİ' : 'STEP 02 · AGENT SELECTION'}
             </span>
             <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
               {locale === 'tr' ? 'İlk Ajanları Etkinleştirmek (Enable Agents)' : 'Enabling the First AI Agents'}
             </h4>
             <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
               {locale === 'tr'
-                ? 'Bu ekran sıradan bir özellik aç/kapa listesi değildir. Kullanıcının Operater’ın temel çalışma felsefesini (iş akışlarını üstlenen, araçları kullanan ve otonom çalışan ajanlar) ilk kez kavradığı ve operasyon modelini kurduğu ana dönüm noktasıdır.'
-                : 'Far from a generic feature toggle list, this is the central inflection point where users grasp Operater’s core philosophy: autonomous AI teammates that own dedicated workflows, invoke tools, and operate continuously.'}
+                ? 'Kullanıcı burada yalnızca bir ajan seçmiyor. Her kart, ajanın hangi işi üstlendiğini, hangi araçlara ihtiyaç duyduğunu ve mevcut durumunu aynı yüzeyde gösteriyor. Böylece seçim, isim veya kategori yerine ajanın gerçek çalışma alanı üzerinden yapılabiliyor.'
+                : 'Users are not merely picking an agent here. Each card surfaces what work the agent owns, what tools it requires, and its current status on a single canvas. Selection happens through operational scope rather than abstract names.'}
             </p>
           </div>
 
@@ -303,13 +303,13 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
                   1
                 </span>
                 <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
-                  {locale === 'tr' ? 'Ajanın Görevi (Mission)' : 'Agent Mission & Purpose'}
+                  {locale === 'tr' ? 'Görev' : 'Mission'}
                 </h5>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
                 {locale === 'tr'
-                  ? 'Her ajanın uzmanlaştığı operasyonel iş akışı (Lead Gen, Outreach, PR, CRM) açık ve net tanımlanır.'
-                  : 'Explicit mission statement defining the exact operational workflow owned by the agent.'}
+                  ? 'Ajanın üstlendiği iş ve üreteceği çıktı.'
+                  : 'The operational workflow owned by the agent and its expected output.'}
               </p>
             </div>
 
@@ -319,13 +319,13 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
                   2
                 </span>
                 <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
-                  {locale === 'tr' ? 'Gerekli Araçlar (Required Tools)' : 'Required Integrations'}
+                  {locale === 'tr' ? 'Gerekli Araçlar' : 'Required Tools'}
                 </h5>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
                 {locale === 'tr'
-                  ? 'Ajanın çalışması için ihtiyaç duyduğu Slack, Gmail, HubSpot gibi araçlar kart üzerinde peşinen gösterilir.'
-                  : 'Required tool scopes (Slack, Gmail, HubSpot) are surfaced transparently upfront on each card.'}
+                  ? 'Çalışabilmesi için bağlanması gereken veri kaynakları.'
+                  : 'The data sources and integrations required for execution.'}
               </p>
             </div>
 
@@ -335,27 +335,27 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
                   3
                 </span>
                 <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
-                  {locale === 'tr' ? 'Aktivasyon Durumu (State)' : 'Enable & Readiness State'}
+                  {locale === 'tr' ? 'Durum' : 'Status'}
                 </h5>
               </div>
               <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
                 {locale === 'tr'
-                  ? 'Kullanıcı tek tıkla ajanı çalışma alanına dahil eder ve arka plan hazırlık sürecini başlatır.'
-                  : 'Single-click enable action immediately provisioning the agent for workspace execution.'}
+                  ? 'Ajanın kullanıma hazır, hazırlanıyor veya devre dışı olduğunu gösteren durum bilgisi.'
+                  : 'Status indicators showing ready, provisioning, or disabled states.'}
               </p>
             </div>
           </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01D — CONNECT TOOLS (Connect Once, Reuse Everywhere)                      */}
+        {/* 5. WORKSPACE-SCOPED CONNECTION                                            */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-8 border-t border-slate-800/80">
           <EditorialStatement
             quoteTr="Bir kez bağla. Her yerde kullan."
             quoteEn="Connect once. Reuse everywhere."
-            subtextTr="Çalışma alanı kapsamlı (workspace-scoped) bağlantı modeli sayesinde bir araç (örneğin HubSpot veya Slack) bir kez bağlandığında, o araca ihtiyaç duyan tüm yetkili ajanlar aynı güvenli kimlik bilgisini yeniden izin istemeden kullanır."
-            subtextEn="Under the workspace-scoped connection model, authenticating an enterprise tool once allows all authorized agents to leverage that credential automatically. One connection powers multiple autonomous agents."
+            subtextTr="Entegrasyonları ajan bazında tekrar tekrar bağlatmak yerine çalışma alanı seviyesinde ele aldım. Slack veya HubSpot bir kez bağlandığında, aynı araca ihtiyaç duyan diğer ajanlar mevcut bağlantıyı yeniden kullanabiliyor."
+            subtextEn="Rather than prompting tool connections repeatedly per agent, I architected integrations at the workspace level. Once Slack or HubSpot is connected, any authorized agent requiring that tool reuses the existing credential."
             locale={locale}
           />
 
@@ -392,20 +392,20 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01E — AUTHORIZATION (Permission Transparency)                             */}
+        {/* 6. PERMISSION TRANSPARENCY                                                */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-8 border-t border-slate-800/80">
           <div className="space-y-2">
             <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
-              {locale === 'tr' ? 'Adım 03 · İzin Şeffaflığı' : 'Step 03 · Permission Transparency'}
+              {locale === 'tr' ? 'ADIM 03 · İZİN ŞEFFAFLIĞI' : 'STEP 03 · PERMISSION TRANSPARENCY'}
             </span>
             <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
-              {locale === 'tr' ? 'Kurumsal Güvenlik: Slack ve HubSpot Yetkilendirme Modalları' : 'Enterprise Trust: Slack & HubSpot Authorization Modals'}
+              {locale === 'tr' ? 'Bağlanmadan Önce Neye İzin Verildiği Görülmeli' : 'Surfacing Permission Scopes Before Connection'}
             </h4>
             <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
               {locale === 'tr'
-                ? 'Slack entegrasyonunda özel mesajların (DM) asla okunmayacağının açıkça belirtilmesi ve HubSpot izinlerinin şeffaf dökümü, kurumsal IT güvenlik onaylarını hızlandıran temel UX kararları oldu.'
-                : 'Surfacing explicit privacy guarantees (such as "DMs are never accessed" in Slack) and granular CRM scopes directly eliminated enterprise security friction during authentication.'}
+                ? 'Üçüncü taraf bağlantılarında yalnızca ‘Connect’ demek yeterli değildi. Kullanıcıya Operater\'ın hangi verilere erişeceğini ve hangi aksiyonları gerçekleştirebileceğini yetkilendirmeden önce açıkça göstermeyi tercih ettim.'
+                : 'In third-party integrations, a simple ‘Connect’ button was insufficient. I chose to explicitly surface what data Operater will access and what actions it can perform before users grant authorization.'}
             </p>
           </div>
 
@@ -438,23 +438,34 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
               />
             </div>
           </div>
+
+          {/* Editorial Punctuation Statement */}
+          <div className="pt-4">
+            <div className="border-l-2 border-purple-500 pl-4 py-1">
+              <p className="text-sm sm:text-base md:text-lg font-display font-bold text-slate-200 leading-snug">
+                “{locale === 'tr'
+                  ? 'Güven, bağlantı kurulduktan sonra açıklanan bir detay değil; bağlantının ön koşulu.'
+                  : 'Trust is not an afterthought explained after connection; it is the prerequisite for connecting.'}”
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* 01F — SUCCESS STATES & DASHBOARD LAUNCHPAD                                */}
+        {/* 7. REBUILD THE FINAL ONBOARDING NARRATIVE (Transition to Operations)       */}
         {/* ------------------------------------------------------------------------- */}
         <div className="space-y-6 pt-8 border-t border-slate-800/80">
           <div className="space-y-2">
             <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
-              {locale === 'tr' ? 'Adım 04 · Kapanış & Dashboard Köprüsü' : 'Step 04 · System Readiness & Launchpad'}
+              {locale === 'tr' ? 'ADIM 04 · OPERASYONA GEÇİŞ' : 'STEP 04 · TRANSITION TO OPERATIONS'}
             </span>
             <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
-              {locale === 'tr' ? 'Mutlu Yolun Ötesi & Dashboard Öncesi Başlangıç Masası' : 'Beyond the Happy Path & The Final Pre-Dashboard Launchpad'}
+              {locale === 'tr' ? 'Kurulum Bitti. Peki Şimdi Ne Olacak?' : 'Setup Complete. What Happens Next?'}
             </h4>
             <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
               {locale === 'tr'
-                ? 'Bağlantı teyidi alındıktan sonra kullanıcı boşlukta bırakılmaz. Kurulum süreci; bağlantı başarısı, hazır ekip bildirimi ve doğrudan canlı operasyon merkezine (Dashboard) geçişi sağlayan kişiselleştirilmiş "İlk AI Takım Arkadaşı" başlangıç masasıyla taçlandırılır.'
-                : 'Following integration verification, users are never left in an ambiguous void. The onboarding arc culminates in connection confirmations, team readiness signals, and the personalized launchpad bridging directly into live dashboard operations.'}
+                ? 'Araçlar bağlandı ve ajanlar hazır. Ancak teknik kurulumun tamamlanması, kullanıcının ürünü kullanmaya hazır olduğu anlamına gelmiyor. Dashboard\'a geçmeden önce tasarladığım son ekran, kurulan sistemin nasıl çalışacağını üç basit adımda yeniden özetliyor.'
+                : 'Tools are wired up and agents are ready. But completing technical setup does not automatically mean the user understands what to do next. The final screen I designed before the dashboard summarizes how the system will work in three simple steps.'}
             </p>
           </div>
 
@@ -465,10 +476,10 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
               alt="HubSpot Bağlantı Başarısı Onay Ekranı"
               titleTr="Bağlantı Başarılı"
               titleEn="Connection Verified"
-              badgeTr="Başarı Bildirimi"
-              badgeEn="Success State"
-              captionTr="Tüm ajanların HubSpot ile çalışmaya hazır olduğunun doğrulaması."
-              captionEn="Verification that all agents are empowered with HubSpot access."
+              badgeTr="Tamamlandı"
+              badgeEn="Verified"
+              captionTr="Bağlantının yalnızca başarılı olduğunu değil, artık hangi ajanlar tarafından kullanılabileceğini de doğruluyor."
+              captionEn="Verifies not only a successful handshake, but explicitly confirms which agents are now empowered to use it."
               maxWidth="max-w-sm"
               locale={locale}
             />
@@ -476,58 +487,147 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
               src="/assets/case-study/operater/crop-team-ready.webp"
               alt="Operater AI Takımı Hazır Kapanış Ekranı"
               titleTr="AI Takımı Hazır"
-              titleEn="Your AI Team is Ready"
-              badgeTr="Onboarding Kapanışı"
-              badgeEn="Setup Complete"
-              captionTr="1 Çalışma Alanı, 2 Ajan, 1 Araç kurulumunun tamamlanma anı."
-              captionEn="Immediate readiness: 1 Space created, 2 Agents active, 1 Tool connected."
+              titleEn="AI Team Ready"
+              badgeTr="Hazır"
+              badgeEn="Ready"
+              captionTr="Kurulumun sonucunu çalışma alanı, ajan ve bağlı araç sayısıyla somutlaştırıyor."
+              captionEn="Materializes setup outcomes into concrete counts: 1 workspace, active agents, and connected tools."
               maxWidth="max-w-sm"
               locale={locale}
             />
           </div>
 
-          {/* The Pivotal Pre-Dashboard Launchpad Screen */}
-          <div className="pt-4 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 bg-purple-950/80 border border-purple-800/70 text-purple-300 text-[10px] font-mono uppercase tracking-wider rounded">
-                {locale === 'tr' ? 'Dashboard Öncesi Son Ekran' : 'Final Pre-Dashboard Screen'}
+          {/* 8. STRENGTHEN THE “HI [NAME]” SCREEN */}
+          <div className="pt-8 border-t border-slate-800/60 space-y-4">
+            <div className="space-y-1.5">
+              <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+                {locale === 'tr' ? 'DASHBOARD ÖNCESİ SON EKRAN' : 'FINAL PRE-DASHBOARD SCREEN'}
               </span>
+              <h5 className="text-lg sm:text-xl font-display font-bold text-slate-100">
+                {locale === 'tr' ? 'Teknik Kurulumdan İlk Operasyona' : 'From Technical Setup to First Operation'}
+              </h5>
+              <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+                {locale === 'tr'
+                  ? 'Kullanıcıyı başarı ekranından doğrudan yoğun bir Dashboard\'a göndermek yerine, karşısına bundan sonra ürünün nasıl çalışacağını anlatan basit bir mental model çıkıyor.'
+                  : 'Rather than dropping users from a success screen straight into a dense dashboard, this screen provides a clear mental model of how the product will function.'}
+              </p>
             </div>
+
+            {/* Prominent Launchpad Product Frame */}
             <ProductFrame
               src="/assets/case-study/operater/operater-first-teammate-launchpad.webp"
               alt="Operater İlk AI Takım Arkadaşı Başlangıç Masası"
-              captionTr="Onboarding'den canlı Dashboard operasyonlarına geçişi sağlayan 3 adımlı net karşılama ve başlangıç ekranı."
-              captionEn="The pivotal 3-step launchpad welcoming founders and transitioning them directly into live dashboard operations."
+              captionTr="Kullanıcıyı karşılayan ve doğrudan canlı operasyon merkezine bağlayan 3 adımlı başlangıç ekranı."
+              captionEn="The pivotal 3-step launchpad welcoming founders and transitioning them directly into live operations."
               showMinimalBar={true}
               locale={locale}
             />
+
+            {/* Lightweight Monospace / Editorial Annotations */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3 bg-[#0F172A]/70 border border-slate-800/80 rounded-lg space-y-1">
+                <span className="font-mono text-[11px] font-bold text-purple-400 block">
+                  01 · Connect Your Tools
+                </span>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  {locale === 'tr'
+                    ? 'Ajanların çalışacağı veri kaynaklarını belirle.'
+                    : 'Designate the data sources where agents will operate.'}
+                </p>
+              </div>
+
+              <div className="p-3 bg-[#0F172A]/70 border border-slate-800/80 rounded-lg space-y-1">
+                <span className="font-mono text-[11px] font-bold text-purple-400 block">
+                  02 · Enable AI Agents
+                </span>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  {locale === 'tr'
+                    ? 'Bu araçların üzerinde çalışacak ajanları etkinleştir.'
+                    : 'Enable the specific agents working across those tools.'}
+                </p>
+              </div>
+
+              <div className="p-3 bg-[#0F172A]/70 border border-slate-800/80 rounded-lg space-y-1">
+                <span className="font-mono text-[11px] font-bold text-purple-400 block">
+                  03 · See It Work
+                </span>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  {locale === 'tr'
+                    ? 'Ajanların ürettiği işleri ve sinyalleri operasyon ekranından takip et.'
+                    : 'Track generated signals and tasks directly from the operations desk.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Editorial Closing Statement */}
+            <div className="pt-6">
+              <blockquote className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-100 leading-snug pl-4 border-l-2 border-purple-500">
+                “{locale === 'tr'
+                  ? 'Onboarding benim için kurulum tamamlandığında değil, kullanıcı bundan sonra ne olacağını bildiğinde bitiyor.'
+                  : 'For me, onboarding does not conclude when setup finishes, but when the user clearly understands what happens next.'}”
+              </blockquote>
+            </div>
           </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* REFLECTION: WHAT CHANGED IN MY THINKING                                   */}
+        {/* 9. DESIGN PROCESS TAKEAWAYS (Replaced "Düşünce Yapımda Ne Değişti?")       */}
         {/* ------------------------------------------------------------------------- */}
-        <ReflectionBlock
-          titleTr="Düşünce Yapımda Ne Değişti?"
-          titleEn="What Changed in My Thinking"
-          takeawaysTr={[
-            'Ekrandan Akışa: Yalnızca tekil UI ekranları tasarlamaktan, kullanıcı ve ajan arasındaki çok adımlı uçtan uca yolculukları kurgulamaya geçtim.',
-            'Akıştan Durumlara: Yalnızca mutlu yolu değil; bağlantı kopması, eksik yetki ve kurtarma adımları gibi tüm operasyonel durumları peşinen tasarlamayı benimsedim.',
-            'Durumlardan Sisteme: Bileşenleri ve izinleri izole düşünmek yerine; bir kez bağlanan aracın tüm çalışma alanında yeniden kullanılabilir olduğu ölçeklenebilir bir sistem mimarisi inşa ettim.',
-          ]}
-          takeawaysEn={[
-            'From Screens to Flows: Shifted focus from isolated visual canvases to orchestrating multi-step human-AI collaborative journeys.',
-            'From Flows to States: Systematically designed edge cases, connection timeouts, and self-healing recovery paths rather than assuming happy paths.',
-            'From States to Systems: Architected reusable, workspace-scoped permission models where one connection seamlessly empowers multiple autonomous agents.',
-          ]}
-          lessonTr="Tasarım ilerledikçe; Ekran → Akış → Durumlar → Sistem hiyerarşisinin ürün olgunluğunu belirleyen ana unsur olduğunu gördüm."
-          lessonEn="As product depth matured, I realized the true continuum of UX excellence: Screen → Flow → States → System."
-          locale={locale}
-        />
+        <div className="pt-8 border-t border-slate-800/80 space-y-5">
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              {locale === 'tr' ? 'TASARIM SÜRECİNDEN ÇIKARDIĞIM' : 'DESIGN TAKEAWAYS'}
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Ekranlardan durumlara, durumlardan sisteme.' : 'From screens to states, from states to systems.'}
+            </h4>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
+            {locale === 'tr'
+              ? 'İlk başta problem tek tek onboarding ekranlarını çözmek gibi görünüyordu. Akış büyüdükçe tasarım kararlarını değiştiren sorular ekranların arasında ortaya çıkmaya başladı.'
+              : 'Initially, the challenge seemed to be solving individual onboarding screens. As the workflow expanded, critical questions began emerging in between the screens.'}
+          </p>
+
+          {/* Visually Distinguished Questions (Clean minimal grid, no heavy cards) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
+            <div className="px-3.5 py-2.5 bg-[#0F172A]/80 border-l-2 border-purple-500 rounded-r-lg text-xs font-mono text-slate-200">
+              “{locale === 'tr' ? 'Bağlantı başarısız olursa ne olur?' : 'What happens if a connection fails?'}”
+            </div>
+            <div className="px-3.5 py-2.5 bg-[#0F172A]/80 border-l-2 border-purple-500 rounded-r-lg text-xs font-mono text-slate-200">
+              “{locale === 'tr' ? 'Bir ajan gerekli izne sahip değilse?' : 'What if an agent lacks required scopes?'}”
+            </div>
+            <div className="px-3.5 py-2.5 bg-[#0F172A]/80 border-l-2 border-purple-500 rounded-r-lg text-xs font-mono text-slate-200">
+              “{locale === 'tr' ? 'İnsan onayı gerekiyorsa?' : 'What if human review is required?'}”
+            </div>
+            <div className="px-3.5 py-2.5 bg-[#0F172A]/80 border-l-2 border-purple-500 rounded-r-lg text-xs font-mono text-slate-200">
+              “{locale === 'tr' ? 'İkinci bir ajan aynı bağlantıyı kullanacaksa?' : 'What if a second agent shares that connection?'}”
+            </div>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
+            {locale === 'tr'
+              ? 'Bu sorularla birlikte odağım tekil ekranlardan; durumlara, izinlere ve ürün genelinde tekrar kullanılabilecek davranış kurallarına kaydı.'
+              : 'These questions shifted my focus from isolated canvases to states, permissions, and reusable interaction rules across the product.'}
+          </p>
+
+          {/* Monospace Progression */}
+          <div className="pt-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#0F172A] border border-slate-800 rounded-md font-mono text-[11px] text-purple-300">
+              <span>SCREEN</span>
+              <span className="text-slate-500">→</span>
+              <span>FLOW</span>
+              <span className="text-slate-500">→</span>
+              <span>STATE</span>
+              <span className="text-slate-500">→</span>
+              <span>SYSTEM</span>
+            </div>
+          </div>
+        </div>
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 02 — DASHBOARD SECTION                                                    */}
+      {/* 02 — DASHBOARD SECTION (Untouched)                                        */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="dashboard"
@@ -752,7 +852,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 03 — SETTINGS & GOVERNANCE SECTION                                        */}
+      {/* 03 — SETTINGS & GOVERNANCE SECTION (Untouched)                            */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="settings"
@@ -938,22 +1038,41 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </section>
 
       {/* ========================================================================= */}
-      {/* CASE STUDY CONCLUSION (Layer 2: A Personal Milestone)                    */}
+      {/* 10. RETROSPECTIVE (Replaced "A Personal Milestone")                        */}
       {/* ========================================================================= */}
       <section className="p-6 sm:p-8 bg-gradient-to-br from-[#0F172A] to-[#1E1B4B]/20 border border-purple-900/40 rounded-2xl space-y-3">
-        <div className="flex items-center gap-2.5">
-          <span className="w-6 h-6 rounded-full bg-purple-900/90 border border-purple-700/60 text-purple-300 text-xs flex items-center justify-center font-bold">
-            ★
+        <div className="space-y-1">
+          <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+            RETROSPECTIVE
           </span>
-          <h3 className="text-base sm:text-lg font-display font-bold text-slate-100">
-            {locale === 'tr' ? 'Kişisel Bir Dönüm Noktası' : 'A Personal Milestone'}
+          <h3 className="text-base sm:text-xl font-display font-bold text-slate-100">
+            {locale === 'tr'
+              ? 'Bu projede rolüm ekran tasarlamanın ötesine geçti.'
+              : 'In this project, my role extended beyond designing screens.'}
           </h3>
         </div>
-        <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-          {locale === 'tr'
-            ? 'Operater.io, mevcut bir tasarım kılavuzu olmadan, 0’dan 1’e karmaşık bir B2B yapay zeka operasyon platformunun tüm tasarım vizyonunu ve sistematiğini tek başıma şekillendirdiğim en kapsamlı projelerden biri oldu. Tasarımın yalnızca görsel bir cila değil; yapay zeka gibi soyut bir teknolojiyi somut, güvenilir ve vazgeçilmez bir iş aracına dönüştüren ana omurga olduğunu bir kez daha kanıtladı.'
-            : 'Operater.io stands as one of the most comprehensive milestones in my career: establishing the entire design vision, UI architecture, and component library from 0 to 1 without pre-existing guidelines. It reinforced my core philosophy that design is not mere visual polish, but the foundational bridge turning ambiguous AI capabilities into indispensable, trustworthy enterprise software.'}
-        </p>
+        <div className="space-y-3 text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+          <p>
+            {locale === 'tr'
+              ? 'Operater.io\'ya başladığımda önümde takip edebileceğim hazır bir tasarım sistemi veya tamamlanmış ürün kalıpları yoktu. Onboarding\'den ajan seçimlerine, entegrasyonlardan izin ve durum modellerine kadar birçok yapıyı ürünle birlikte şekillendirdim.'
+              : 'When I started Operater.io, there were no pre-existing design systems or established UI patterns to follow. From onboarding to agent catalogs, from integrations to permission and state models, I shaped these systems alongside the product.'}
+          </p>
+          <p>
+            {locale === 'tr' ? (
+              <>
+                Benim için asıl kazanım, AI ürünlerinde arayüzün yalnızca yapılan işi göstermekten ibaret olmadığını görmek oldu. Kullanıcının ajanın{' '}
+                <span className="text-purple-300 font-medium">ne yaptığını, neye eriştiğini ve ne zaman kendisinin devreye girmesi gerektiğini</span>{' '}
+                anlayabilmesi tasarım probleminin merkezine yerleşti.
+              </>
+            ) : (
+              <>
+                For me, the primary realization was that in AI products, an interface is not merely about showcasing outputs. Helping users understand{' '}
+                <span className="text-purple-300 font-medium">what the agent does, what it accesses, and when they need to step in</span>{' '}
+                became the true core of the design problem.
+              </>
+            )}
+          </p>
+        </div>
       </section>
 
       {/* ========================================================================= */}
@@ -965,7 +1084,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           <div className="font-sans">Görkem Berk Gündoğdu · UI/UX Designer</div>
         </div>
 
-        {/* Action CTAs: Live Product & Reserved Figma Prototype */}
+        {/* Action CTAs: Live Product & Figma Designs */}
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="https://operater.io"
