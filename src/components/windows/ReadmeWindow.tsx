@@ -57,7 +57,45 @@ export const ReadmeWindow: React.FC = () => {
                 <div className="text-[11px] text-slate-600 leading-relaxed max-w-2xl">
                   Çoğunlukla web ve SaaS için tasarlıyorum. Tasarladıklarımı web ortamında geliştiriyorum. Son zamanlarda mobil tarafı da daha fazla keşfediyorum.
                 </div>
-                <div className="text-[11px] text-slate-500 pt-0.5">🏢 Operater.io (UI/UX) · 🚀 v1be.io (Co-Founder) · 📍 İstanbul, TR</div>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 font-sans">
+                  <a
+                    href="https://operater.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-950 border border-blue-200 rounded text-[11px] font-semibold transition-colors no-underline"
+                    title="Operater.io · UI/UX Designer"
+                  >
+                    <img
+                      src="/assets/operater-logo.webp"
+                      alt="Operater.io"
+                      width={13}
+                      height={13}
+                      className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                    />
+                    <span>Operater.io · UI/UX Designer</span>
+                  </a>
+
+                  <a
+                    href="https://v1be.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200 rounded text-[11px] font-semibold transition-colors no-underline"
+                    title="v1be.io · Co-Founder"
+                  >
+                    <img
+                      src="/assets/v1be-logo.webp"
+                      alt="v1be.io"
+                      width={13}
+                      height={13}
+                      className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                    />
+                    <span>v1be.io · Co-Founder</span>
+                  </a>
+
+                  <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                    📍 İstanbul, TR
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -106,7 +144,45 @@ export const ReadmeWindow: React.FC = () => {
                 <div className="text-[11px] text-slate-600 leading-relaxed max-w-2xl">
                   Mostly designing for web and SaaS. Often building what I design for the web. Lately, exploring more of mobile too.
                 </div>
-                <div className="text-[11px] text-slate-600">🏢 Operater.io (UI/UX) · 🚀 v1be.io (Co-Founder) · 📍 Istanbul, TR</div>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 font-sans">
+                  <a
+                    href="https://operater.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-950 border border-blue-200 rounded text-[11px] font-semibold transition-colors no-underline"
+                    title="Operater.io · UI/UX Designer"
+                  >
+                    <img
+                      src="/assets/operater-logo.webp"
+                      alt="Operater.io"
+                      width={13}
+                      height={13}
+                      className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                    />
+                    <span>Operater.io · UI/UX Designer</span>
+                  </a>
+
+                  <a
+                    href="https://v1be.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-200 rounded text-[11px] font-semibold transition-colors no-underline"
+                    title="v1be.io · Co-Founder"
+                  >
+                    <img
+                      src="/assets/v1be-logo.webp"
+                      alt="v1be.io"
+                      width={13}
+                      height={13}
+                      className="w-3.5 h-3.5 rounded-xs shrink-0 object-contain"
+                    />
+                    <span>v1be.io · Co-Founder</span>
+                  </a>
+
+                  <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                    📍 Istanbul, TR
+                  </span>
+                </div>
               </div>
             </div>
 
