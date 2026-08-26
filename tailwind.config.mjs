@@ -4,6 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        display: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         xp: ['Tahoma', 'Segoe UI', 'Trebuchet MS', 'Arial', 'sans-serif'],
         pixel: ['"MS Sans Serif"', 'Tahoma', 'sans-serif'],
         mono: ['"Lucida Console"', 'Courier New', 'monospace'],

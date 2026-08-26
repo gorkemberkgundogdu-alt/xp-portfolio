@@ -45,11 +45,11 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
               {numberPrefix}
             </span>
             <div className="min-w-0">
-              <span className="font-bold text-sm sm:text-base text-slate-100 group-hover:text-purple-300 transition-colors block truncate">
+              <span className="font-display font-bold text-base sm:text-lg text-slate-100 group-hover:text-purple-300 transition-colors block truncate">
                 {locale === 'tr' ? titleTr : titleEn}
               </span>
               {(subtitleTr || subtitleEn) && (
-                <span className="text-[11px] sm:text-xs text-slate-400 block truncate">
+                <span className="text-xs text-slate-400 font-sans block truncate mt-0.5">
                   {locale === 'tr' ? subtitleTr : subtitleEn}
                 </span>
               )}

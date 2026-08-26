@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PlaceholderSlot } from './primitives/PlaceholderSlot';
 import { HeroPair } from './primitives/HeroPair';
 import { FeatureVisual } from './primitives/FeatureVisual';
 import { AnnotatedVisual } from './primitives/AnnotatedVisual';
@@ -10,6 +9,9 @@ import { SideBySideDecision } from './primitives/SideBySideDecision';
 import { FlowStrip } from './primitives/FlowStrip';
 import { ReflectionBlock } from './primitives/ReflectionBlock';
 import { CaseAccordionSection } from './primitives/CaseAccordionSection';
+import { EditorialStatement } from './primitives/EditorialStatement';
+import { ProductFrame } from './primitives/ProductFrame';
+import { ArtifactFrame } from './primitives/ArtifactFrame';
 
 export interface OperaterCaseStudyProps {
   locale?: 'tr' | 'en';
@@ -32,15 +34,15 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
   };
 
   return (
-    <article className="w-full max-w-5xl mx-auto space-y-10 select-text font-sans text-slate-200">
+    <article className="w-full max-w-5xl mx-auto space-y-12 select-text font-sans text-slate-200">
       {/* ========================================================================= */}
-      {/* HERO SECTION                                                              */}
+      {/* PROJECT COVER / HERO                                                      */}
       {/* ========================================================================= */}
-      <header className="space-y-6 pb-6 border-b border-slate-800">
-        {/* Top Badges & Live Link Bar */}
+      <header className="space-y-8 pb-8 border-b border-slate-800">
+        {/* Top Badges & Live Platform Link */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-950/60 border border-purple-800/60 rounded text-purple-300 text-xs font-semibold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-950/70 border border-purple-800/70 rounded-md text-purple-300 text-xs font-semibold">
               <img
                 src="/assets/operater-logo.webp"
                 alt="Operater.io"
@@ -50,10 +52,10 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
               />
               <span>Operater.io</span>
             </span>
-            <span className="px-2.5 py-1 bg-slate-800/80 border border-slate-700 rounded text-slate-300 text-xs font-medium">
+            <span className="px-2.5 py-1 bg-slate-800/90 border border-slate-700/80 rounded-md text-slate-300 text-xs font-medium">
               {locale === 'tr' ? 'B2B SaaS / Yapay Zeka Operasyon Platformu' : 'B2B SaaS / AI Operations Platform'}
             </span>
-            <span className="px-2.5 py-1 bg-emerald-950/40 border border-emerald-800/50 rounded text-emerald-300 text-xs font-mono flex items-center gap-1">
+            <span className="px-2.5 py-1 bg-emerald-950/50 border border-emerald-800/60 rounded-md text-emerald-300 text-xs font-mono flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>{locale === 'tr' ? 'Canlıda / Üretimde' : 'Live in Production'}</span>
             </span>
@@ -63,85 +65,85 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
             href="https://operater.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md text-xs font-bold transition-colors shadow-sm no-underline"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md text-xs font-bold transition-all shadow-md hover:shadow-purple-600/30 no-underline"
           >
             <span>{locale === 'tr' ? 'Canlı Ürünü Ziyaret Et' : 'Visit Live Platform'}</span>
-            <span>↗</span>
+            <span className="text-purple-200">↗</span>
           </a>
         </div>
 
         {/* Title & Editorial Lead */}
-        <div className="space-y-3">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-100 tracking-tight leading-tight">
+        <div className="space-y-4 max-w-4xl">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-display font-extrabold text-slate-100 tracking-tight leading-[1.15]">
             {locale === 'tr'
               ? 'Karmaşık Otonom Yapay Zeka Ajanlarını Güvenilir ve Kontrol Edilebilir B2B SaaS Deneyimine Dönüştürmek'
               : 'Transforming Complex Autonomous AI Agents into a Trustworthy & Controllable B2B SaaS Experience'}
           </h1>
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-3xl">
+          <p className="text-sm sm:text-base md:text-lg text-slate-400 font-sans leading-relaxed">
             {locale === 'tr'
               ? 'Operater.io için 0’dan 1’e tasarlanan; onboarding akışından otonomi ayarlarına, insan denetimli (Human-in-the-Loop) onay panellerinden modüler tasarım sistemine kadar uzanan uçtan uca ürün tasarımı ve kullanıcı deneyimi vaka çalışması.'
               : 'End-to-end product design and UX case study for Operater.io, designed from 0 to 1: spanning seamless onboarding, graduated autonomy settings, human-in-the-loop review panels, and a comprehensive design system.'}
           </p>
         </div>
 
-        {/* Metadata Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-[#0F172A] border border-slate-800 rounded-xl text-xs">
+        {/* Quiet Hairline Metadata Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 px-2 border-y border-slate-800/80 text-xs">
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
               {locale === 'tr' ? 'Rol' : 'Role'}
             </div>
-            <div className="font-semibold text-slate-200 mt-0.5">
+            <div className="font-semibold text-slate-200 mt-1 font-display">
               {locale === 'tr' ? 'UI/UX Designer' : 'UI/UX Designer'}
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
               {locale === 'tr' ? 'Kapsam' : 'Scope'}
             </div>
-            <div className="font-semibold text-slate-200 mt-0.5">
+            <div className="font-semibold text-slate-200 mt-1 font-display">
               {locale === 'tr' ? '0 → 1 Ürün & Tasarım Sistemi' : '0 → 1 Product & Design System'}
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
               {locale === 'tr' ? 'Disiplinler' : 'Disciplines'}
             </div>
-            <div className="font-semibold text-slate-200 mt-0.5">
+            <div className="font-semibold text-slate-200 mt-1 font-display">
               Web & SaaS, Design Systems, AI UX
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
               {locale === 'tr' ? 'Durum' : 'Status'}
             </div>
-            <div className="font-semibold text-emerald-400 mt-0.5">
+            <div className="font-semibold text-emerald-400 mt-1 font-display">
               {locale === 'tr' ? 'Aktif B2B Platformu' : 'Active B2B Platform'}
             </div>
           </div>
         </div>
 
-        {/* Hero Overlapping Visual Pair (Real Landing + Create Account) */}
+        {/* Project Cover Visual: Landing + Signup Overlap */}
         <HeroPair
           primarySlotId="HERO_PRIMARY_SCREENSHOT"
-          primaryTitleTr="Operater.io Ana Landing Sayfası & Command Center Önizlemesi"
-          primaryTitleEn="Operater.io Main Landing Page & Command Center Preview"
+          primaryTitleTr="Operater.io Ana Landing Sayfası"
+          primaryTitleEn="Operater.io Main Landing Page"
           primarySrc="/assets/case-study/operater/operater-landing.webp"
           primaryAltTr="Operater.io Landing Sayfası - Scale your startup without scaling your headcount"
           primaryAltEn="Operater.io Landing Page - Scale your startup without scaling your headcount"
           secondarySlotId="HERO_SECONDARY_SCREENSHOT"
-          secondaryTitleTr="Operater Hızlı Hesap Oluşturma Akışı"
-          secondaryTitleEn="Operater Fast Account Creation Flow"
+          secondaryTitleTr="Operater Hızlı Kayıt Akışı"
+          secondaryTitleEn="Operater Frictionless Signup"
           secondarySrc="/assets/case-study/operater/operater-create-account.webp"
           secondaryAltTr="Operater.io Hesap Oluşturma Ekranı"
           secondaryAltEn="Operater.io Create Account Screen"
-          captionTr="Operater.io ana sayfasından hesap oluşturmaya uzanan görsel güven odaklı ilk karşılaşma kompozisyonu."
-          captionEn="Visual trust-focused opening composition connecting the landing experience to account creation."
+          captionTr="Proje Kapağı: Ürün konumlandırmasını hesap açılışına bağlayan açılış kompozisyonu."
+          captionEn="Project Cover: The opening visual composition connecting product positioning to frictionless signup."
           locale={locale}
         />
       </header>
 
       {/* ========================================================================= */}
-      {/* 01 — ONBOARDING SECTION (Real Screenshot Sequence)                        */}
+      {/* 01 — ONBOARDING SECTION                                                   */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="onboarding"
@@ -154,98 +156,72 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
         onToggle={() => toggleSection('onboarding')}
         locale={locale}
       >
-        {/* ------------------------------------------------------------------------- */}
-        {/* CHAPTER A — VISUAL TRUST BEFORE PRODUCT COMPLEXITY                         */}
-        {/* ------------------------------------------------------------------------- */}
-        <div className="space-y-4">
-          <div className="space-y-1.5 border-b border-slate-800 pb-3">
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">
-              {locale === 'tr' ? 'Bölüm A · Karşılaşma' : 'Chapter A · First Touch'}
-            </span>
-            <h4 className="text-base sm:text-lg font-bold text-slate-100">
-              {locale === 'tr' ? 'Ürün Karmaşıklığından Önce Görsel Güven İnşa Etmek' : 'Visual Trust Before Product Complexity'}
-            </h4>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {locale === 'tr'
-              ? 'Otonom yapay zeka ajanları, şirket verilerine ve hassas iş araçlarına erişim gerektirdiği için kullanıcılarda doğal bir güvenlik ve bilişsel yük bariyeri oluşturur. Açılış deneyiminde temel amacımız; teknik karmaşıklığı soyutlayarak kullanıcıya her aşamada net, güvenilir ve anlaşılır bir zemin sunmaktı.'
-              : 'Autonomous AI agents naturally trigger cognitive friction and security concerns as they request access to enterprise data and internal tools. In designing the opening experience, our core objective was abstracting technical complexity while providing a clean, transparent, and confidence-building foundation.'}
-          </p>
+        {/* Editorial Statement 1: Trust Before Autonomy */}
+        <EditorialStatement
+          quoteTr="Otonomiden önce güven gelir."
+          quoteEn="Before autonomy comes trust."
+          subtextTr="Otonom yapay zeka ajanları, şirket verilerine ve iş araçlarına doğrudan erişim gerektirir. Kullanıcının kontrolü kaybetme korkusunu aşmanın tek yolu; açılış deneyimini sürtünmesiz, şeffaf ve her aşamada net kılmaktır."
+          subtextEn="Autonomous AI agents request direct access to enterprise tools and proprietary context. Overcoming initial security friction requires an onboarding experience engineered around transparency, clarity, and zero ambiguity."
+          locale={locale}
+        />
 
-          {/* Composition: Landing (65-70%) + Create Account (35-40% overlap) */}
-          <HeroPair
-            primarySlotId="ONBOARDING_HERO_PAIR_MAIN"
-            primaryTitleTr="Operater Landing: Net Değer Önerisi & Sosyal Kanıt"
-            primaryTitleEn="Operater Landing: Clear Value Proposition & Social Proof"
-            primarySrc="/assets/case-study/operater/operater-landing.webp"
-            primaryAltTr="Operater.io Landing Arayüzü"
-            primaryAltEn="Operater.io Landing Interface"
-            secondarySlotId="ONBOARDING_HERO_PAIR_OVERLAP"
-            secondaryTitleTr="Kayıt Arayüzü: Hızlı & Güven Veren Giriş"
-            secondaryTitleEn="Account Creation: Frictionless & Trustworthy Input"
-            secondarySrc="/assets/case-study/operater/operater-create-account.webp"
-            secondaryAltTr="Operater.io Hesap Oluşturma Ekranı"
-            secondaryAltEn="Operater.io Account Creation Screen"
-            captionTr="Landing sayfasındaki net mesaj ve '3 dakikada kurulum' vaadi, hesap açma adımında sürtünmesiz form mimarisiyle karşılandı."
-            captionEn="The clear landing promise of 'setup under 3 minutes' is directly carried into frictionless account onboarding."
-            locale={locale}
-          />
+        {/* ------------------------------------------------------------------------- */}
+        {/* 01A — EMAIL VERIFICATION (Transitional Artifact)                           */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            {/* Left Column: Narrative */}
+            <div className="md:col-span-6 space-y-3">
+              <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+                {locale === 'tr' ? 'Adım 01 · Geçiş Katmanı' : 'Step 01 · Transitional Step'}
+              </span>
+              <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
+                {locale === 'tr' ? 'Hesap Açılışından Ürün Kurulumuna Kesintisiz Geçiş' : 'A Frictionless Bridge into Product Setup'}
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
+                {locale === 'tr'
+                  ? 'Kayıt işlemi tamamlandıktan hemen sonra kullanıcıyı karmaşık bir form yığını yerine 6 haneli odaklanmış doğrulama ekranı karşılar. Boş alanlardan arındırılmış bu ara durak, kullanıcıyı bilişsel olarak bir sonraki şirket kurulumuna hazırlar.'
+                  : 'Immediately after account creation, users encounter a focused 6-digit verification modal rather than cognitive clutter. Stripped of excess canvas, it acts as a lightweight security bridge directly into workspace configuration.'}
+              </p>
+            </div>
 
-          {/* Email Verification: Transitional Artifact */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center gap-5 p-4 bg-[#0F172A] border border-slate-800 rounded-xl">
-            <div className="w-full sm:w-80 shrink-0">
-              <PlaceholderSlot
-                id="ONBOARDING_VERIFY_EMAIL"
-                nameTr="E-posta Doğrulama: 6 Haneli Güvenlik Kodu"
-                nameEn="Email Verification: 6-Digit Security Code"
-                src="/assets/case-study/operater/operater-verify-email.webp"
-                altTr="Operater E-posta Doğrulama Ekranı"
-                altEn="Operater Email Verification Screen"
-                browserFrame={false}
+            {/* Right Column: Cropped Verification Artifact */}
+            <div className="md:col-span-6">
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-email-verify.webp"
+                alt="Operater E-posta Doğrulama Arayüzü"
+                titleTr="6 Haneli Güvenlik Doğrulaması"
+                titleEn="6-Digit Security Verification"
+                badgeTr="Geçiş Arayüzü"
+                badgeEn="Transitional Artifact"
+                captionTr="Gereksiz boşluklardan arındırılmış, sürtünmesiz doğrulama modalı."
+                captionEn="Clean, cropped verification modal maintaining momentum into setup."
+                maxWidth="max-w-xs"
                 locale={locale}
               />
-            </div>
-            <div className="space-y-1.5 text-xs text-slate-300">
-              <span className="px-2 py-0.5 bg-purple-950/60 border border-purple-800/60 text-purple-300 font-mono text-[10px] uppercase tracking-wider rounded inline-block">
-                {locale === 'tr' ? 'Geçiş Katmanı' : 'Transitional Artifact'}
-              </span>
-              <h5 className="font-bold text-slate-100 text-sm">
-                {locale === 'tr' ? 'Hesap Açılışından Ürün Kurulumuna Güvenli Köprü' : 'Secure Bridge into Product Onboarding'}
-              </h5>
-              <p className="text-slate-400 leading-relaxed text-[11px] sm:text-xs">
-                {locale === 'tr'
-                  ? 'E-posta doğrulama adımı, kullanıcıyı şifresiz/güvenli akışta tutarak kurulumun içine kesintisiz taşıyan minimal bir ara durak olarak kurgulandı.'
-                  : 'The verification step was designed as a minimal, focused transition keeping users oriented before entering workspace configuration.'}
-              </p>
             </div>
           </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* CHAPTER B — FROM ACCOUNT TO PRODUCT CONTEXT                                */}
+        {/* 01B — COMPANY CONTEXT (User Input -> Agent Context)                       */}
         {/* ------------------------------------------------------------------------- */}
-        <div className="space-y-4 pt-6 border-t border-slate-800">
-          <div className="space-y-1.5 border-b border-slate-800 pb-3">
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">
-              {locale === 'tr' ? 'Bölüm B · Bağlam İnşası' : 'Chapter B · Product Context'}
-            </span>
-            <h4 className="text-base sm:text-lg font-bold text-slate-100">
-              {locale === 'tr' ? 'Kullanıcı Girdisinin Neden Önemli Olduğunu Göstermek' : 'Showing Why User Input Matters'}
-            </h4>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {locale === 'tr'
-              ? 'Arayüz sadece kuru bir şirket formu doldurtmaz; girilen bilginin yapay zeka ajanlarının karar kalitesini ve operasyonel çıktısını nasıl anında güçlendireceğini canlı olarak görselleştirir.'
-              : 'The interface does not merely collect static company parameters; it actively proves in real time how provided domain context shapes autonomous agent decision quality.'}
-          </p>
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <EditorialStatement
+            quoteTr="Aksiyondan önce bağlam."
+            quoteEn="Context before action."
+            subtextTr="Arayüz sadece şirket bilgisi toplamaz; girilen bilginin yapay zeka ajanlarının kavrayışını ve çalışma kalitesini nasıl şekillendireceğini anlık olarak kullanıcıya kanıtlar."
+            subtextEn="The interface does not merely collect static domain fields; it actively proves in real time how supplied context empowers autonomous agent understanding."
+            locale={locale}
+          />
 
-          {/* Step Journey Flow Strip */}
+          {/* Setup Journey Flow Strip */}
           <FlowStrip
-            titleTr="Operater.io Kurulum Akışı"
-            titleEn="Operater.io Setup Flow"
+            titleTr="Operater.io Kurulum Adımları"
+            titleEn="Operater.io Setup Journey"
             steps={[
-              { id: '1', stepNumber: 1, labelTr: 'Hesap Aç', labelEn: 'Account', sublabelTr: 'Google / Mail', sublabelEn: 'Google / Mail' },
-              { id: '2', stepNumber: 2, labelTr: 'Doğrula', labelEn: 'Verify', sublabelTr: 'Güvenlik', sublabelEn: 'Security' },
+              { id: '1', stepNumber: 1, labelTr: 'Hesap', labelEn: 'Account', sublabelTr: 'Google / Mail', sublabelEn: 'Google / Mail' },
+              { id: '2', stepNumber: 2, labelTr: 'Doğrulama', labelEn: 'Verify', sublabelTr: 'Güvenlik', sublabelEn: 'Security' },
               { id: '3', stepNumber: 3, labelTr: 'Şirket', labelEn: 'Company', sublabelTr: 'Bağlam', sublabelEn: 'Context' },
               { id: '4', stepNumber: 4, labelTr: 'Ajanlar', labelEn: 'Agents', sublabelTr: 'Seçim', sublabelEn: 'Selection' },
               { id: '5', stepNumber: 5, labelTr: 'Araçlar', labelEn: 'Tools', sublabelTr: 'Entegrasyon', sublabelEn: 'Integration' },
@@ -254,220 +230,275 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
             locale={locale}
           />
 
-          {/* Onboarding Intro Supporting Screen (~40-45% width) */}
-          <div className="w-full lg:max-w-[48%] mx-auto my-4">
-            <PlaceholderSlot
-              id="ONBOARDING_INTRO_SCREEN"
-              nameTr="Onboarding Giriş: 3 Hızlı Adım Bilgilendirmesi"
-              nameEn="Onboarding Intro: 3 Quick Steps Overview"
-              src="/assets/case-study/operater/operater-onboarding-intro.webp"
-              altTr="Operater Onboarding Giriş Ekranı"
-              altEn="Operater Onboarding Intro Screen"
-              captionTr="Kullanıcıyı karşılayan 3 adımlı net yol haritası kartı."
-              captionEn="3-step roadmap card introducing what lies ahead before tool setup."
-              locale={locale}
-            />
-          </div>
-
-          {/* Company Setup: Full-Width Major Screen */}
-          <FeatureVisual
-            slotId="ONBOARDING_COMPANY_SETUP"
-            titleTr="Şirket Tanımı & Sağ Panelde Canlı Ajan Simülasyonu"
-            titleEn="Company Setup & Live Agent Simulation in Right Panel"
+          {/* Major Full-Width Screen: Company Setup */}
+          <ProductFrame
             src="/assets/case-study/operater/operater-company-setup.webp"
-            altTr="Operater Şirket Tanımlama Ekranı"
-            altEn="Operater Company Setup Screen"
-            tagTr="Bağlam İnşası"
-            tagEn="Context Engineering"
-            captionTr="Sol tarafta şirket bilgisi girilirken, sağ tarafta 'YOUR AGENTS WILL SEE' alanında ajanın veriyi nasıl yorumlayacağı anlık gösterilir."
-            captionEn="As users input company data on the left, the 'YOUR AGENTS WILL SEE' right container previews real-time agent parsing."
+            alt="Operater Şirket Tanımlama ve Canlı Önizleme Ekranı"
+            captionTr="Sol tarafta şirket bilgileri tanımlanırken, sağ tarafta 'YOUR AGENTS WILL SEE' alanında ajanın veriyi nasıl yorumlayacağı anlık simüle edilir."
+            captionEn="While defining company domain inputs on the left, the 'YOUR AGENTS WILL SEE' container previews live agent reasoning."
+            showMinimalBar={true}
             locale={locale}
           />
 
-          {/* Context Detail Crop: User Input -> Agent Context */}
-          <DetailCrop
-            slotId="ONBOARDING_COMPANY_CONTEXT_CROP"
-            titleTr="Ajan Önizleme Alanı Kırpması: Kullanıcı Girdisi → Ajan Bağlamı"
-            titleEn="Agent Preview Area Crop: User Input → Agent Context"
-            src="/assets/case-study/operater/operater-company-context-crop.webp"
-            altTr="Canlı Ajan Bağlam Önizleme Detayı"
-            altEn="Live Agent Context Preview Detail"
-            badgeTr="Mikro-Etkileşim Kanıtı"
-            badgeEn="Micro-Interaction Evidence"
-            captionTr="Formu sıkıcı bir zorunluluktan çıkarıp ajanı eğitme deneyimine dönüştüren canlı bağlam geri bildirimi."
-            captionEn="Real-time contextual feedback that transforms passive form-filling into an engaging training loop."
-            locale={locale}
-          />
-        </div>
-
-        {/* ------------------------------------------------------------------------- */}
-        {/* CHAPTER C — THE MOMENT THE PRODUCT CLICKS                                  */}
-        {/* ------------------------------------------------------------------------- */}
-        <div className="space-y-4 pt-6 border-t border-slate-800">
-          <div className="space-y-1.5 border-b border-slate-800 pb-3">
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">
-              {locale === 'tr' ? 'Bölüm C · Kırılma Anı' : 'Chapter C · The Core Moment'}
-            </span>
-            <h4 className="text-base sm:text-lg font-bold text-slate-100">
-              {locale === 'tr' ? 'İlk Ajanları Etkinleştirmek (Enable Agents)' : 'Enabling the First Agents'}
-            </h4>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {locale === 'tr'
-              ? 'Bu ekran basit bir özellik açma/kapama listesi değildir. Kullanıcının Operater’ın çalışma mantığını (iş akışlarına sahip çıkan, araçları kullanan ve otonom çalışan ajanlar) ilk kez kavradığı ve operasyon modelini kurduğu ana dönüm noktasıdır.'
-              : 'This screen is far more than a feature toggle list. It is the central turning point where users grasp Operater’s core operating model: autonomous AI teammates that own workflows, utilize integrations, and operate continuously.'}
-          </p>
-
-          {/* Enable Agents: Midpoint Hero Visual with Annotations */}
-          <AnnotatedVisual
-            slotId="ONBOARDING_ENABLE_AGENTS"
-            titleTr="Ajan Kataloğu & Görev Konfigürasyon Merkezi"
-            titleEn="Agent Catalog & Mission Configuration Hub"
-            src="/assets/case-study/operater/operater-enable-agents.webp"
-            altTr="Operater Ajan Kataloğu ve Seçim Arayüzü"
-            altEn="Operater Agent Catalog and Selection Interface"
-            captionTr="Bölümün merkezindeki ana ekran: 14 farklı hazır ajan profili ve şeffaf izin etiketleri."
-            captionEn="Midpoint hero visual: 14 pre-built agent profiles with transparent mission and permission scopes."
-            annotations={[
-              {
-                id: 'ann-1',
-                pinNumber: 1,
-                labelTr: 'Ajanın Görevi (What it does)',
-                labelEn: 'What the agent does',
-                descriptionTr: 'Her ajanın uzmanlaştığı operasyonel görev (Lead Gen, Outreach, PR, CRM) açık ve net tanımlanır.',
-                descriptionEn: 'Clear mission statement defining the exact operational workflow owned by the agent.',
-              },
-              {
-                id: 'ann-2',
-                pinNumber: 2,
-                labelTr: 'Gerekli Araçlar (Required tools)',
-                labelEn: 'Required tools & scopes',
-                descriptionTr: 'Ajanın çalışması için ihtiyaç duyduğu Slack, Gmail, HubSpot gibi araçlar kart üzerinde peşinen gösterilir.',
-                descriptionEn: 'Integrations required by the agent are surfaced upfront on the card (Slack, Gmail, HubSpot).',
-              },
-              {
-                id: 'ann-3',
-                pinNumber: 3,
-                labelTr: 'Etkinleştirme Durumu (Enable state)',
-                labelEn: 'Enable & toggle state',
-                descriptionTr: 'Kullanıcı tek tıkla ajanı çalışma alanına dahil eder veya devre dışı bırakır.',
-                descriptionEn: 'Single-click enable action initiating automated background readiness.',
-              },
-            ]}
-            locale={locale}
-          />
-        </div>
-
-        {/* ------------------------------------------------------------------------- */}
-        {/* CHAPTER D — FROM AGENTS TO TOOLS                                          */}
-        {/* ------------------------------------------------------------------------- */}
-        <div className="space-y-4 pt-6 border-t border-slate-800">
-          <div className="space-y-1.5 border-b border-slate-800 pb-3">
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">
-              {locale === 'tr' ? 'Bölüm D · Entegrasyon Mimarisi' : 'Chapter D · Tool Architecture'}
-            </span>
-            <h4 className="text-base sm:text-lg font-bold text-slate-100">
-              {locale === 'tr' ? 'Bir Kez Bağla, Her Yerde Kullan (Connect Once, Reuse Everywhere)' : 'Connect Once, Reuse Everywhere'}
-            </h4>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {locale === 'tr'
-              ? 'Çalışma alanı kapsamlı (workspace-scoped) bağlantı modeli sayesinde bir araç (örneğin HubSpot veya Slack) bir kez bağlandığında, o araca ihtiyaç duyan tüm yetkili ajanlar aynı güvenli kimlik bilgisini yeniden izin istemeden kullanır. İlke: "Tek bağlantı, birden çok ajan."'
-              : 'Under the workspace-scoped connection model, connecting an enterprise tool (like HubSpot or Slack) once allows all authorized agents in the workspace to share that credential seamlessly. Core insight: "One connection, multiple agents."'}
-          </p>
-
-          {/* Connect Tools: Main Canvas (~80-85% width) + HubSpot Connect Floating Overlap */}
-          <FloatingPanelComposition
-            baseSlotId="ONBOARDING_CONNECT_TOOLS"
-            baseTitleTr="Veri Kaynaklarını & Araçları Bağlama Masası"
-            baseTitleEn="Wire Up Your Agents' Data Sources Hub"
-            baseSrc="/assets/case-study/operater/operater-connect-tools.webp"
-            baseAltTr="Operater Veri Kaynakları ve Araç Entegrasyonları Arayüzü"
-            baseAltEn="Operater Connect Tools and Data Sources Interface"
-            floatingSlotId="ONBOARDING_HUBSPOT_CONNECT"
-            floatingTitleTr="HubSpot İzin & Kapsam Bilgilendirmesi"
-            floatingTitleEn="HubSpot Scope & Permission Overview"
-            floatingSrc="/assets/case-study/operater/operater-hubspot-connect.webp"
-            floatingAltTr="HubSpot Entegrasyon İzinleri Kartı"
-            floatingAltEn="HubSpot Integration Permissions Card"
-            captionTr="Çalışma alanı genelinde paylaşılan araç bağlantı masası ve üzerine binen HubSpot yetki önizleme paneli."
-            captionEn="Workspace-wide tool connection canvas composed with an overlapping HubSpot authorization breakdown."
-            locale={locale}
-          />
-
-          {/* Supporting OAuth Authorizations: HubSpot Auth + Slack Auth */}
-          <div className="space-y-2 pt-2">
-            <div className="text-xs font-bold text-slate-200">
-              {locale === 'tr' ? 'Yetkilendirme Güvenliği: Slack ve HubSpot OAuth İzin Şeffaflığı' : 'Authorization Transparency: Slack & HubSpot OAuth Modals'}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <PlaceholderSlot
-                id="ONBOARDING_HUBSPOT_AUTH"
-                nameTr="HubSpot OAuth Giriş & Erişim Onayı"
-                nameEn="HubSpot OAuth Sign-In & Access Grant"
-                src="/assets/case-study/operater/operater-hubspot-auth.webp"
-                altTr="HubSpot OAuth Giriş Modalı"
-                altEn="HubSpot OAuth Sign-In Modal"
-                browserFrame={false}
-                locale={locale}
-              />
-              <PlaceholderSlot
-                id="ONBOARDING_SLACK_AUTH"
-                nameTr="Slack İzin Modalı: 'DMs are never accessed' Güvencesi"
-                nameEn="Slack Permission Modal: 'DMs are never accessed' Guarantee"
-                src="/assets/case-study/operater/operater-slack-auth.webp"
-                altTr="Slack OAuth Yetkilendirme Modalı"
-                altEn="Slack OAuth Authorization Modal"
-                browserFrame={false}
+          {/* Secondary Detail View: Sharp Context Crop */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-2">
+            <div className="md:col-span-7">
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-company-context.webp"
+                alt="Canlı Ajan Bağlam Simülasyonu Kırpması"
+                titleTr="Canlı Bağlam Simülasyonu (YOUR AGENTS WILL SEE)"
+                titleEn="Live Context Simulation (YOUR AGENTS WILL SEE)"
+                badgeTr="Mikro-Etkileşim Kanıtı"
+                badgeEn="Micro-Interaction Evidence"
+                maxWidth="max-w-lg"
                 locale={locale}
               />
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-400 text-center font-sans">
+            <div className="md:col-span-5 space-y-2 text-xs sm:text-sm text-slate-300 font-sans">
+              <h5 className="font-display font-bold text-slate-100 text-sm sm:text-base">
+                {locale === 'tr' ? 'Kullanıcı Girdisi → Ajan Bağlamı' : 'User Input → Agent Context'}
+              </h5>
+              <p className="text-slate-400 leading-relaxed text-xs">
+                {locale === 'tr'
+                  ? 'Kullanıcı form doldurmayı sıkıcı bir formalite olarak değil, kendi yapay zeka çalışanını eğittiği interaktif bir hazırlık süreci olarak deneyimler.'
+                  : 'Transforms static form completion into an engaging training loop where users observe their input shaping autonomous behavior in real time.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 01C — ENABLE AGENTS (The Inflection Moment)                                */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              {locale === 'tr' ? 'Adım 02 · Kırılma Anı' : 'Step 02 · The Core Mental Model'}
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'İlk Ajanları Etkinleştirmek (Enable Agents)' : 'Enabling the First AI Agents'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
               {locale === 'tr'
-                ? 'Slack entegrasyonunda özel mesajların (DM) asla okunmayacağının açıkça belirtilmesi kurumsal güvenlik onayını hızlandırdı.'
-                : 'Explicitly guaranteeing that direct messages (DMs) are never accessed eliminated security hesitations during enterprise Slack sync.'}
+                ? 'Bu ekran sıradan bir özellik aç/kapa listesi değildir. Kullanıcının Operater’ın temel çalışma felsefesini (iş akışlarını üstlenen, araçları kullanan ve otonom çalışan ajanlar) ilk kez kavradığı ve operasyon modelini kurduğu ana dönüm noktasıdır.'
+                : 'Far from a generic feature toggle list, this is the central inflection point where users grasp Operater’s core philosophy: autonomous AI teammates that own dedicated workflows, invoke tools, and operate continuously.'}
             </p>
           </div>
+
+          {/* High-Resolution Enable Agents Screen */}
+          <ProductFrame
+            src="/assets/case-study/operater/operater-enable-agents-hd.webp"
+            alt="Operater Ajan Kataloğu ve Seçim Arayüzü (HD)"
+            captionTr="14 hazır ajan profili, kategori filtreleri ve ajan yetki hiyerarşisini gösteren yüksek çözünürlüklü görünüm."
+            captionEn="High-resolution view displaying pre-built agent profiles, category filters, and workflow scopes."
+            showMinimalBar={true}
+            locale={locale}
+          />
+
+          {/* Refined Minimalist Annotation Rail */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 bg-[#0F172A]/80 border border-slate-800 rounded-lg space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-purple-600 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0">
+                  1
+                </span>
+                <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
+                  {locale === 'tr' ? 'Ajanın Görevi (Mission)' : 'Agent Mission & Purpose'}
+                </h5>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'Her ajanın uzmanlaştığı operasyonel iş akışı (Lead Gen, Outreach, PR, CRM) açık ve net tanımlanır.'
+                  : 'Explicit mission statement defining the exact operational workflow owned by the agent.'}
+              </p>
+            </div>
+
+            <div className="p-4 bg-[#0F172A]/80 border border-slate-800 rounded-lg space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-purple-600 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0">
+                  2
+                </span>
+                <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
+                  {locale === 'tr' ? 'Gerekli Araçlar (Required Tools)' : 'Required Integrations'}
+                </h5>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'Ajanın çalışması için ihtiyaç duyduğu Slack, Gmail, HubSpot gibi araçlar kart üzerinde peşinen gösterilir.'
+                  : 'Required tool scopes (Slack, Gmail, HubSpot) are surfaced transparently upfront on each card.'}
+              </p>
+            </div>
+
+            <div className="p-4 bg-[#0F172A]/80 border border-slate-800 rounded-lg space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-purple-600 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0">
+                  3
+                </span>
+                <h5 className="font-display font-bold text-xs sm:text-sm text-slate-200">
+                  {locale === 'tr' ? 'Aktivasyon Durumu (State)' : 'Enable & Readiness State'}
+                </h5>
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-sans">
+                {locale === 'tr'
+                  ? 'Kullanıcı tek tıkla ajanı çalışma alanına dahil eder ve arka plan hazırlık sürecini başlatır.'
+                  : 'Single-click enable action immediately provisioning the agent for workspace execution.'}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* ------------------------------------------------------------------------- */}
-        {/* CHAPTER E — DESIGNING BEYOND THE HAPPY PATH                               */}
+        {/* 01D — CONNECT TOOLS (Connect Once, Reuse Everywhere)                      */}
         {/* ------------------------------------------------------------------------- */}
-        <div className="space-y-4 pt-6 border-t border-slate-800">
-          <div className="space-y-1.5 border-b border-slate-800 pb-3">
-            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider">
-              {locale === 'tr' ? 'Bölüm E · Başarı & Kapanış' : 'Chapter E · Closure & Success'}
-            </span>
-            <h4 className="text-base sm:text-lg font-bold text-slate-100">
-              {locale === 'tr' ? 'Mutlu Yolun Ötesini Tasarlamak (Designing Beyond the Happy Path)' : 'Designing Beyond the Happy Path'}
-            </h4>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {locale === 'tr'
-              ? 'İlk tasarımlar ağırlıklı olarak mutlu yola (happy path) odaklanmıştı ve bağlantı butonuna basıldığı an süreç bitmiş gibi kurgulanmıştı. Ürün yönetimi geri bildirimleriyle birlikte tasarım yaklaşımımız; başarı, hata, yeniden deneme ve kurulum sonrası ilk aksiyon adımlarını uçtan uca kapsayacak şekilde derinleştirildi.'
-              : 'Early iterations focused predominantly on the happy path, concluding right at the connection trigger. Product feedback prompted a systematic evolution: designing comprehensive post-connection feedback, recovery triggers, and immediate next steps for the team.'}
-          </p>
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <EditorialStatement
+            quoteTr="Bir kez bağla. Her yerde kullan."
+            quoteEn="Connect once. Reuse everywhere."
+            subtextTr="Çalışma alanı kapsamlı (workspace-scoped) bağlantı modeli sayesinde bir araç (örneğin HubSpot veya Slack) bir kez bağlandığında, o araca ihtiyaç duyan tüm yetkili ajanlar aynı güvenli kimlik bilgisini yeniden izin istemeden kullanır."
+            subtextEn="Under the workspace-scoped connection model, authenticating an enterprise tool once allows all authorized agents to leverage that credential automatically. One connection powers multiple autonomous agents."
+            locale={locale}
+          />
 
-          {/* Real Success Artifacts: HubSpot Connected + Team Ready */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-            <PlaceholderSlot
-              id="ONBOARDING_HUBSPOT_CONNECTED"
-              nameTr="Bağlantı Başarılı: HubSpot Aktif & Ajanlar Hazır"
-              nameEn="Connection Success: HubSpot Active & Agents Ready"
-              src="/assets/case-study/operater/operater-hubspot-connected.webp"
-              altTr="HubSpot Bağlantı Başarı Ekranı"
-              altEn="HubSpot Connection Success Screen"
-              browserFrame={false}
+          {/* Asymmetric Composition: Cropped Connect Tools + Overlapping HubSpot Permission Panel */}
+          <div className="relative w-full my-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              {/* Main Connect Tools Canvas */}
+              <div className="lg:col-span-8">
+                <ProductFrame
+                  src="/assets/case-study/operater/crop-connect-tools-header.webp"
+                  alt="Operater Veri Kaynakları ve Araç Entegrasyonları Arayüzü"
+                  captionTr="Kategori bazlı kurumsal araç bağlantı masası."
+                  captionEn="Category-organized enterprise integration workspace."
+                  showMinimalBar={true}
+                  locale={locale}
+                />
+              </div>
+
+              {/* Overlapping / Floating Permission Panel */}
+              <div className="lg:col-span-4 lg:-ml-8 z-10">
+                <ArtifactFrame
+                  src="/assets/case-study/operater/crop-hubspot-connect-modal.webp"
+                  alt="HubSpot Entegrasyon İzinleri Kartı"
+                  titleTr="HubSpot Çalışma Alanı Kapsamı"
+                  titleEn="HubSpot Scope Breakdown"
+                  badgeTr="İzin Şeffaflığı"
+                  badgeEn="Scope Transparency"
+                  maxWidth="max-w-sm"
+                  locale={locale}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 01E — AUTHORIZATION (Permission Transparency)                             */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              {locale === 'tr' ? 'Adım 03 · İzin Şeffaflığı' : 'Step 03 · Permission Transparency'}
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Kurumsal Güvenlik: Slack ve HubSpot Yetkilendirme Modalları' : 'Enterprise Trust: Slack & HubSpot Authorization Modals'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Slack entegrasyonunda özel mesajların (DM) asla okunmayacağının açıkça belirtilmesi ve HubSpot izinlerinin şeffaf dökümü, kurumsal IT güvenlik onaylarını hızlandıran temel UX kararları oldu.'
+                : 'Surfacing explicit privacy guarantees (such as "DMs are never accessed" in Slack) and granular CRM scopes directly eliminated enterprise security friction during authentication.'}
+            </p>
+          </div>
+
+          {/* Staggered Paired Modals */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start pt-2">
+            <div className="sm:mt-4">
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-hubspot-auth-modal.webp"
+                alt="HubSpot OAuth Giriş ve Erişim Onayı Modalı"
+                titleTr="HubSpot OAuth Giriş Modalı"
+                titleEn="HubSpot OAuth Authorization"
+                badgeTr="OAuth 2.0"
+                badgeEn="OAuth 2.0"
+                captionTr="Okuma ve yazma izinlerinin net dökümü."
+                captionEn="Explicit breakdown of read and deal-creation scopes."
+                locale={locale}
+              />
+            </div>
+            <div>
+              <ArtifactFrame
+                src="/assets/case-study/operater/crop-slack-auth-modal.webp"
+                alt="Slack İzin Modalı - DMs are never accessed"
+                titleTr="Slack İzin Modalı"
+                titleEn="Slack Permission Scope"
+                badgeTr="Gizlilik Güvencesi"
+                badgeEn="Privacy Guarantee"
+                captionTr="'DMs are never accessed' açık gizlilik teminatı."
+                captionEn="'DMs are never accessed' explicit privacy promise."
+                locale={locale}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------------- */}
+        {/* 01F — SUCCESS STATES & DASHBOARD LAUNCHPAD                                */}
+        {/* ------------------------------------------------------------------------- */}
+        <div className="space-y-6 pt-8 border-t border-slate-800/80">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono text-purple-400 uppercase tracking-widest">
+              {locale === 'tr' ? 'Adım 04 · Kapanış & Dashboard Köprüsü' : 'Step 04 · System Readiness & Launchpad'}
+            </span>
+            <h4 className="text-xl sm:text-2xl font-display font-bold text-slate-100">
+              {locale === 'tr' ? 'Mutlu Yolun Ötesi & Dashboard Öncesi Başlangıç Masası' : 'Beyond the Happy Path & The Final Pre-Dashboard Launchpad'}
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed max-w-3xl">
+              {locale === 'tr'
+                ? 'Bağlantı teyidi alındıktan sonra kullanıcı boşlukta bırakılmaz. Kurulum süreci; bağlantı başarısı, hazır ekip bildirimi ve doğrudan canlı operasyon merkezine (Dashboard) geçişi sağlayan kişiselleştirilmiş "İlk AI Takım Arkadaşı" başlangıç masasıyla taçlandırılır.'
+                : 'Following integration verification, users are never left in an ambiguous void. The onboarding arc culminates in connection confirmations, team readiness signals, and the personalized launchpad bridging directly into live dashboard operations.'}
+            </p>
+          </div>
+
+          {/* Visual Progression: Connection Success -> Team Ready */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center pt-2">
+            <ArtifactFrame
+              src="/assets/case-study/operater/crop-hubspot-connected.webp"
+              alt="HubSpot Bağlantı Başarısı Onay Ekranı"
+              titleTr="Bağlantı Başarılı"
+              titleEn="Connection Verified"
+              badgeTr="Başarı Bildirimi"
+              badgeEn="Success State"
+              captionTr="Tüm ajanların HubSpot ile çalışmaya hazır olduğunun doğrulaması."
+              captionEn="Verification that all agents are empowered with HubSpot access."
+              maxWidth="max-w-sm"
               locale={locale}
             />
-            <PlaceholderSlot
-              id="ONBOARDING_TEAM_READY"
-              nameTr="Onboarding Kapanışı: 'Your AI Team is Ready'"
-              nameEn="Onboarding Completion: 'Your AI Team is Ready'"
-              src="/assets/case-study/operater/operater-team-ready.webp"
-              altTr="Operater AI Takımı Hazır Kapanış Ekranı"
-              altEn="Operater AI Team Ready Completion Screen"
-              browserFrame={false}
+            <ArtifactFrame
+              src="/assets/case-study/operater/crop-team-ready.webp"
+              alt="Operater AI Takımı Hazır Kapanış Ekranı"
+              titleTr="AI Takımı Hazır"
+              titleEn="Your AI Team is Ready"
+              badgeTr="Onboarding Kapanışı"
+              badgeEn="Setup Complete"
+              captionTr="1 Çalışma Alanı, 2 Ajan, 1 Araç kurulumunun tamamlanma anı."
+              captionEn="Immediate readiness: 1 Space created, 2 Agents active, 1 Tool connected."
+              maxWidth="max-w-sm"
+              locale={locale}
+            />
+          </div>
+
+          {/* The Pivotal Pre-Dashboard Launchpad Screen */}
+          <div className="pt-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 bg-purple-950/80 border border-purple-800/70 text-purple-300 text-[10px] font-mono uppercase tracking-wider rounded">
+                {locale === 'tr' ? 'Dashboard Öncesi Son Ekran' : 'Final Pre-Dashboard Screen'}
+              </span>
+            </div>
+            <ProductFrame
+              src="/assets/case-study/operater/operater-first-teammate-launchpad.webp"
+              alt="Operater İlk AI Takım Arkadaşı Başlangıç Masası"
+              captionTr="Onboarding'den canlı Dashboard operasyonlarına geçişi sağlayan 3 adımlı net karşılama ve başlangıç ekranı."
+              captionEn="The pivotal 3-step launchpad welcoming founders and transitioning them directly into live dashboard operations."
+              showMinimalBar={true}
               locale={locale}
             />
           </div>
@@ -496,7 +527,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 02 — DASHBOARD SECTION (Closed by default, multi-open)                    */}
+      {/* 02 — DASHBOARD SECTION                                                    */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="dashboard"
@@ -511,10 +542,10 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       >
         {/* Intro */}
         <div className="space-y-3">
-          <h4 className="text-base font-bold text-slate-100">
+          <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
             {locale === 'tr' ? 'Kara Kutu Yerine Açıklanabilir Yapay Zeka' : 'Explainable AI Over Black-Box Behavior'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
             {locale === 'tr'
               ? 'Otonom sistemlerde en büyük tehlike kullanıcının arkada ne döndüğünü anlamamasıdır. Dashboard arayüzü, ajanların aldığı her kararı, başvurduğu araçları ve bekleyen onayları tek bir bakışta anlaşılır kılan bir operasyon masası olarak tasarlandı.'
               : 'The greatest pitfall in autonomous systems is opacity. The Operater dashboard was engineered as an operations flight deck where every agent decision, tool invocation, and pending human review is instantly parseable.'}
@@ -523,10 +554,10 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Home as an operational overview */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '1. Operasyonel Genel Bakış: Home Ekranı' : '1. Operational Overview: Home Dashboard'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
             {locale === 'tr'
               ? 'Home ekranı, statik bir analitik panosu değil; anlık operasyon durumunu, bekleyen insan onaylarını ve kritik olayları önceliklendiren dinamik bir komut merkezidir.'
               : 'The Home view is not a passive analytics board; it is a prioritized operational command desk highlighting real-time agent activity, pending approvals, and system alerts.'}
@@ -567,13 +598,13 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Human-in-the-loop by design */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '2. Tasarımla Gelen İnsan Denetimi (Human-in-the-Loop)' : '2. Human-in-the-Loop by Design'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
             {locale === 'tr'
-              ? 'Ajanın güven skoru belirlenen eşiğin altına düştüğünde veya dış dünyayı etkileyen bir işlem (e-posta gönderme, veritabanı silme vb.) yapacağı zaman, işlem otomatik olarak insan onayına düşer.'
-              : 'Whenever an agent encounters ambiguous intent or initiates an external action (sending customer emails, modifying tickets), the action is suspended in a review drawer until confirmed by a human.'}
+              ? 'Ajanın güven skoru belirlenen eşiğin altına düştüğünde veya dış dünyayı etkileyen bir işlem yapacağı zaman, işlem otomatik olarak insan onayına düşer.'
+              : 'Whenever an agent encounters ambiguous intent or initiates an external action, the action is suspended in a review drawer until confirmed by a human.'}
           </p>
           <SideBySideDecision
             problemTr="Onay bekleyen maddeler klasik e-posta tarzı liste yapıldığında aciliyet ve bağlam kayboluyordu."
@@ -591,14 +622,9 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Designing operational states */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '3. Operasyonel Durumların Tasarımı' : '3. Designing Operational States'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Ajan işlemlerinin yaşam döngüsü boyunca her durum (Gönderiliyor, Başarısız, Onaylandı, Reddedildi, Yeniden Deneniyor) ayırt edici renk kodları ve mikro-etiketlerle temsil edildi.'
-              : 'Throughout an action lifecycle, states (Sending, Failed, Sent, Rejected, Retrying) are communicated via distinct status indicators and semantic micro-labels.'}
-          </p>
           <StateStrip
             titleTr="Ajan Aksiyon Yaşam Döngüsü Durumları"
             titleEn="Agent Action Lifecycle States"
@@ -658,16 +684,11 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           />
         </div>
 
-        {/* Sub-section: Explainability over black-box behavior */}
+        {/* Sub-section: Explainability */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '4. Açıklanabilirlik & Akıl Yürütme İncelemesi' : '4. Explainability & Reasoning Inspection'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Ajanın neden bu kararı aldığını gösteren adım adım düşünce zinciri (Reasoning Trace) ve kaynak döküman alıntıları şeffaf bir akışta sunuldu.'
-              : 'Step-by-step reasoning traces and source documentation citations are made accessible directly inside the activity timeline.'}
-          </p>
           <FeatureVisual
             slotId="DASHBOARD_ACTIVITY_REASONING"
             titleTr="Ajan Aktivite Akışı & Akıl Yürütme Detay Paneli"
@@ -680,24 +701,20 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           />
         </div>
 
-        {/* Sub-section: De-emphasizing destructive actions */}
+        {/* Sub-section: Destructive Actions */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '5. Yıkıcı Eylemlerin Güvenli Tasarımı & Ajan Detay Çekmecesi' : '5. De-emphasizing Destructive Actions & Agent Detail Drawer'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Ajan durdurma, veri tabanı sıfırlama veya anahtarları geçersiz kılma gibi geri dönülemez eylemler birincil butonlardan arındırılıp kebab menülere ve iki aşamalı onaylara bağlandı.'
-              : 'Irreversible destructive actions (killing agent instances, revoking API keys) were tucked into secondary overflow menus protected by confirmation gates.'}
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
             <div className="md:col-span-8">
-              <PlaceholderSlot
-                id="DASHBOARD_AGENTS_DRAWER"
-                nameTr="Ajan Yönetim & Sağ Çekmece Görünümü"
-                nameEn="Agent Management & Right Drawer View"
+              <DetailCrop
+                slotId="DASHBOARD_AGENTS_DRAWER"
+                titleTr="Ajan Yönetim & Sağ Çekmece Görünümü"
+                titleEn="Agent Management & Right Drawer View"
+                badgeTr="Ajan Çekmecesi"
+                badgeEn="Agent Drawer"
                 aspectRatio="16/10"
-                minHeight="260px"
                 locale={locale}
               />
             </div>
@@ -735,7 +752,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* 03 — SETTINGS & GOVERNANCE SECTION (Closed by default, multi-open)         */}
+      {/* 03 — SETTINGS & GOVERNANCE SECTION                                        */}
       {/* ========================================================================= */}
       <CaseAccordionSection
         id="settings"
@@ -750,10 +767,10 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       >
         {/* Intro */}
         <div className="space-y-3">
-          <h4 className="text-base font-bold text-slate-100">
+          <h4 className="text-lg sm:text-xl font-display font-bold text-slate-100">
             {locale === 'tr' ? 'Her Şirket İçin Uyarlanabilir Otonomi Seviyeleri' : 'Adaptable Autonomy Tiers for Enterprise'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
             {locale === 'tr'
               ? 'Her şirketin risk toleransı farklıdır. Kimi ekipler ajanın her adımını onaylamak isterken, kimi ekipler rutin operasyonların tam otonom akmasını tercih eder. Settings & Governance mimarisi, bu spektrumu tek bir anahtar yerine kademeli kurallarla çözdü.'
               : 'Risk tolerance varies across organizations. Some teams require explicit sign-off on every action, while others demand fully hands-off automation. Our settings architecture resolved this through graduated autonomy rules rather than an inflexible global switch.'}
@@ -762,14 +779,9 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Graduated autonomy */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '1. Kademeli Otonomi Modeli (Graduated Autonomy)' : '1. Graduated Autonomy Framework'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Seviye 1 (Yalnızca Taslak Oluşturma), Seviye 2 (İnsan Onaylı İcra) ve Seviye 3 (Tam Otonom Eylem) olmak üzere 3 kademeli otonomi seviyesi tanımlandı.'
-              : 'Three distinct autonomy tiers were established: Level 1 (Drafting Only), Level 2 (Human-Gated Execution), and Level 3 (Full Autonomous Operation).'}
-          </p>
           <FeatureVisual
             slotId="SETTINGS_AUTONOMY_LEVELS"
             titleTr="Kademeli Otonomi Seviyeleri ve Güvenlik Eşikleri"
@@ -784,14 +796,9 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Governance through rules and access */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '2. Kurallar ve Erişim Kontrolü ile Yönetişim' : '2. Governance via Escalation Rules & RBAC'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Hassas müşteri verilerine erişim, bütçe sınırları aşımı veya olağandışı aktivite durumunda otomatik eskalasyon kuralları ve ekip erişim matrisi kurgulandı.'
-              : 'Automated escalation policies and role-based access control (RBAC) trigger instant supervisor alerts whenever budget or data sensitivity thresholds are exceeded.'}
-          </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <DetailCrop
               slotId="SETTINGS_GOVERNANCE_CROPS_ESCALATION"
@@ -822,32 +829,29 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
 
         {/* Sub-section: Operational visibility */}
         <div className="space-y-3">
-          <h4 className="text-sm font-bold text-slate-100">
+          <h4 className="text-sm font-display font-bold text-slate-100">
             {locale === 'tr' ? '3. Operasyonel Görünürlük & Kullanım Analitiği' : '3. Operational Visibility & Usage Analytics'}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            {locale === 'tr'
-              ? 'Ajanların tükettiği token maliyetleri, araç kullanım sıklıkları ve operasyonel verimlilik raporları şeffaf grafiklerle sunuldu.'
-              : 'Token consumption analytics, tool call frequencies, and team time savings were visualized across transparent reporting dashboards.'}
-          </p>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
             <div className="lg:col-span-8">
-              <PlaceholderSlot
-                id="SETTINGS_ANALYTICS_OVERVIEW"
-                nameTr="Kurumsal Kullanım & Performans Analitiği"
-                nameEn="Enterprise Usage & Performance Analytics"
+              <DetailCrop
+                slotId="SETTINGS_ANALYTICS_OVERVIEW"
+                titleTr="Kurumsal Kullanım & Performans Analitiği"
+                titleEn="Enterprise Usage & Performance Analytics"
+                badgeTr="Analitik Pano"
+                badgeEn="Analytics Board"
                 aspectRatio="16/10"
-                minHeight="280px"
                 locale={locale}
               />
             </div>
             <div className="lg:col-span-4">
-              <PlaceholderSlot
-                id="SETTINGS_USAGE_SUPPORTING"
-                nameTr="Maliyet & Token Tüketim Detayı"
-                nameEn="Cost & Token Consumption Breakdown"
+              <DetailCrop
+                slotId="SETTINGS_USAGE_SUPPORTING"
+                titleTr="Maliyet & Token Tüketim Detayı"
+                titleEn="Cost & Token Consumption Breakdown"
+                badgeTr="Token Analitiği"
+                badgeEn="Token Analytics"
                 aspectRatio="4/3"
-                minHeight="200px"
                 locale={locale}
               />
             </div>
@@ -875,223 +879,113 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
       </CaseAccordionSection>
 
       {/* ========================================================================= */}
-      {/* MY PROCESS SECTION                                                        */}
+      {/* CASE STUDY CONCLUSION (Layer 1: Scope & Design System)                   */}
       {/* ========================================================================= */}
-      <section className="space-y-6 pt-6 border-t border-slate-800">
+      <section className="space-y-6 pt-8 border-t border-slate-800">
         <div className="space-y-2">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-wider">
-            {locale === 'tr' ? 'Çalışma Metodolojisi' : 'Design Methodology'}
+          <span className="text-xs font-mono text-purple-400 uppercase tracking-widest">
+            {locale === 'tr' ? 'Sonuçlar & Çıktılar' : 'Deliverables & Outcomes'}
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-100">
-            {locale === 'tr' ? 'Tasarım Süreci & Yaklaşım' : 'My Product Design Process'}
+          <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-100">
+            {locale === 'tr' ? 'Somut Ürün Çıktıları & Tasarım Sistemi Temeli' : 'Tangible Project Scope & Design System'}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-3xl">
-            {locale === 'tr'
-              ? 'Sıfırdan kurulan bir B2B AI SaaS ürününde belirsizlikleri hızla test edilebilir prototiplere dönüştüren 4 aşamalı tasarım süreci.'
-              : 'A 4-phase structured product design framework transforming technical AI ambiguities into rapidly testable, production-ready interfaces.'}
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-950/80 border border-purple-800/60 text-purple-300 font-mono text-xs font-bold flex items-center justify-center">
-              01
-            </div>
-            <h4 className="text-sm font-bold text-slate-200">
-              {locale === 'tr' ? 'Keşif & Akış Haritalama' : 'Discovery & Flow Mapping'}
+        {/* Clean 2-Column Editorial Breakdown */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <h4 className="font-display font-bold text-sm sm:text-base text-slate-200 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <span className="text-purple-400">📦</span>
+              <span>{locale === 'tr' ? 'Yayına Alınan Ürün Kapsamı' : 'Shipped Product Scope'}</span>
             </h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              {locale === 'tr'
-                ? 'Kullanıcı mental modelleri ve otonom sistem beklentileri analiz edildi. Karmaşık API süreçleri adım adım kullanıcı yolculuklarına dönüştürüldü.'
-                : 'Mapped user mental models against autonomous system logic, translating complex API workflows into clean step-by-step user journeys.'}
-            </p>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-400 font-sans">
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? '6 adımlı rehberli Onboarding ve çalışma alanı bazlı araç yetkilendirme akışı' : '6-step guided onboarding & workspace-scoped tool authorization workflow'}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? 'Canlı ajan akışı, HITL onay çekmecesi ve Home operasyon komut paneli' : 'Live agent stream, HITL review drawer, and Home command flight deck'}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? '3 kademeli otonomi modeli, eskalasyon kuralları ve kullanım analitiği panelleri' : '3-tier graduated autonomy framework, escalation rules, and analytics'}</span>
+              </li>
+            </ul>
           </div>
 
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-950/80 border border-purple-800/60 text-purple-300 font-mono text-xs font-bold flex items-center justify-center">
-              02
-            </div>
-            <h4 className="text-sm font-bold text-slate-200">
-              {locale === 'tr' ? 'Tasarım Sistemi Mimarisi' : 'Design System Architecture'}
+          <div className="space-y-3">
+            <h4 className="font-display font-bold text-sm sm:text-base text-slate-200 flex items-center gap-2 border-b border-slate-800 pb-2">
+              <span className="text-purple-400">🎨</span>
+              <span>{locale === 'tr' ? 'Tasarım Sistemi & Mühendislik Hızı' : 'Design System & Team Velocity'}</span>
             </h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              {locale === 'tr'
-                ? 'Operater.io için koyu temalı, yüksek kontrastlı ve modüler bir UI bileşen kütüphanesi (Figma tokenları, state varyasyonları) inşa edildi.'
-                : 'Architected a dark-themed, high-contrast modular UI component library in Figma with comprehensive state variations and design tokens.'}
-            </p>
-          </div>
-
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-950/80 border border-purple-800/60 text-purple-300 font-mono text-xs font-bold flex items-center justify-center">
-              03
-            </div>
-            <h4 className="text-sm font-bold text-slate-200">
-              {locale === 'tr' ? 'AI Destekli Hızlı Prototipleme' : 'AI-Assisted Prototyping'}
-            </h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              {locale === 'tr'
-                ? 'Figma tasarımları ve kod prototipleri (React/Tailwind) paralel geliştirilerek mikro-etkileşimler ve geçiş hissiyatı gerçek ortamda test edildi.'
-                : 'Combined Figma flows with live interactive code prototypes to validate micro-interactions, state transitions, and responsive behavior.'}
-            </p>
-          </div>
-
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-950/80 border border-purple-800/60 text-purple-300 font-mono text-xs font-bold flex items-center justify-center">
-              04
-            </div>
-            <h4 className="text-sm font-bold text-slate-200">
-              {locale === 'tr' ? 'Geliştirici İletişimi & Teslim' : 'Developer Handoff & QA'}
-            </h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              {locale === 'tr'
-                ? 'Net token tanımları, kenar durum (edge-case) spesifikasyonları ve canlı tasarım incelemeleri ile sıfır kayıpla prodüksiyona aktarıldı.'
-                : 'Delivered precise token specs, edge-case documentation, and proactive design QA ensuring zero-friction frontend implementation.'}
-            </p>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-400 font-sans">
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? 'Koyu temalı, erişilebilir renk tokenları, tipografi hiyerarşisi ve bileşen matrisi' : 'Dark-mode, accessible token hierarchy and comprehensive component state matrix'}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? 'Şeffaf izin şemaları ile üçüncü taraf araç entegrasyonunda sürtünmesiz onay' : 'Transparent permission scopes streamlining third-party enterprise integrations'}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-purple-400 font-bold">•</span>
+                <span className="leading-relaxed">{locale === 'tr' ? 'Geliştiricilerin yeni ajan yeteneklerini dakikalar içinde standart kabuklara entegre edebilmesi' : 'Engineers can ship new agent capabilities rapidly within standardized UI shells'}</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* A PERSONAL MILESTONE SECTION                                              */}
+      {/* CASE STUDY CONCLUSION (Layer 2: A Personal Milestone)                    */}
       {/* ========================================================================= */}
-      <section className="p-6 bg-gradient-to-br from-[#0F172A] to-[#1E1B4B]/30 border border-purple-900/40 rounded-2xl space-y-3">
-        <div className="flex items-center gap-2">
+      <section className="p-6 sm:p-8 bg-gradient-to-br from-[#0F172A] to-[#1E1B4B]/20 border border-purple-900/40 rounded-2xl space-y-3">
+        <div className="flex items-center gap-2.5">
           <span className="w-6 h-6 rounded-full bg-purple-900/90 border border-purple-700/60 text-purple-300 text-xs flex items-center justify-center font-bold">
             ★
           </span>
-          <h3 className="text-base sm:text-lg font-bold text-slate-100">
+          <h3 className="text-base sm:text-lg font-display font-bold text-slate-100">
             {locale === 'tr' ? 'Kişisel Bir Dönüm Noktası' : 'A Personal Milestone'}
           </h3>
         </div>
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
           {locale === 'tr'
-            ? 'Operater.io, mevcut bir tasarım kılavuzu veya hazır şablon olmadan, 0’dan 1’e karmaşık bir B2B yapay zeka operasyon platformunun tüm tasarım vizyonunu ve sistematiğini tek başıma şekillendirdiğim en kapsamlı projelerden biri oldu. Tasarımın yalnızca estetik bir katman değil; yapay zeka gibi soyut bir teknolojiyi somut, güvenilir ve vazgeçilmez bir iş aracına dönüştüren ana omurga olduğunu bir kez daha kanıtladı.'
-            : 'Operater.io stands as one of the most comprehensive milestones in my career: establishing the entire design vision, UI architecture, and component library from 0 to 1 without any pre-existing guidelines. It reinforced my core philosophy that design is not mere visual polish, but the foundational bridge turning ambiguous AI capabilities into indispensable, trustworthy enterprise software.'}
+            ? 'Operater.io, mevcut bir tasarım kılavuzu olmadan, 0’dan 1’e karmaşık bir B2B yapay zeka operasyon platformunun tüm tasarım vizyonunu ve sistematiğini tek başıma şekillendirdiğim en kapsamlı projelerden biri oldu. Tasarımın yalnızca görsel bir cila değil; yapay zeka gibi soyut bir teknolojiyi somut, güvenilir ve vazgeçilmez bir iş aracına dönüştüren ana omurga olduğunu bir kez daha kanıtladı.'
+            : 'Operater.io stands as one of the most comprehensive milestones in my career: establishing the entire design vision, UI architecture, and component library from 0 to 1 without pre-existing guidelines. It reinforced my core philosophy that design is not mere visual polish, but the foundational bridge turning ambiguous AI capabilities into indispensable, trustworthy enterprise software.'}
         </p>
       </section>
 
       {/* ========================================================================= */}
-      {/* OUTCOME SECTION (Grounded per refinement 1)                               */}
+      {/* CASE STUDY CONCLUSION (Layer 3: Next Actions & CTAs)                     */}
       {/* ========================================================================= */}
-      <section className="space-y-6 pt-6 border-t border-slate-800">
-        <div className="space-y-2">
-          <span className="text-xs font-mono text-purple-400 uppercase tracking-wider">
-            {locale === 'tr' ? 'Sonuçlar & Çıktılar' : 'Deliverables & Outcomes'}
-          </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-100">
-            {locale === 'tr' ? 'Projenin Somut Çıktıları & Sağladığı Değer' : 'Tangible Project Scope & Delivered Impact'}
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Shipped Product Scope */}
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <span className="text-purple-400">📦</span>
-              <span>{locale === 'tr' ? 'Üretilen & Yayına Alınan Ürün Kapsamı' : 'Shipped Product Scope'}</span>
-            </h4>
-            <ul className="space-y-1.5 text-xs text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? '6 adımlı rehberli Onboarding ve araç yetkilendirme akışı' : '6-step guided onboarding & tool integration workflow'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Canlı ajan akışı, HITL onay çekmecesi ve Home komut paneli' : 'Live agent stream, HITL review drawer, and Home command deck'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? '3 kademeli otonomi, eskalasyon kuralları ve kullanım analitiği panelleri' : '3-tier autonomy settings, escalation rules, and analytics'}</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Design System Foundation */}
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <span className="text-purple-400">🎨</span>
-              <span>{locale === 'tr' ? 'Tasarım Sistemi Temeli' : 'Design System Foundation'}</span>
-            </h4>
-            <ul className="space-y-1.5 text-xs text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Koyu temalı, erişilebilir renk ve tipografi token hiyerarşisi' : 'Dark-mode, accessible color and typography token hierarchy'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Durum bildirimleri, butonlar, modallar ve kartlar için tam durum matrisi' : 'Comprehensive component state matrix for badges, modals, cards'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Figma - Kod uyumlu sıfır sürtünmeli bileşen seti' : 'Figma-to-Code aligned component specifications'}</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Key UX/Product Outcomes */}
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <span className="text-purple-400">⚡</span>
-              <span>{locale === 'tr' ? 'Temel UX & Ürün Çıktıları' : 'Key UX & Product Outcomes'}</span>
-            </h4>
-            <ul className="space-y-1.5 text-xs text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Şeffaf izin gösterimi ile üçüncü taraf araç entegrasyonu sürtünmesiz kılındı' : 'Transparent scope authorization minimized integration friction'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Akıl yürütme izleri (reasoning traces) ile kara kutu güvensizliği aşıldı' : 'Reasoning traces replaced black-box opacity with clear causality'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Kademeli otonomi ile kurumsal risk endişeleri adreslendi' : 'Graduated autonomy systematically resolved enterprise risk concerns'}</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* What the Work Enabled for the Team */}
-          <div className="p-4 bg-[#0F172A] border border-slate-800 rounded-xl space-y-2">
-            <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <span className="text-purple-400">🚀</span>
-              <span>{locale === 'tr' ? 'Ekipler İçin Sağlanan Yetkinlikler' : 'What the Work Enabled for the Team'}</span>
-            </h4>
-            <ul className="space-y-1.5 text-xs text-slate-400">
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Mühendislik ekibinin yeni ajan ve araçları dakikalar içinde arayüze ekleyebilmesi' : 'Engineers can ship new agent capabilities within standardized UI shells'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Yatırımcı ve erken kullanıcı görüşmelerinde tutarlı, kurumsal bir ürün algısı' : 'Solidified early enterprise credibility during demo and pilot cycles'}</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <span className="text-purple-400">•</span>
-                <span>{locale === 'tr' ? 'Gelecek özellikler için ölçeklenebilir, tutarlı tasarım omurgası' : 'A scalable, consistent design backbone ready for future platform expansion'}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* CASE CTA SECTION                                                          */}
-      {/* ========================================================================= */}
-      <footer className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-xs text-slate-400 text-center sm:text-left">
-          <div className="font-semibold text-slate-200">Operater.io Case Study</div>
-          <div>Görkem Berk Gündoğdu · UI/UX Designer</div>
+          <div className="font-display font-bold text-slate-200">Operater.io Case Study</div>
+          <div className="font-sans">Görkem Berk Gündoğdu · UI/UX Designer</div>
         </div>
 
+        {/* Action CTAs: Live Product & Reserved Figma Prototype */}
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="https://operater.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition-colors shadow-sm no-underline flex items-center gap-1.5"
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold font-display transition-all shadow-md hover:shadow-purple-600/30 no-underline flex items-center gap-1.5"
           >
-            <span>{locale === 'tr' ? 'Canlı Platformu Keşfet' : 'Explore Live Platform'}</span>
+            <span>{locale === 'tr' ? 'Canlı Platformu Ziyaret Et' : 'Visit Live Platform'}</span>
             <span>↗</span>
+          </a>
+
+          {/* Figma Designs Button */}
+          <a
+            href="https://www.figma.com/design/8LAlpHDK0yGPMjdqozYM1m/Operater-Flow?node-id=0-1&t=Ok4ktlITx1lwaocB-1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-300 hover:text-white rounded-lg text-xs font-semibold font-display transition-all no-underline flex items-center gap-1.5 shadow-sm"
+          >
+            <span>{locale === 'tr' ? 'Figma Tasarımlarını İncele' : 'View Figma Designs'}</span>
+            <span className="text-slate-400">↗</span>
           </a>
         </div>
       </footer>
