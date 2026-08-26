@@ -62,12 +62,12 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           </div>
 
           <a
-            href="https://operater.io"
+            href="https://www.figma.com/design/8LAlpHDK0yGPMjdqozYM1m/Operater-Flow?node-id=0-1&t=Ok4ktlITx1lwaocB-1"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md text-xs font-bold transition-all shadow-md hover:shadow-purple-600/30 no-underline"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md text-xs font-bold font-display transition-all shadow-md hover:shadow-purple-600/30 no-underline"
           >
-            <span>{locale === 'tr' ? 'Canlı Ürünü Ziyaret Et' : 'Visit Live Platform'}</span>
+            <span>{locale === 'tr' ? 'Figma Tasarımlarını İncele' : 'View Figma Designs'}</span>
             <span className="text-purple-200">↗</span>
           </a>
         </div>
