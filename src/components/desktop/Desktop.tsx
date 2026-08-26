@@ -34,8 +34,8 @@ export const Desktop: React.FC = () => {
         {/* Primary Portfolio Shortcuts */}
         <DesktopIcon
           id="readme"
-          label="Gorkem_Berk_Beni_Oku.txt"
-          labelEn="Gorkem_Berk_Readme.txt"
+          label="Beni_Oku.txt"
+          labelEn="Readme.txt"
           icon="notepad"
         />
 
@@ -48,9 +48,9 @@ export const Desktop: React.FC = () => {
 
         <DesktopIcon
           id="browser"
-          label="Internet Explorer"
-          labelEn="Internet Explorer"
-          icon="ie"
+          label="Articles"
+          labelEn="Articles"
+          icon="globe"
         />
 
         <DesktopIcon

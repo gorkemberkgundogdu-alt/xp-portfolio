@@ -96,11 +96,11 @@ export const StartMenu: React.FC = () => {
                 onKeyDown={(e) => handleItemKeyDown(e, 'browser')}
                 className="flex items-center gap-2 p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer group outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
               >
-                <XpIcon name="ie" size={24} />
+                <XpIcon name="globe" size={24} />
                 <div className="min-w-0">
-                  <div className="text-[12px] font-bold">Internet Explorer</div>
+                  <div className="text-[12px] font-bold">Articles</div>
                   <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
-                    {language === 'tr' ? 'Makaleler & Blog' : 'Articles & Blog'}
+                    {language === 'tr' ? 'Makaleler & Düşünceler' : 'Articles & Thoughts'}
                   </div>
                 </div>
               </div>

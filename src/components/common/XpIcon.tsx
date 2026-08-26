@@ -90,6 +90,8 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
         </svg>
       );
 
+    case 'globe':
+    case 'articles':
     case 'ie':
       return (
         <svg
@@ -101,32 +103,75 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
           className={`inline-block select-none ${className}`}
         >
           <defs>
-            <linearGradient id="ie-blue" x1="24" y1="6" x2="24" y2="42" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#4FA4F4" />
-              <stop offset="0.5" stopColor="#1976D2" />
-              <stop offset="1" stopColor="#0D47A1" />
+            {/* Ocean radial gradient */}
+            <radialGradient id="globe-ocean" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#64B5F6" />
+              <stop offset="45%" stopColor="#1E88E5" />
+              <stop offset="85%" stopColor="#1565C0" />
+              <stop offset="100%" stopColor="#0D47A1" />
+            </radialGradient>
+            {/* Specular highlight */}
+            <linearGradient id="globe-highlight" x1="0%" y1="0%" x2="50%" y2="80%">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+              <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
             </linearGradient>
-            <linearGradient id="ie-halo" x1="8" y1="12" x2="40" y2="36" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#FFDE59" />
-              <stop offset="0.8" stopColor="#F59E0B" />
-              <stop offset="1" stopColor="#D97706" />
-            </linearGradient>
+            {/* Shadow gradient for 3D sphere depth */}
+            <radialGradient id="globe-shadow" cx="65%" cy="75%" r="60%">
+              <stop offset="0%" stopColor="#000000" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+            </radialGradient>
+            {/* Clip path for continents/lines inside sphere */}
+            <clipPath id="globe-clip">
+              <circle cx="24" cy="24" r="18" />
+            </clipPath>
           </defs>
-          {/* IE Orbit Halo */}
-          <path
-            d="M8 32C12 40 34 44 42 28C46 20 38 10 24 10C16 10 10 16 9 22"
-            stroke="url(#ie-halo)"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
-          {/* Blue 'e' glyph */}
-          <circle cx="24" cy="24" r="14" fill="url(#ie-blue)" />
-          <path
-            d="M14 23H34C34 17.5 29.5 14 24 14C18.5 14 14 18.5 14 24C14 29.5 18.5 34 24 34C28 34 31.5 32 33 29"
-            stroke="#FFFFFF"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-          />
+
+          {/* Base sphere drop shadow */}
+          <ellipse cx="24" cy="43" rx="14" ry="3" fill="#000000" fillOpacity="0.25" />
+
+          {/* Outer Ocean Sphere */}
+          <circle cx="24" cy="24" r="18" fill="url(#globe-ocean)" stroke="#0D47A1" strokeWidth="1.5" />
+
+          {/* Clipped Sphere Content (Continents, Grid, Atmosphere) */}
+          <g clipPath="url(#globe-clip)">
+            {/* Latitude Grid Lines */}
+            <ellipse cx="24" cy="15" rx="15" ry="4.5" stroke="#90CAF9" strokeWidth="0.9" strokeOpacity="0.65" fill="none" />
+            <ellipse cx="24" cy="24" rx="18" ry="6" stroke="#90CAF9" strokeWidth="1" strokeOpacity="0.75" fill="none" />
+            <ellipse cx="24" cy="33" rx="15" ry="4.5" stroke="#90CAF9" strokeWidth="0.9" strokeOpacity="0.65" fill="none" />
+
+            {/* Longitude Grid Lines */}
+            <ellipse cx="24" cy="24" rx="7" ry="18" stroke="#90CAF9" strokeWidth="0.9" strokeOpacity="0.65" fill="none" />
+            <line x1="24" y1="6" x2="24" y2="42" stroke="#90CAF9" strokeWidth="1" strokeOpacity="0.75" />
+
+            {/* Continents (Stylized world map) */}
+            {/* Americas / North & South */}
+            <path
+              d="M11 12C13 11 16 13 18 16C19 18 17 21 15 22C14 23 15 25 17 27C19 29 18 34 16 36C14 37 13 35 12 32C10 28 8 23 9 18C9.5 15 10 13 11 12Z"
+              fill="#66BB6A"
+              stroke="#2E7D32"
+              strokeWidth="0.8"
+            />
+            {/* Europe / Asia / Africa */}
+            <path
+              d="M23 10C26 9 31 11 34 13C36 15 38 18 37 21C35 22 32 20 30 19C28 19 27 22 29 25C31 28 30 33 27 34C24 35 23 32 24 29C25 26 23 23 21 21C20 18 21 13 23 10Z"
+              fill="#66BB6A"
+              stroke="#2E7D32"
+              strokeWidth="0.8"
+            />
+            {/* Green Island details */}
+            <circle cx="28" cy="12" r="1.5" fill="#81C784" />
+            <circle cx="34" cy="29" r="2.2" fill="#66BB6A" stroke="#2E7D32" strokeWidth="0.6" />
+
+            {/* 3D Sphere Shadow overlay */}
+            <circle cx="24" cy="24" r="18" fill="url(#globe-shadow)" />
+
+            {/* Glossy Top-Left Specular Glow */}
+            <ellipse cx="19" cy="15" rx="10" ry="6" fill="url(#globe-highlight)" transform="rotate(-25 19 15)" />
+          </g>
+
+          {/* Outer Border Highlight Rim */}
+          <circle cx="24" cy="24" r="18" stroke="#BBDEFB" strokeWidth="0.8" strokeOpacity="0.5" fill="none" />
         </svg>
       );
 

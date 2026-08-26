@@ -38,7 +38,7 @@ export const ReadmeWindow: React.FC = () => {
     >
       <div className="p-5 md:p-8 font-mono text-[13px] md:text-[14px] leading-relaxed text-[#111827] bg-white h-full selection:bg-[#0A246A] selection:text-white overflow-y-auto w-full">
         {language === 'tr' ? (
-          <div className="space-y-5 max-w-4xl">
+          <div className="space-y-5 w-full max-w-5xl mx-auto">
             <div className="font-bold text-[15px] border-b pb-2 border-slate-200 text-blue-900 flex items-center justify-between">
               <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER — WEB &amp; SAAS · FRONT-END BUILDER</span>
               <span className="text-[11px] font-normal text-slate-500 font-sans">v2026.1</span>
@@ -87,7 +87,7 @@ export const ReadmeWindow: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 w-full max-w-5xl mx-auto">
             <div className="font-bold text-[15px] border-b pb-2 border-slate-200 text-blue-900 flex items-center justify-between">
               <span>GÖRKEM BERK GÜNDOĞDU — UI/UX DESIGNER — WEB &amp; SAAS · FRONT-END BUILDER</span>
               <span className="text-[11px] font-normal text-slate-500 font-sans">v2026.1</span>

@@ -101,7 +101,7 @@ export const BrowserWindow: React.FC = () => {
               {language === 'tr' ? 'Adres:' : 'Address:'}
             </span>
             <div className="flex-1 bg-white border border-[#7F9DB9] px-2 py-0.5 rounded-sm flex items-center gap-1.5">
-              <XpIcon name="ie" size={14} />
+              <XpIcon name="globe" size={14} />
               <input
                 type="text"
                 readOnly
@@ -111,7 +111,7 @@ export const BrowserWindow: React.FC = () => {
             </div>
             <button
               type="button"
-              className="px-3 py-0.5 bg-[#ECE9D8] border border-[#7F9DB9] rounded-sm text-[12px] hover:bg-slate-200"
+              className="px-3 py-0.5 bg-[#ECE9D8] border border-[#7F9DB9] rounded-sm text-[12px] hover:bg-slate-200 cursor-pointer"
             >
               {language === 'tr' ? 'Git' : 'Go'} ➡
             </button>
@@ -119,7 +119,7 @@ export const BrowserWindow: React.FC = () => {
         </div>
 
         {/* Article Webpage Content */}
-        <div className="flex-1 p-6 md:p-8 max-w-3xl mx-auto overflow-y-auto space-y-6 select-text font-sans w-full">
+        <div className="flex-1 p-6 md:p-8 max-w-4xl mx-auto overflow-y-auto space-y-6 select-text font-sans w-full">
           <div className="border-b border-slate-200 pb-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">
               {language === 'tr' ? 'Makale & Düşünceler' : 'Article & Insights'}
