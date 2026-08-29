@@ -3,7 +3,8 @@ import {
   IDENTITY_DATA,
   PROJECTS_DATA,
   ARTICLES_DATA,
-  SKILLS_DATA,
+  SKILL_TOOL_ITEMS,
+  CATEGORY_GROUPS,
   ABOUT_SECTIONS,
   type ProjectItem,
 } from '../../data/portfolioData';
@@ -105,10 +106,45 @@ const { locale, activeProject } = Astro.props;
 
       <section style="margin-bottom: 2rem;">
         <h2 style="color: #003399; font-size: 1.3rem;">{locale === 'tr' ? 'Yetkinlikler & Araçlar' : 'Skills & Tools'}</h2>
-        <div style="display: grid; gap: 0.75rem;">
-          {SKILLS_DATA.map((s) => (
+        <div style="display: grid; gap: 1.25rem;">
+          {CATEGORY_GROUPS.map((cat) => (
             <div>
-              <strong>{locale === 'tr' ? s.nameTr : s.nameEn}:</strong> {s.skills.join(', ')}
+              <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; color: #003399; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem;">
+                {locale === 'tr' ? cat.titleTr : cat.titleEn}
+              </h3>
+              <div style="display: grid; gap: 0.75rem; padding-left: 0.5rem;">
+                {cat.subgroups.map((sub) => (
+                  <div>
+                    <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; color: #444;">
+                      {locale === 'tr' ? sub.titleTr : sub.titleEn}
+                    </h4>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.6; font-size: 0.9rem;">
+                      {sub.items.map((item) => (
+                        <li style="margin-bottom: 0.5rem;">
+                          <strong>{item.title}:</strong> {locale === 'tr' ? item.descriptionTr : item.descriptionEn}
+                          {item.evidence && item.evidence.length > 0 && (
+                            <div style="margin-top: 0.2rem; font-size: 0.85rem; color: #555;">
+                              <em>{locale === 'tr' ? 'Kanıt:' : 'Evidence:'}</em>{' '}
+                              {item.evidence.map((ev, i) => (
+                                <span>
+                                  {i > 0 && ', '}
+                                  {ev.projectSlug ? (
+                                    <a href={locale === 'tr' ? `/projeler/${ev.projectSlug}/${ev.anchor || ''}` : `/en/projects/${ev.projectSlug}/${ev.anchor || ''}`} style="color: #0055EA;">
+                                      {ev.projectTitle} {ev.areaTr ? `(${locale === 'tr' ? ev.areaTr : ev.areaEn})` : ''}
+                                    </a>
+                                  ) : (
+                                    <span>{ev.projectTitle} {ev.areaTr ? `(${locale === 'tr' ? ev.areaTr : ev.areaEn})` : ''}</span>
+                                  )}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

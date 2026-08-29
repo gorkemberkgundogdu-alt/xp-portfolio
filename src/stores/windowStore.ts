@@ -7,7 +7,7 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
     title: 'Beni_Oku.txt - Not Defteri',
     titleEn: 'Readme.txt - Notepad',
     icon: 'notepad',
-    isOpen: true,
+    isOpen: false,
     isMinimized: false,
     isMaximized: false,
     zIndex: 10,
@@ -92,8 +92,8 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
     isMaximized: false,
     zIndex: 1,
     defaultPosition: { x: 140, y: 90 },
-    defaultSize: { width: 660, height: 480 },
-    minSize: { width: 340, height: 280 },
+    defaultSize: { width: 760, height: 530 },
+    minSize: { width: 420, height: 320 },
     resizable: true,
     maximizable: true,
     minimizable: true,
@@ -134,13 +134,15 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
 
 export const useWindowStore = create<WindowStoreState>((set, get) => ({
   windows: INITIAL_WINDOWS,
-  activeWindowId: 'readme',
+  activeWindowId: null,
   selectedIconId: null,
   activeProjectId: 'operater',
   activeArticleId: 'ai-driven-ui-ux',
   maxZIndex: 10,
   language: 'tr',
   isStartMenuOpen: false,
+  isTourOpen: false,
+  tourStep: 1,
 
   openWindow: (id: WindowId, customConfig?: Partial<WindowState>) => {
     const { windows, maxZIndex } = get();
@@ -397,5 +399,67 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
     set((state) => ({
       isStartMenuOpen: typeof force === 'boolean' ? force : !state.isStartMenuOpen,
     }));
+  },
+
+  startTour: (initialStep = 1) => {
+    const validStep = Math.min(Math.max(initialStep, 1), 4);
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.setItem('activeTourStep', validStep.toString());
+      } catch {}
+    }
+    set({ isTourOpen: true, tourStep: validStep, isStartMenuOpen: false });
+  },
+
+  closeTour: (markCompleted = true) => {
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.removeItem('activeTourStep');
+        if (markCompleted) {
+          localStorage.setItem('desktopTourCompleted', 'true');
+        }
+      } catch {
+        // Ignore quota/access errors
+      }
+    }
+    set({ isTourOpen: false });
+  },
+
+  nextTourStep: () => {
+    const { tourStep, closeTour } = get();
+    if (tourStep < 4) {
+      const nextStep = tourStep + 1;
+      if (typeof window !== 'undefined') {
+        try {
+          sessionStorage.setItem('activeTourStep', nextStep.toString());
+        } catch {}
+      }
+      set({ tourStep: nextStep });
+    } else {
+      closeTour(true);
+    }
+  },
+
+  prevTourStep: () => {
+    const { tourStep } = get();
+    if (tourStep > 1) {
+      const prevStep = tourStep - 1;
+      if (typeof window !== 'undefined') {
+        try {
+          sessionStorage.setItem('activeTourStep', prevStep.toString());
+        } catch {}
+      }
+      set({ tourStep: prevStep });
+    }
+  },
+
+  setTourStep: (step: number) => {
+    const validStep = Math.min(Math.max(step, 1), 4);
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.setItem('activeTourStep', validStep.toString());
+      } catch {}
+    }
+    set({ tourStep: validStep });
   },
 }));

@@ -10,6 +10,7 @@ export const StartMenu: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
   const openWindow = useWindowStore((state) => state.openWindow);
   const language = useWindowStore((state) => state.language);
+  const startTour = useWindowStore((state) => state.startTour);
 
   const handleOpenItem = (id: WindowId) => {
     openWindow(id);
@@ -189,6 +190,26 @@ export const StartMenu: React.FC = () => {
               >
                 <span className="text-[14px]">📄</span>
                 <span>{language === 'tr' ? 'Özgeçmiş (CV)' : 'Curriculum Vitae'}</span>
+              </div>
+
+              <div
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => {
+                  toggleStartMenu(false);
+                  startTour();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleStartMenu(false);
+                    startTour();
+                  }
+                }}
+                className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
+              >
+                <span className="text-[14px]">💡</span>
+                <span>{language === 'tr' ? 'Masaüstü ipuçlarını göster' : 'Show desktop hints'}</span>
               </div>
 
               <div className="border-t border-[#A8C6EE] my-1" />

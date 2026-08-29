@@ -9,6 +9,7 @@ import {
 } from '../../data/portfolioData';
 import { XpIcon } from '../common/XpIcon';
 import { AboutAccordion } from '../common/AboutAccordion';
+import { SkillsExplorer } from '../common/SkillsExplorer';
 import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
 
 export type PropertiesTab = 'general' | 'projects' | 'articles' | 'skills' | 'cv' | 'contact';
@@ -543,38 +544,19 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
           {/* TAB 4: SKILLS & TOOLS */}
           {activeTab === 'skills' && (
-            <div className="space-y-6 max-w-2xl mx-auto">
+            <div className="space-y-4 max-w-2xl mx-auto">
               <div>
-                <h2 className="text-base font-bold text-slate-900">
+                <h2 className="text-base font-bold text-slate-900 leading-tight">
                   {currentLocale === 'tr' ? 'Yetenekler & Araçlar' : 'Skills & Tools'}
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 mt-0.5">
                   {currentLocale === 'tr'
-                    ? 'Doğrulanmış tasarım ve web geliştirme yetkinlikleri.'
-                    : 'Verified design and front-end engineering competencies.'}
+                    ? 'Tasarım, geliştirme ve yapay zeka destekli üretim yetkinlikleri.'
+                    : 'Design, front-end engineering, and AI-assisted production competencies.'}
                 </p>
               </div>
 
-              <div className="space-y-4">
-                {SKILLS_DATA.map((cat) => (
-                  <div key={cat.id} className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-2.5">
-                    <h3 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center justify-between border-b pb-1 border-blue-100">
-                      <span>{currentLocale === 'tr' ? cat.nameTr : cat.nameEn}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">({cat.skills.length})</span>
-                    </h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {cat.skills.map((s) => (
-                        <span
-                          key={s}
-                          className="px-2.5 py-1 bg-white border border-slate-300 rounded text-xs text-slate-700 font-medium shadow-xs"
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <SkillsExplorer locale={currentLocale} variant="properties" />
             </div>
           )}
 

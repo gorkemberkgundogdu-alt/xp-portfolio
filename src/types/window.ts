@@ -44,6 +44,10 @@ export interface WindowStoreState {
   language: 'tr' | 'en';
   isStartMenuOpen: boolean;
 
+  // Contextual Hint Tour State
+  isTourOpen: boolean;
+  tourStep: number;
+
   // Actions
   openWindow: (id: WindowId, customConfig?: Partial<WindowState>) => void;
   closeWindow: (id: WindowId) => void;
@@ -60,4 +64,11 @@ export interface WindowStoreState {
   setActiveArticleId: (id: string | null) => void;
   setLanguage: (lang: 'tr' | 'en') => void;
   toggleStartMenu: (force?: boolean) => void;
+
+  // Tour Actions
+  startTour: (initialStep?: number) => void;
+  closeTour: (markCompleted?: boolean) => void;
+  nextTourStep: () => void;
+  prevTourStep: () => void;
+  setTourStep: (step: number) => void;
 }

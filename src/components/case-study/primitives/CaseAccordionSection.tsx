@@ -30,6 +30,7 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
 
   return (
     <section
+      id={id}
       className={`border rounded-xl overflow-hidden transition-all duration-300 ${
         isOpen
           ? 'border-purple-900/60 bg-[#0A0E17] shadow-md shadow-purple-950/20'
@@ -60,9 +61,9 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
             >
               {numberPrefix}
             </span>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <span
-                className={`font-display font-extrabold text-base sm:text-lg transition-colors block truncate ${
+                className={`font-display font-extrabold text-base sm:text-lg leading-snug transition-colors block sm:truncate ${
                   isOpen
                     ? 'text-slate-100 group-hover:text-purple-300'
                     : 'text-purple-100 group-hover:text-white drop-shadow-[0_1px_8px_rgba(192,132,252,0.25)]'
@@ -72,7 +73,7 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
               </span>
               {(subtitleTr || subtitleEn) && (
                 <span
-                  className={`text-xs font-sans block truncate mt-0.5 transition-colors ${
+                  className={`text-xs font-sans block line-clamp-2 sm:truncate mt-0.5 transition-colors leading-relaxed ${
                     isOpen ? 'text-slate-400' : 'text-purple-300/80 group-hover:text-purple-200'
                   }`}
                 >
@@ -84,8 +85,9 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
 
           <div className="flex items-center gap-2.5 shrink-0">
             {!isOpen ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-600 group-hover:bg-purple-500 text-white rounded-lg text-xs font-bold font-display shadow-md shadow-purple-600/30 transition-all duration-200 scale-95 group-hover:scale-100">
-                <span>{locale === 'tr' ? 'Bölümü İncele' : 'Explore Section'}</span>
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 bg-purple-600 group-hover:bg-purple-500 text-white rounded-lg text-xs font-bold font-display shadow-md shadow-purple-600/30 transition-all duration-200 scale-95 group-hover:scale-100">
+                <span className="inline sm:hidden">{locale === 'tr' ? 'İncele' : 'View'}</span>
+                <span className="hidden sm:inline">{locale === 'tr' ? 'Bölümü İncele' : 'Explore Section'}</span>
                 <span className="text-xs transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
               </span>
             ) : (

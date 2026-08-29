@@ -49,6 +49,8 @@ export interface SkillCategory {
   skills: string[];
 }
 
+export * from './skillsData';
+
 export interface AboutSection {
   id: string;
   titleTr: string;

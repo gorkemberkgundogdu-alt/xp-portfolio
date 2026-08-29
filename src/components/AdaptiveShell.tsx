@@ -30,6 +30,7 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
   const focusWindow = useWindowStore((state) => state.focusWindow);
   const setActiveProjectId = useWindowStore((state) => state.setActiveProjectId);
   const setActiveArticleId = useWindowStore((state) => state.setActiveArticleId);
+  const closeTour = useWindowStore((state) => state.closeTour);
 
   useEffect(() => {
     // Sync store language
@@ -66,6 +67,11 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
         isTabletUA ||
         (isTouchDevice && !hasFinePointer) ||
         (window.innerWidth < 1024 && !hasFinePointer);
+
+      if (useProperties) {
+        // Safely close desktop tour if switching into Properties mode
+        closeTour(false);
+      }
 
       setIsPropertiesMode(useProperties);
       setIsAppReady(true);

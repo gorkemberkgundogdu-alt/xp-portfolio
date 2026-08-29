@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SITE_CONFIG } from '../config/site';
-import { IDENTITY_DATA, PROJECTS_DATA, ARTICLES_DATA, SKILLS_DATA } from '../data/portfolioData';
+import { IDENTITY_DATA, PROJECTS_DATA, ARTICLES_DATA, CATEGORY_GROUPS } from '../data/portfolioData';
 
 export const GET: APIRoute = async () => {
   const content = `# ${IDENTITY_DATA.name} — ${IDENTITY_DATA.titleEn}
@@ -28,8 +28,14 @@ ${ARTICLES_DATA.map(
   - Summary: ${a.summaryEn}`
 ).join('\n')}
 
-## Verified Skills & Competencies
-${SKILLS_DATA.map((s) => `- **${s.nameEn}**: ${s.skills.join(', ')}`).join('\n')}
+## Verified Skills, Tools & Engineering Competencies
+${CATEGORY_GROUPS.map(
+  (cat) => `### ${cat.titleEn}\n` +
+    cat.subgroups.map(
+      (sub) => `#### ${sub.titleEn}\n` +
+        sub.items.map((item) => `- **${item.title}**: ${item.descriptionEn}${item.evidence && item.evidence.length > 0 ? ` (Evidence: ${item.evidence.map(e => e.projectTitle).join(', ')})` : ''}`).join('\n')
+    ).join('\n\n')
+).join('\n\n')}
 
 ## Contact & Profiles
 - LinkedIn: ${IDENTITY_DATA.social.linkedin}

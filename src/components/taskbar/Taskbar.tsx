@@ -44,6 +44,8 @@ export const Taskbar: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
   const language = useWindowStore((state) => state.language);
   const activeProjectId = useWindowStore((state) => state.activeProjectId);
+  const isTourOpen = useWindowStore((state) => state.isTourOpen);
+  const tourStep = useWindowStore((state) => state.tourStep);
 
   const openWindowsList = Object.values(windows).filter((w) => w.isOpen);
 
@@ -100,11 +102,16 @@ export const Taskbar: React.FC = () => {
         <div className="flex items-center h-full">
           {/* Start Button */}
           <button
+            data-tour="start-button"
             type="button"
             aria-expanded={isStartMenuOpen}
             aria-label="Başlat Menüsü"
             onClick={() => toggleStartMenu()}
-            className="h-full px-3.5 xp-start-btn rounded-r-[10px] flex items-center gap-1.5 shadow-[2px_0_4px_rgba(0,0,0,0.3)] cursor-pointer text-white font-black italic tracking-wide text-[13px] group focus-visible:ring-2 focus-visible:ring-white"
+            className={`h-full px-3.5 xp-start-btn rounded-r-[10px] flex items-center gap-1.5 shadow-[2px_0_4px_rgba(0,0,0,0.3)] cursor-pointer text-white font-black italic tracking-wide text-[13px] group focus-visible:ring-2 focus-visible:ring-white transition-all ${
+              isTourOpen && tourStep === 2
+                ? 'ring-2 ring-white ring-offset-1 ring-offset-green-600 shadow-[0_0_12px_rgba(255,255,255,0.8)]'
+                : ''
+            }`}
           >
             {/* Windows Flag Icon */}
             <div className="w-4 h-4 grid grid-cols-2 gap-[1px] transform -rotate-12 group-hover:rotate-0 transition-transform">
@@ -155,7 +162,14 @@ export const Taskbar: React.FC = () => {
           <div className="h-4 w-[1px] bg-[#0E51B5] mx-1 border-r border-[#3C91FF]" />
 
           {/* Open Windows Tabs */}
-          <div className="flex items-center gap-1 overflow-x-auto max-w-[calc(100vw-350px)] px-1">
+          <div
+            data-tour="windows-area"
+            className={`flex items-center gap-1 overflow-x-auto max-w-[calc(100vw-350px)] min-h-[24px] min-w-[80px] px-1 transition-all ${
+              isTourOpen && tourStep === 4
+                ? 'ring-2 ring-white/90 ring-offset-1 ring-offset-blue-600 rounded shadow-[0_0_10px_rgba(255,255,255,0.7)]'
+                : ''
+            }`}
+          >
             {openWindowsList.map((win) => {
               const isActive = activeWindowId === win.id && !win.isMinimized;
               const title = language === 'en' && win.titleEn ? win.titleEn : win.title;
@@ -183,6 +197,7 @@ export const Taskbar: React.FC = () => {
         <div className="h-full px-3 xp-tray-bg flex items-center gap-3 border-l border-[#0F77D3] shrink-0 text-white">
           {/* Language Toggle (TR / EN) */}
           <a
+            data-tour="language-toggle"
             href={getTargetLocaleUrl(language === 'tr' ? 'en' : 'tr')}
             onClick={(e) => {
               e.preventDefault();
@@ -190,7 +205,11 @@ export const Taskbar: React.FC = () => {
             }}
             title={language === 'tr' ? 'English (EN)' : 'Türkçe (TR)'}
             aria-label={language === 'tr' ? 'İngilizceye Geç' : 'Switch to Turkish'}
-            className="px-1.5 py-0.5 bg-[#0C59B9] hover:bg-[#1E73DB] border border-[#3E98FA] rounded text-[10px] font-bold uppercase cursor-pointer text-white no-underline shadow-xs"
+            className={`px-1.5 py-0.5 bg-[#0C59B9] hover:bg-[#1E73DB] border border-[#3E98FA] rounded text-[10px] font-bold uppercase cursor-pointer text-white no-underline shadow-xs transition-all ${
+              isTourOpen && tourStep === 3
+                ? 'ring-2 ring-white ring-offset-1 ring-offset-blue-600 shadow-[0_0_10px_rgba(255,255,255,0.9)]'
+                : ''
+            }`}
           >
             {language.toUpperCase()}
           </a>
