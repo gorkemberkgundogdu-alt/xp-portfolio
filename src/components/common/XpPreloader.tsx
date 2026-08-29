@@ -17,15 +17,15 @@ export const XpPreloader: React.FC<XpPreloaderProps> = ({
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
   useEffect(() => {
-    // 1. Enforce a small minimum display time (~500ms) to prevent jarring visual flash
+    // 1. Enforce a clean minimum display time (1000ms) for noticeable XP preloader feel
     const minTimer = setTimeout(() => {
       setMinTimeElapsed(true);
-    }, 500);
+    }, 1000);
 
-    // 2. Safety timeout (~2500ms) so the loader never traps the user
+    // 2. Safety timeout (~3000ms) so the loader never traps the user
     const safetyTimer = setTimeout(() => {
       handleDismiss();
-    }, 2500);
+    }, 3000);
 
     return () => {
       clearTimeout(minTimer);
