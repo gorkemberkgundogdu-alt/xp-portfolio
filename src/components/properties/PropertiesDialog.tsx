@@ -10,6 +10,7 @@ import {
 import { XpIcon } from '../common/XpIcon';
 import { AboutAccordion } from '../common/AboutAccordion';
 import { SkillsExplorer } from '../common/SkillsExplorer';
+import { PropertiesContact } from './PropertiesContact';
 import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
 
 export type PropertiesTab = 'general' | 'projects' | 'articles' | 'skills' | 'cv' | 'contact';
@@ -43,11 +44,6 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
   const [selectedArticleSlug, setSelectedArticleSlug] = useState<string | null>(
     initialArticleSlug || null
   );
-
-  // MSN Contact form state
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMsg, setContactMsg] = useState('');
-  const [contactStatus, setContactStatus] = useState<string | null>(null);
 
   const activeTabIndex = TABS.findIndex((t) => t.id === activeTab);
 
@@ -97,16 +93,6 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
   const appProjects = PROJECTS_DATA.filter((p) => p.category === 'app-design');
   const webProjects = PROJECTS_DATA.filter((p) => p.category === 'web-design');
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!contactMsg.trim()) return;
-    setContactStatus(
-      currentLocale === 'tr'
-        ? 'Mesajlaşma özelliği yakında aktif olacaktır. Acil konular için lütfen WhatsApp üzerinden ulaşın.'
-        : 'Messaging will be available shortly. For urgent inquiries, please reach out via WhatsApp.'
-    );
-  };
 
   return (
     <div
@@ -625,67 +611,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
           {/* TAB 6: CONTACT */}
           {activeTab === 'contact' && (
-            <div className="space-y-5 max-w-2xl mx-auto">
-              <div className="p-3 bg-gradient-to-b from-[#E6EFF9] to-[#D5E4F5] border border-[#B5CDE8] rounded-lg flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <XpIcon name="msn" size={28} />
-                  <div>
-                    <div className="font-bold text-xs text-slate-900">{IDENTITY_DATA.name}</div>
-                    <div className="text-[11px] text-slate-600">{IDENTITY_DATA.social.email}</div>
-                  </div>
-                </div>
-                <a
-                  href={IDENTITY_DATA.social.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold shadow-xs transition-colors"
-                >
-                  💬 WhatsApp
-                </a>
-              </div>
-
-              {/* Form */}
-              <form onSubmit={handleContactSubmit} className="space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
-                <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-700">
-                    {currentLocale === 'tr' ? 'E-posta Adresiniz (isteğe bağlı):' : 'Your Email (optional):'}
-                  </label>
-                  <input
-                    type="email"
-                    value={contactEmail}
-                    onChange={(e) => setContactEmail(e.target.value)}
-                    placeholder="ornek@alanadi.com"
-                    className="w-full px-3 py-1.5 bg-white border border-[#7F9DB9] rounded text-xs outline-none focus:border-blue-600"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-700">
-                    {currentLocale === 'tr' ? 'Mesajınız:' : 'Message:'}
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={contactMsg}
-                    onChange={(e) => setContactMsg(e.target.value)}
-                    placeholder={currentLocale === 'tr' ? 'Mesajınızı buraya yazın...' : 'Type your message here...'}
-                    className="w-full px-3 py-1.5 bg-white border border-[#7F9DB9] rounded text-xs outline-none focus:border-blue-600"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-2 bg-[#316AC5] hover:bg-[#2556A3] text-white font-bold text-xs rounded shadow transition-colors cursor-pointer"
-                >
-                  {currentLocale === 'tr' ? 'Gönder' : 'Send'}
-                </button>
-
-                {contactStatus && (
-                  <div className="p-2.5 bg-blue-50 border border-blue-200 rounded text-xs text-blue-900 font-medium">
-                    ℹ️ {contactStatus}
-                  </div>
-                )}
-              </form>
-            </div>
+            <PropertiesContact locale={currentLocale} />
           )}
         </div>
 
