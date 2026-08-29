@@ -83,29 +83,15 @@ export const ContactMsnWindow: React.FC = () => {
     >
       <div ref={containerRef} className="flex flex-col h-full bg-[#EBF2FC] text-slate-800 font-sans select-text">
         {/* MSN Contact Header */}
-        <div className="p-3 bg-gradient-to-b from-[#E6EFF9] to-[#D5E4F5] border-b border-[#B5CDE8] flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-11 h-11 rounded border-2 border-[#316AC5] bg-white p-0.5 shadow-xs flex items-center justify-center shrink-0">
-              <XpIcon name="msn" size={32} />
-            </div>
-            <div className="min-w-0">
-              <div className="font-bold text-[13px] text-slate-900 truncate">
-                {IDENTITY_DATA.name}
-              </div>
-              <div className="text-[11px] text-slate-600 truncate italic">
-                &quot;{IDENTITY_DATA.social.email}&quot;
-              </div>
+        <div className="p-3 bg-gradient-to-b from-[#E6EFF9] to-[#D5E4F5] border-b border-[#B5CDE8] flex items-center gap-3">
+          <div className="w-11 h-11 rounded border-2 border-[#316AC5] bg-white p-0.5 shadow-xs flex items-center justify-center shrink-0">
+            <XpIcon name="msn" size={32} />
+          </div>
+          <div className="min-w-0">
+            <div className="font-bold text-[13px] text-slate-900 truncate">
+              {IDENTITY_DATA.name}
             </div>
           </div>
-
-          <a
-            href={IDENTITY_DATA.social.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[11px] font-bold flex items-center gap-1 shrink-0 transition-colors shadow-xs no-underline"
-          >
-            💬 WhatsApp
-          </a>
         </div>
 
         {/* Main Conversation / Form Area */}
