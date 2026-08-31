@@ -194,7 +194,16 @@ export const SKILL_TOOL_ITEMS: SkillToolItem[] = [
       "Responsive tasarım benim için desktop'ı küçültmek değil. Alan değiştiğinde içeriğin önceliğini, interaction'ı ve gerektiğinde arayüzün kendisini yeniden düşünüyorum.",
     descriptionEn:
       "Responsive design isn't just shrinking desktop for me. When the available space changes, I reconsider content priority, interaction and, when necessary, the interface itself.",
-    // Future XP Portfolio case study will be linked here once ready
+    evidence: [
+      {
+        projectTitle: 'Studio v1be',
+        projectSlug: 'studio-v1be',
+        areaTr: 'Davranış Odaklı Responsive Mimari',
+        areaEn: 'Behavior-Driven Responsive Architecture',
+        anchor: '#responsive',
+        isCaseStudy: true,
+      },
+    ],
   },
   {
     id: 'prototyping',
@@ -326,9 +335,10 @@ export const SKILL_TOOL_ITEMS: SkillToolItem[] = [
       {
         projectTitle: 'Studio v1be',
         projectSlug: 'studio-v1be',
-        areaTr: 'Brand Web Architecture & Landing Pages',
-        areaEn: 'Brand Web Architecture & Landing Pages',
-        isCaseStudy: false,
+        areaTr: 'Web Mimarisi & Servis Sitesi',
+        areaEn: 'Web Architecture & Service Website',
+        anchor: '#implementation',
+        isCaseStudy: true,
       },
     ],
   },
@@ -355,6 +365,16 @@ export const SKILL_TOOL_ITEMS: SkillToolItem[] = [
       "UI kurallarını implementation'a hızlı taşımak ve component'ler arasında tutarlılığı korumak için kullanıyorum.",
     descriptionEn:
       'I use it to translate UI rules into implementation quickly while keeping components consistent.',
+    evidence: [
+      {
+        projectTitle: 'Studio v1be',
+        projectSlug: 'studio-v1be',
+        areaTr: 'Design Token ve Bileşen Sistemi',
+        areaEn: 'Design Token & Component System',
+        anchor: '#implementation',
+        isCaseStudy: true,
+      },
+    ],
   },
 
   // ==========================================
@@ -377,13 +397,6 @@ export const SKILL_TOOL_ITEMS: SkillToolItem[] = [
         projectSlug: 'v1be-saas',
         areaTr: 'Core Product Visual Direction',
         areaEn: 'Core Product Visual Direction',
-        isCaseStudy: false,
-      },
-      {
-        projectTitle: 'Studio v1be',
-        projectSlug: 'studio-v1be',
-        areaTr: 'Landing Page Motion & Transitions',
-        areaEn: 'Landing Page Motion & Transitions',
         isCaseStudy: false,
       },
     ],

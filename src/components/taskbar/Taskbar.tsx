@@ -2,6 +2,7 @@ import React, { useEffect, useState, memo } from 'react';
 import { useWindowStore } from '../../stores/windowStore';
 import { XpIcon } from '../common/XpIcon';
 import { StartMenu } from './StartMenu';
+import { getLanguageToggleUrl } from '../../utils/routes';
 
 // Isolated Clock Component to avoid re-rendering the whole taskbar every second
 const SystemTrayClock: React.FC = memo(() => {
@@ -49,44 +50,14 @@ export const Taskbar: React.FC = () => {
 
   const openWindowsList = Object.values(windows).filter((w) => w.isOpen);
 
-  const getTargetLocaleUrl = (targetLocale: 'tr' | 'en') => {
-    if (typeof window === 'undefined') return targetLocale === 'en' ? '/en/' : '/';
-    const path = window.location.pathname;
-
-    if (targetLocale === 'en') {
-      if (path.startsWith('/projeler/')) {
-        return path.replace('/projeler/', '/en/projects/');
-      }
-      if (path.startsWith('/makaleler/')) {
-        return '/en/articles/ai-driven-ui-ux-design/';
-      }
-      if (activeWindowId === 'projects' && activeProjectId) {
-        return `/en/projects/${activeProjectId}/`;
-      }
-      if (activeWindowId === 'browser') {
-        return '/en/articles/ai-driven-ui-ux-design/';
-      }
-      return '/en/';
-    } else {
-      if (path.startsWith('/en/projects/')) {
-        return path.replace('/en/projects/', '/projeler/');
-      }
-      if (path.startsWith('/en/articles/')) {
-        return '/makaleler/ai-ile-ui-ux-tasarimi/';
-      }
-      if (activeWindowId === 'projects' && activeProjectId) {
-        return `/projeler/${activeProjectId}/`;
-      }
-      if (activeWindowId === 'browser') {
-        return '/makaleler/ai-ile-ui-ux-tasarimi/';
-      }
-      return '/';
-    }
-  };
-
   const handleLanguageToggle = () => {
     const nextLang = language === 'tr' ? 'en' : 'tr';
-    const targetUrl = getTargetLocaleUrl(nextLang);
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+    const targetUrl = getLanguageToggleUrl(
+      currentPath,
+      nextLang,
+      activeWindowId === 'projects' ? activeProjectId : null
+    );
     window.location.href = targetUrl;
   };
 
@@ -198,7 +169,11 @@ export const Taskbar: React.FC = () => {
           {/* Language Toggle (TR / EN) */}
           <a
             data-tour="language-toggle"
-            href={getTargetLocaleUrl(language === 'tr' ? 'en' : 'tr')}
+            href={getLanguageToggleUrl(
+              typeof window !== 'undefined' ? window.location.pathname : '/',
+              language === 'tr' ? 'en' : 'tr',
+              activeWindowId === 'projects' ? activeProjectId : null
+            )}
             onClick={(e) => {
               e.preventDefault();
               handleLanguageToggle();

@@ -6,6 +6,7 @@ import {
   type EvidenceItem,
 } from '../../data/skillsData';
 import { useWindowStore } from '../../stores/windowStore';
+import { pushProjectUrl } from '../../utils/routes';
 
 interface SkillsExplorerProps {
   locale: 'tr' | 'en';
@@ -41,8 +42,13 @@ export const SkillsExplorer: React.FC<SkillsExplorerProps> = ({
     if (variant === 'desktop' && ev.projectSlug) {
       // If we are inside the desktop window environment, focus/open the project in ProjectsWindow
       try {
+        e.preventDefault();
         setActiveProjectId(ev.projectSlug);
         openWindow('projects');
+        pushProjectUrl(ev.projectSlug, locale);
+        if (ev.anchor) {
+          window.location.hash = ev.anchor;
+        }
       } catch {
         // Fallback to standard link navigation
       }

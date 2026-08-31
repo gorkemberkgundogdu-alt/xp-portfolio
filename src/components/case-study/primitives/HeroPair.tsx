@@ -8,12 +8,14 @@ export interface HeroPairProps {
   primarySrc?: string;
   primaryAltTr?: string;
   primaryAltEn?: string;
+  primaryBrowserUrl?: string;
   secondarySlotId: string;
   secondaryTitleTr: string;
   secondaryTitleEn: string;
   secondarySrc?: string;
   secondaryAltTr?: string;
   secondaryAltEn?: string;
+  secondaryBrowserUrl?: string;
   captionTr?: string;
   captionEn?: string;
   locale?: 'tr' | 'en';
@@ -26,12 +28,14 @@ export const HeroPair: React.FC<HeroPairProps> = ({
   primarySrc,
   primaryAltTr,
   primaryAltEn,
+  primaryBrowserUrl,
   secondarySlotId,
   secondaryTitleTr,
   secondaryTitleEn,
   secondarySrc,
   secondaryAltTr,
   secondaryAltEn,
+  secondaryBrowserUrl,
   captionTr,
   captionEn,
   locale = 'tr',
@@ -49,6 +53,7 @@ export const HeroPair: React.FC<HeroPairProps> = ({
             src={primarySrc}
             altTr={primaryAltTr}
             altEn={primaryAltEn}
+            browserUrl={primaryBrowserUrl || 'app.operater.io'}
             locale={locale}
           />
         </div>
@@ -63,6 +68,7 @@ export const HeroPair: React.FC<HeroPairProps> = ({
               src={secondarySrc}
               altTr={secondaryAltTr}
               altEn={secondaryAltEn}
+              browserUrl={secondaryBrowserUrl || 'app.operater.io'}
               locale={locale}
             />
           </div>

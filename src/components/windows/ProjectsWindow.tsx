@@ -4,11 +4,18 @@ import { XpIcon } from '../common/XpIcon';
 import { useWindowStore } from '../../stores/windowStore';
 import { PROJECTS_DATA, type ProjectItem } from '../../data/portfolioData';
 import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
+import { StudioV1beCaseStudy } from '../case-study/StudioV1beCaseStudy';
+import { pushProjectUrl } from '../../utils/routes';
 
 export const ProjectsWindow: React.FC = () => {
   const language = useWindowStore((state) => state.language);
   const activeProjectId = useWindowStore((state) => state.activeProjectId);
   const setActiveProjectId = useWindowStore((state) => state.setActiveProjectId);
+
+  const handleSelectProject = (slug: string) => {
+    setActiveProjectId(slug);
+    pushProjectUrl(slug, language);
+  };
 
   const selectedProject =
     PROJECTS_DATA.find((p) => p.slug === activeProjectId || p.id === activeProjectId) ||
@@ -83,7 +90,15 @@ export const ProjectsWindow: React.FC = () => {
                   return (
                     <div
                       key={item.id}
-                      onClick={() => setActiveProjectId(item.slug)}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleSelectProject(item.slug)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleSelectProject(item.slug);
+                        }
+                      }}
                       className={`flex items-center gap-2 p-1.5 rounded cursor-pointer transition-colors ${
                         isSelected
                           ? 'bg-[#316AC5] text-white shadow-xs'
@@ -119,7 +134,15 @@ export const ProjectsWindow: React.FC = () => {
                   return (
                     <div
                       key={item.id}
-                      onClick={() => setActiveProjectId(item.slug)}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleSelectProject(item.slug)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleSelectProject(item.slug);
+                        }
+                      }}
                       className={`flex items-center gap-2 p-1.5 rounded cursor-pointer transition-colors ${
                         isSelected
                           ? 'bg-[#316AC5] text-white shadow-xs'
@@ -145,9 +168,19 @@ export const ProjectsWindow: React.FC = () => {
           </div>
 
           {/* Right panel: Details & Deep Case Study / Mini Case Study */}
-          <div className={`flex-1 overflow-y-auto w-full ${selectedProject.slug === 'operater' ? 'bg-[#060911] p-4 sm:p-6 md:p-8' : 'bg-white p-5 md:p-6'}`}>
+          <div
+            className={`flex-1 overflow-y-auto w-full ${
+              selectedProject.slug === 'operater'
+                ? 'bg-[#060911] p-4 sm:p-6 md:p-8'
+                : selectedProject.slug === 'studio-v1be'
+                ? 'bg-[#0c0f14] p-4 sm:p-6 md:p-8'
+                : 'bg-white p-5 md:p-6'
+            }`}
+          >
             {selectedProject.slug === 'operater' ? (
               <OperaterCaseStudy locale={language} />
+            ) : selectedProject.slug === 'studio-v1be' ? (
+              <StudioV1beCaseStudy locale={language} />
             ) : (
               <div className="w-full space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 border-slate-200">

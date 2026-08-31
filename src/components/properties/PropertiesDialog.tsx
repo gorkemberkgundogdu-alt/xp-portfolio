@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IDENTITY_DATA,
   PROJECTS_DATA,
@@ -12,6 +12,14 @@ import { AboutAccordion } from '../common/AboutAccordion';
 import { SkillsExplorer } from '../common/SkillsExplorer';
 import { PropertiesContact } from './PropertiesContact';
 import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
+import { StudioV1beCaseStudy } from '../case-study/StudioV1beCaseStudy';
+import {
+  pushProjectUrl,
+  pushLocaleRootUrl,
+  parseProjectRoute,
+  isLocaleRoot,
+  getLanguageToggleUrl as getCentralizedLanguageToggleUrl,
+} from '../../utils/routes';
 
 export type PropertiesTab = 'general' | 'projects' | 'articles' | 'skills' | 'cv' | 'contact';
 
@@ -47,37 +55,72 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
   const activeTabIndex = TABS.findIndex((t) => t.id === activeTab);
 
+  // Synchronize browser history navigation (Back / Forward)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handlePopState = () => {
+      const pathname = window.location.pathname;
+      const projectRoute = parseProjectRoute(pathname);
+
+      if (projectRoute) {
+        setActiveTab('projects');
+        setSelectedProjectSlug(projectRoute.slug);
+      } else if (isLocaleRoot(pathname)) {
+        setSelectedProjectSlug(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleSelectProject = (slug: string) => {
+    setSelectedProjectSlug(slug);
+    pushProjectUrl(slug, currentLocale);
+  };
+
+  const handleBackToProjects = () => {
+    setSelectedProjectSlug(null);
+    pushLocaleRootUrl(currentLocale);
+  };
+
+  const handleTabChange = (tabId: PropertiesTab) => {
+    setActiveTab(tabId);
+    if (selectedProjectSlug) {
+      setSelectedProjectSlug(null);
+      pushLocaleRootUrl(currentLocale);
+    }
+    if (tabId === 'articles') {
+      setSelectedArticleSlug(null);
+    }
+  };
+
   const handlePrevTab = () => {
     if (activeTabIndex > 0) {
-      setActiveTab(TABS[activeTabIndex - 1].id);
+      handleTabChange(TABS[activeTabIndex - 1].id);
     }
   };
 
   const handleNextTab = () => {
     if (activeTabIndex < TABS.length - 1) {
-      setActiveTab(TABS[activeTabIndex + 1].id);
+      handleTabChange(TABS[activeTabIndex + 1].id);
     }
   };
 
   // Language switch URL helper preserving current entity
   const getLanguageToggleUrl = (targetLocale: 'tr' | 'en') => {
-    if (targetLocale === 'en') {
-      if (activeTab === 'projects' && selectedProjectSlug) {
-        return `/en/projects/${selectedProjectSlug}/`;
-      }
-      if (activeTab === 'articles' && selectedArticleSlug) {
-        return `/en/articles/ai-driven-ui-ux-design/`;
-      }
-      return '/en/';
-    } else {
-      if (activeTab === 'projects' && selectedProjectSlug) {
-        return `/projeler/${selectedProjectSlug}/`;
-      }
-      if (activeTab === 'articles' && selectedArticleSlug) {
-        return `/makaleler/ai-ile-ui-ux-tasarimi/`;
-      }
-      return '/';
-    }
+    const currentPath =
+      typeof window !== 'undefined'
+        ? window.location.pathname
+        : currentLocale === 'en'
+        ? '/en/'
+        : '/';
+    return getCentralizedLanguageToggleUrl(
+      currentPath,
+      targetLocale,
+      activeTab === 'projects' ? selectedProjectSlug : null
+    );
   };
 
   // Selected project or article
@@ -140,11 +183,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => {
-                    setActiveTab(tab.id);
-                    if (tab.id === 'projects') setSelectedProjectSlug(null);
-                    if (tab.id === 'articles') setSelectedArticleSlug(null);
-                  }}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`px-1.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-t-md transition-colors flex items-center justify-center gap-1 cursor-pointer truncate ${
                     isActive
                       ? 'bg-white text-blue-900 font-bold border-t-2 border-x border-[#0055EA] border-b-transparent shadow-xs -mb-[1px] z-10'
@@ -166,11 +205,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => {
-                    setActiveTab(tab.id);
-                    if (tab.id === 'projects') setSelectedProjectSlug(null);
-                    if (tab.id === 'articles') setSelectedArticleSlug(null);
-                  }}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`px-1.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-t-md transition-colors flex items-center justify-center gap-1 cursor-pointer truncate ${
                     isActive
                       ? 'bg-white text-blue-900 font-bold border-t-2 border-x border-[#0055EA] border-b-transparent shadow-xs -mb-[1px] z-10'
@@ -323,7 +358,15 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                       {appProjects.map((p) => (
                         <div
                           key={p.id}
-                          onClick={() => setSelectedProjectSlug(p.slug)}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => handleSelectProject(p.slug)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleSelectProject(p.slug);
+                            }
+                          }}
                           className="p-3 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-lg cursor-pointer transition-all shadow-xs flex items-center justify-between gap-3"
                         >
                           <div className="space-y-1 min-w-0">
@@ -353,7 +396,15 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                       {webProjects.map((p) => (
                         <div
                           key={p.id}
-                          onClick={() => setSelectedProjectSlug(p.slug)}
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => handleSelectProject(p.slug)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleSelectProject(p.slug);
+                            }
+                          }}
                           className="p-3 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg cursor-pointer transition-all shadow-xs flex items-center justify-between gap-3"
                         >
                           <div className="space-y-1 min-w-0">
@@ -378,7 +429,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                 <div className="space-y-5">
                   <button
                     type="button"
-                    onClick={() => setSelectedProjectSlug(null)}
+                    onClick={handleBackToProjects}
                     className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-xs font-bold text-slate-800 flex items-center gap-1 cursor-pointer transition-colors shadow-xs"
                   >
                     ← {currentLocale === 'tr' ? 'Tüm Projelere Dön' : 'Back to Projects'}
@@ -387,6 +438,10 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                   {currentProject.slug === 'operater' ? (
                     <div className="bg-[#060911] p-4 sm:p-5 rounded-xl border border-slate-800">
                       <OperaterCaseStudy locale={currentLocale} />
+                    </div>
+                  ) : currentProject.slug === 'studio-v1be' ? (
+                    <div className="bg-[#0c0f14] p-4 sm:p-5 rounded-xl border border-slate-800">
+                      <StudioV1beCaseStudy locale={currentLocale} />
                     </div>
                   ) : (
                     <div className="space-y-5">

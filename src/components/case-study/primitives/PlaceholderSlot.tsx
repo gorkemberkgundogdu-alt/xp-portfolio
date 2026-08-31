@@ -55,7 +55,7 @@ export const PlaceholderSlot: React.FC<PlaceholderSlotProps> = ({
               https://{browserUrl}
             </div>
             <div className="text-[10px] text-slate-500 font-mono">
-              {src ? 'Operater.io' : `Slot: ${id}`}
+              {browserUrl ? browserUrl.replace(/^https?:\/\//, '').split('/')[0] : (src ? 'Operater.io' : `Slot: ${id}`)}
             </div>
           </div>
         )}

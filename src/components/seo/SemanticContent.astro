@@ -81,6 +81,24 @@ const { locale, activeProject } = Astro.props;
                   </ul>
                 </div>
               )}
+              {p.slug === 'studio-v1be' && (
+                <div style="margin-top: 0.75rem; padding: 0.75rem; background: #f5f5f5; border-left: 3px solid #137A3C; font-size: 0.85rem;">
+                  <h4 style="margin: 0 0 0.25rem 0; color: #137A3C;">
+                    {locale === 'tr' ? 'Studio v1be Web Tasarım & Geliştirme Vaka Çalışması Bölümleri:' : 'Studio v1be Web Design & Development Case Study Sections:'}
+                  </h4>
+                  <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.5;">
+                    <li><strong>01 — {locale === 'tr' ? 'Marka & Pozisyonlama:' : 'Brand & Positioning:'}</strong> {locale === 'tr' ? 'Aynı Marka, Farklı Görev (v1be Görsel DNA\'sı, Prosedürel Maskot ve Koyu Mimari Tema)' : 'Same Brand, Different Job (v1be Visual DNA, Procedural Mascot & Dark Theme)'}</li>
+                    <li><strong>02 — {locale === 'tr' ? 'Bilgi Hiyerarşisi:' : 'Information Hierarchy:'}</strong> {locale === 'tr' ? 'İlk Ekranda Anlatmak (WHAT, WHY, HOW Kademeli Anlatım Sırası)' : 'Making It Clear on the First Screen (WHAT, WHY, HOW Progressive Narrative)'}</li>
+                    <li><strong>03 — {locale === 'tr' ? 'Etkileşim & Animasyon:' : 'Interaction & Motion:'}</strong> {locale === 'tr' ? 'Özel Vanilla TypeScript Paginated Wheel Deneyimi (Sıfır Harici Kütüphane)' : 'Custom Vanilla TypeScript Paginated Wheel Controller (Zero External Libraries)'}</li>
+                    <li><strong>04 — {locale === 'tr' ? 'Duyarlı Tasarım:' : 'Responsive Architecture:'}</strong> {locale === 'tr' ? 'Responsive Benim İçin Ölçek Değil Davranış Değişimi (Masaüstü Paging vs Mobil Doğal Akış)' : 'Responsive Isn\'t Scale, It\'s a Change in Behavior (Desktop Paging vs Mobile Natural Flow)'}</li>
+                    <li><strong>05 — {locale === 'tr' ? 'Dönüşüm Mimarisi:' : 'Conversion Architecture:'}</strong> {locale === 'tr' ? 'Karar Anı Tek Bir Yerde Oluşmuyor (Packages İnteraktif Brief Konfigüratörü & Audit CTA)' : 'Decision Moments Don\'t Happen in One Place (Packages Brief Configurator & Audit CTA)'}</li>
+                    <li><strong>06 — {locale === 'tr' ? 'Süreç İletişimi:' : 'Process Visualization:'}</strong> {locale === 'tr' ? 'Süreci Yazmak Yerine Görünür Hale Getirmek (4 Makro Aşama & İncelenebilir Kod Terminalleri)' : 'Making Process Visible (4 Macro Stages & Inspectable Code Terminals)'}</li>
+                    <li><strong>07 — {locale === 'tr' ? 'İçerik Mimarisi:' : 'Content Architecture:'}</strong> {locale === 'tr' ? 'Work ve Labs Ayrımı (Case 001, Case 002 ve LAB 001 AI Crawlability Deneyi)' : 'Work & Labs Distinction (Case 001, Case 002 & LAB 001 AI Crawlability Experiment)'}</li>
+                    <li><strong>08 — {locale === 'tr' ? 'Geliştirme & Teslimat:' : 'Front-End & Delivery:'}</strong> {locale === 'tr' ? 'Tasarım Dosyada Kalmadı (Astro v7, TypeScript, Tailwind v4, Three.js, Sıfır Framework Adası)' : 'The Design Didn\'t Stop in Design File (Astro v7, TypeScript, Tailwind v4, Three.js, Zero Islands)'}</li>
+                    <li><strong>09 — {locale === 'tr' ? 'SEO & GEO Altyapısı:' : 'SEO & GEO Foundations:'}</strong> {locale === 'tr' ? 'Görünmenin Ötesinde Anlaşılmak (Dinamik llms.txt, JSON-LD Şeması, Robots Direktifleri, LAB 001)' : 'Being Understood Beyond Being Seen (Dynamic llms.txt, JSON-LD Schema, Robots, LAB 001)'}</li>
+                  </ul>
+                </div>
+              )}
             </article>
           ))}
         </div>

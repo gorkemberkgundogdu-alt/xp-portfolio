@@ -5,6 +5,7 @@ import { XpPreloader } from './common/XpPreloader';
 import { XpNotificationBalloon } from './common/XpNotificationBalloon';
 import { useWindowStore } from '../stores/windowStore';
 import type { WindowId } from '../types/window';
+import { parseProjectRoute, isLocaleRoot } from '../utils/routes';
 
 interface AdaptiveShellProps {
   currentLocale: 'tr' | 'en';
@@ -31,6 +32,26 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
   const setActiveProjectId = useWindowStore((state) => state.setActiveProjectId);
   const setActiveArticleId = useWindowStore((state) => state.setActiveArticleId);
   const closeTour = useWindowStore((state) => state.closeTour);
+
+  // Desktop Browser Back / Forward popstate synchronization
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handlePopState = () => {
+      const pathname = window.location.pathname;
+      const projectRoute = parseProjectRoute(pathname);
+
+      if (projectRoute) {
+        setLanguage(projectRoute.locale);
+        setActiveProjectId(projectRoute.slug);
+        openWindow('projects');
+        focusWindow('projects');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [setLanguage, setActiveProjectId, openWindow, focusWindow]);
 
   useEffect(() => {
     // Sync store language
@@ -90,6 +111,7 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
     focusWindow,
     setActiveProjectId,
     setActiveArticleId,
+    closeTour,
   ]);
 
   return (

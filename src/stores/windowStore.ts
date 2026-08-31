@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { WindowId, WindowState, WindowStoreState } from '../types/window';
+import { isProjectRoute, pushLocaleRootUrl } from '../utils/routes';
 
 export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
   readme: {
@@ -182,9 +183,13 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
   },
 
   closeWindow: (id: WindowId) => {
-    const { windows, activeWindowId } = get();
+    const { windows, activeWindowId, language } = get();
     const current = windows[id];
     if (!current) return;
+
+    if (id === 'projects' && typeof window !== 'undefined' && isProjectRoute(window.location.pathname)) {
+      pushLocaleRootUrl(language);
+    }
 
     const remainingOpen = Object.values(windows).filter(
       (w) => w.id !== id && w.isOpen && !w.isMinimized
