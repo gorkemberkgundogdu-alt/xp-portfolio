@@ -548,18 +548,19 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
           {/* TAB 5: CV */}
           {activeTab === 'cv' && (
-            <div className="space-y-4 max-w-2xl mx-auto">
-              {/* Top Banner with Persistent Top-Right Download Control (No scroll required!) */}
-              <div className="p-3 bg-[#ECE9D8] border border-[#D4D0C8] rounded flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
-                <div className="text-xs font-bold text-slate-800 truncate">
-                  📄 Gorkem_Berk_Gundogdu_CV_2026.pdf
+            <div className="space-y-3 max-w-2xl mx-auto flex flex-col h-full">
+              {/* Top Banner with File identity & Open/Download Controls */}
+              <div className="p-2.5 bg-[#ECE9D8] border border-[#D4D0C8] rounded flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-2xs shrink-0">
+                <div className="text-xs font-bold text-slate-800 truncate flex items-center gap-1.5">
+                  <span>📄</span>
+                  <span className="truncate">Gorkem_Berk_Gundogdu_CV_2026.pdf</span>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <a
                     href={IDENTITY_DATA.social.cvPath}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-400 rounded text-xs font-semibold text-slate-800 shadow-xs transition-colors"
+                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 border border-slate-400 rounded text-xs font-semibold text-slate-800 shadow-2xs transition-colors no-underline flex items-center gap-1"
                   >
                     🔍 {currentLocale === 'tr' ? 'Aç' : 'Open'} ↗
                   </a>
@@ -568,43 +569,20 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                     download="Gorkem_Berk_Gundogdu_CV_2026.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-xs flex items-center gap-1 shadow-xs transition-colors"
+                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-xs flex items-center gap-1 shadow-2xs transition-colors no-underline"
                   >
-                    📥 {currentLocale === 'tr' ? 'CV İndir (PDF)' : 'Download (PDF)'}
+                    📥 {currentLocale === 'tr' ? 'CV İndir (PDF)' : 'Download CV (PDF)'}
                   </a>
                 </div>
               </div>
 
-              {/* Document Overview Preview */}
-              <div className="p-5 bg-slate-50 border border-slate-200 rounded-lg space-y-4 text-xs">
-                <div className="border-b pb-2 border-slate-300 flex justify-between items-baseline">
-                  <div>
-                    <h3 className="font-bold text-sm text-slate-900">{IDENTITY_DATA.name}</h3>
-                    <p className="text-blue-600 font-semibold">{IDENTITY_DATA.taglineTr}</p>
-                  </div>
-                  <div className="text-slate-500 font-mono text-[11px]">{IDENTITY_DATA.social.email}</div>
-                </div>
-
-                <div className="space-y-1">
-                  <h4 className="font-bold uppercase text-slate-500 text-[10px]">
-                    {currentLocale === 'tr' ? 'Deneyim Özeti' : 'Experience Summary'}
-                  </h4>
-                  <p className="text-slate-700 leading-relaxed">
-                    {currentLocale === 'tr' ? IDENTITY_DATA.aboutShortTr : IDENTITY_DATA.aboutShortEn}
-                  </p>
-                </div>
-
-                <div className="space-y-2 border-t pt-2 border-slate-200">
-                  <div>
-                    <strong>Operater.io (Jan 2026 - Present):</strong> UI/UX Designer
-                  </div>
-                  <div>
-                    <strong>v1be.io (July 2026 - Present):</strong> Co-Founder
-                  </div>
-                  <div>
-                    <strong>Freelance (Rook AI & MyNessa Media):</strong> Web Designer & Developer
-                  </div>
-                </div>
+              {/* Real PDF Document Embed Container */}
+              <div className="w-full bg-[#525659] border border-[#7F9DB9] rounded overflow-hidden shadow-inner flex flex-col min-h-[60vh] sm:min-h-[68vh]">
+                <iframe
+                  src={`${IDENTITY_DATA.social.cvPath}#toolbar=1&navpanes=0`}
+                  title={currentLocale === 'tr' ? 'Görkem Berk Gündoğdu CV Önizleme' : 'Görkem Berk Gündoğdu CV Preview'}
+                  className="w-full flex-1 min-h-[58vh] sm:min-h-[65vh] border-0 bg-white"
+                />
               </div>
             </div>
           )}
