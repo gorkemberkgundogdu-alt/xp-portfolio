@@ -11,6 +11,7 @@ import { CvViewerWindow } from '../windows/CvViewerWindow';
 import { ContactMsnWindow } from '../windows/ContactMsnWindow';
 import { MinesweeperWindow } from '../windows/MinesweeperWindow';
 import { ViceCityWindow } from '../windows/ViceCityWindow';
+import { StravaWindow } from '../windows/StravaWindow';
 
 export const Desktop: React.FC = () => {
   const toggleStartMenu = useWindowStore((state) => state.toggleStartMenu);
@@ -127,6 +128,13 @@ export const Desktop: React.FC = () => {
           labelEn="ViceCity.exe"
           icon="game"
         />
+
+        <DesktopIcon
+          id="strava"
+          label="Strava.exe"
+          labelEn="Strava.exe"
+          icon="strava"
+        />
       </div>
 
       {/* Interactive Windows Layer */}
@@ -139,6 +147,7 @@ export const Desktop: React.FC = () => {
         <ContactMsnWindow />
         <MinesweeperWindow />
         <ViceCityWindow />
+        <StravaWindow />
       </div>
 
       {/* Taskbar */}

@@ -131,6 +131,22 @@ export const INITIAL_WINDOWS: Record<WindowId, WindowState> = {
     maximizable: true,
     minimizable: true,
   },
+  strava: {
+    id: 'strava',
+    title: 'Strava.exe',
+    titleEn: 'Strava.exe',
+    icon: 'strava',
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 1,
+    defaultPosition: { x: 220, y: 70 },
+    defaultSize: { width: 740, height: 550 },
+    minSize: { width: 460, height: 380 },
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+  },
 };
 
 export const useWindowStore = create<WindowStoreState>((set, get) => ({

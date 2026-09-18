@@ -9,6 +9,10 @@ export type XpIconName =
   | 'computer'
   | 'skills'
   | 'tools'
+  | 'minesweeper'
+  | 'game'
+  | 'viceCity'
+  | 'strava'
   | (string & {});
 
 interface XpIconProps {
@@ -382,6 +386,65 @@ export const XpIcon: React.FC<XpIconProps> = ({ name, className = '', size = 32 
           className={`inline-block select-none rounded-[3px] shadow-xs object-cover ${className}`}
           style={{ width: size, height: size }}
         />
+      );
+
+    case 'strava':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={`inline-block select-none ${className}`}
+        >
+          <defs>
+            <linearGradient id="strava-body" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#FF6420" />
+              <stop offset="40%" stopColor="#FC4C02" />
+              <stop offset="100%" stopColor="#D93800" />
+            </linearGradient>
+            <linearGradient id="strava-glass" x1="0" y1="4" x2="0" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0.05" />
+            </linearGradient>
+            <filter id="strava-shadow" x="1" y="2" width="46" height="46" filterUnits="userSpaceOnUse">
+              <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor="#000000" floodOpacity="0.35" />
+            </filter>
+          </defs>
+
+          {/* Main App Plate with XP Bevel */}
+          <g filter="url(#strava-shadow)">
+            {/* Dark Bevel Rim */}
+            <rect x="4" y="4" width="40" height="40" rx="8" fill="#9B2800" />
+            {/* Rich Strava Orange Gradient */}
+            <rect x="5" y="5" width="38" height="38" rx="7" fill="url(#strava-body)" />
+            {/* Top Gloss Reflection */}
+            <path
+              d="M5 12C5 8.13401 8.13401 5 12 5H36C39.866 5 43 8.13401 43 12V22C35 25 13 22 5 18V12Z"
+              fill="url(#strava-glass)"
+            />
+            {/* Top Border Highlight */}
+            <path
+              d="M12 5.5H36C39.5 5.5 42.5 8.5 42.5 12"
+              stroke="#FFA875"
+              strokeWidth="1"
+              strokeLinecap="round"
+            />
+          </g>
+
+          {/* Official Strava Chevrons */}
+          {/* Primary large left arrow */}
+          <path
+            d="M20.5 11L14.2 23.5H18.2L20.5 19L22.8 23.5H26.8L20.5 11Z"
+            fill="#FFFFFF"
+          />
+          {/* Secondary small right arrow */}
+          <path
+            d="M24.8 23.5L22.4 28.2H20.2L24.8 37.2L29.4 28.2H27.2L24.8 23.5Z"
+            fill="#FFE3D4"
+          />
+        </svg>
       );
 
     default:
