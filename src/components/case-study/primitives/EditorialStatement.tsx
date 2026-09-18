@@ -7,6 +7,7 @@ interface EditorialStatementProps {
   subtextEn?: string;
   locale?: 'tr' | 'en';
   accentColor?: string;
+  theme?: 'purple' | 'lime';
   className?: string;
 }
 
@@ -16,6 +17,7 @@ export const EditorialStatement: React.FC<EditorialStatementProps> = ({
   subtextTr,
   subtextEn,
   locale = 'tr',
+  theme = 'purple',
   className = '',
 }) => {
   const quote = locale === 'tr' ? quoteTr : quoteEn;
@@ -26,7 +28,13 @@ export const EditorialStatement: React.FC<EditorialStatementProps> = ({
       <div className="relative max-w-3xl">
         {/* Subtle accent vertical bar */}
         <div className="flex items-start gap-4 sm:gap-6">
-          <div className="w-1 self-stretch bg-gradient-to-b from-purple-500 via-purple-600 to-transparent rounded-full shrink-0" />
+          <div
+            className={`w-1 self-stretch rounded-full shrink-0 ${
+              theme === 'lime'
+                ? 'bg-gradient-to-b from-lime-400 via-lime-500 to-transparent'
+                : 'bg-gradient-to-b from-purple-500 via-purple-600 to-transparent'
+            }`}
+          />
           <div className="space-y-2">
             <blockquote className="text-xl sm:text-2xl md:text-3xl font-display font-extrabold text-slate-100 tracking-tight leading-snug">
               “{quote}”

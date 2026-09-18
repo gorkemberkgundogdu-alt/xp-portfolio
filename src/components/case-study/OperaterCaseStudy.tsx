@@ -12,11 +12,31 @@ import { ArtifactFrame } from './primitives/ArtifactFrame';
 
 export interface OperaterCaseStudyProps {
   locale?: 'tr' | 'en';
+  onBackToProjects?: () => void;
+  onNextCaseStudy?: () => void;
 }
 
-export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = 'tr' }) => {
-  // Default open state: 01 Onboarding open; 02 Dashboard & 03 Governance closed with magnetic invite styling
-  const [openSections, setOpenSections] = useState<Set<string>>(new Set(['onboarding']));
+const OPERATER_SECTIONS = ['onboarding', 'dashboard', 'settings'] as const;
+
+export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({
+  locale = 'tr',
+  onBackToProjects,
+  onNextCaseStudy,
+}) => {
+  // Default open state: 01 Onboarding open, 02 Dashboard open, 03 Governance closed (also supports 04 if present)
+  const [openSections, setOpenSections] = useState<Set<string>>(
+    new Set(['onboarding', 'dashboard', '01', '02', '04'])
+  );
+
+  const isAllExpanded = OPERATER_SECTIONS.every((id) => openSections.has(id));
+
+  const toggleAllSections = () => {
+    if (isAllExpanded) {
+      setOpenSections(new Set());
+    } else {
+      setOpenSections(new Set([...OPERATER_SECTIONS, '01', '02', '03', '04']));
+    }
+  };
 
   const toggleSection = (sectionId: string) => {
     setOpenSections((prev) => {
@@ -86,7 +106,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
         {/* Quiet Hairline Metadata Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 px-2 border-y border-slate-800/80 text-xs">
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            <div className="text-[10px] font-mono text-slate-400 font-medium uppercase tracking-widest">
               {locale === 'tr' ? 'Rol' : 'Role'}
             </div>
             <div className="font-semibold text-slate-200 mt-1 font-display">
@@ -94,7 +114,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            <div className="text-[10px] font-mono text-slate-400 font-medium uppercase tracking-widest">
               {locale === 'tr' ? 'Kapsam' : 'Scope'}
             </div>
             <div className="font-semibold text-slate-200 mt-1 font-display">
@@ -102,7 +122,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            <div className="text-[10px] font-mono text-slate-400 font-medium uppercase tracking-widest">
               {locale === 'tr' ? 'Disiplinler' : 'Disciplines'}
             </div>
             <div className="font-semibold text-slate-200 mt-1 font-display">
@@ -110,7 +130,7 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
             </div>
           </div>
           <div>
-            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            <div className="text-[10px] font-mono text-slate-400 font-medium uppercase tracking-widest">
               {locale === 'tr' ? 'Durum' : 'Status'}
             </div>
             <div className="font-semibold text-emerald-400 mt-1 font-display">
@@ -138,6 +158,25 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           locale={locale}
         />
       </header>
+
+      {/* Accordion Controls Bar */}
+      <div className="flex items-center justify-between pt-1 pb-0 -mb-6 select-none">
+        <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+          {locale === 'tr' ? 'Bölümler (3 Akış)' : 'Sections (3 Flows)'}
+        </span>
+        <button
+          type="button"
+          onClick={toggleAllSections}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-purple-300 hover:text-white border border-purple-900/50 hover:border-purple-700 text-xs font-medium transition-all shadow-xs cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        >
+          <span className="text-[11px]">{isAllExpanded ? '▲' : '▼'}</span>
+          <span>
+            {isAllExpanded
+              ? (locale === 'tr' ? 'Tümünü daralt' : 'Collapse all')
+              : (locale === 'tr' ? 'Tümünü genişlet' : 'Expand all')}
+          </span>
+        </button>
+      </div>
 
       {/* ========================================================================= */}
       {/* 01 — ONBOARDING SECTION (Frozen / Preserved)                               */}
@@ -1885,6 +1924,38 @@ export const OperaterCaseStudy: React.FC<OperaterCaseStudyProps> = ({ locale = '
           </a>
         </div>
       </footer>
+
+      {/* ========================================================================= */}
+      {/* CASE STUDY ENDING NAVIGATION                                             */}
+      {/* ========================================================================= */}
+      {(onBackToProjects || onNextCaseStudy) && (
+        <nav
+          aria-label={locale === 'tr' ? 'Vaka Çalışması Gezintisi' : 'Case Study Navigation'}
+          className="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 select-none"
+        >
+          {onBackToProjects ? (
+            <button
+              type="button"
+              onClick={onBackToProjects}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+            >
+              <span>←</span>
+              <span>{locale === 'tr' ? 'Tüm Projeler' : 'All Projects'}</span>
+            </button>
+          ) : <div />}
+
+          {onNextCaseStudy && (
+            <button
+              type="button"
+              onClick={onNextCaseStudy}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-lime-400 hover:bg-lime-300 text-slate-950 text-xs font-bold transition-all shadow-md shadow-lime-950/30 cursor-pointer ml-auto"
+            >
+              <span>{locale === 'tr' ? 'Sonraki Vaka: Studio v1be' : 'Next Case Study: Studio v1be'}</span>
+              <span>→</span>
+            </button>
+          )}
+        </nav>
+      )}
     </article>
   );
 };

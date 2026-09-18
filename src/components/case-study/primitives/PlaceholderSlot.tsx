@@ -13,6 +13,8 @@ export interface PlaceholderSlotProps {
   className?: string;
   browserFrame?: boolean;
   browserUrl?: string;
+  browserTitle?: string;
+  theme?: 'purple' | 'lime';
   captionTr?: string;
   captionEn?: string;
   locale?: 'tr' | 'en';
@@ -30,12 +32,25 @@ export const PlaceholderSlot: React.FC<PlaceholderSlotProps> = ({
   maxHeight,
   className = '',
   browserFrame = true,
-  browserUrl = 'app.operater.io',
+  browserUrl,
+  browserTitle,
+  theme = 'purple',
   captionTr,
   captionEn,
   locale = 'tr',
 }) => {
   const altText = locale === 'tr' ? (altTr || nameTr) : (altEn || nameEn);
+  const defaultUrl = theme === 'lime' ? 'studio.v1be.io' : 'app.operater.io';
+  const effectiveUrl = browserUrl || defaultUrl;
+  const effectiveTitle =
+    browserTitle ||
+    (browserUrl
+      ? browserUrl.replace(/^https?:\/\//, '').split('/')[0]
+      : theme === 'lime'
+      ? 'studio.v1be.io'
+      : src
+      ? 'Operater.io'
+      : `Slot: ${id}`);
 
   return (
     <figure className={`w-full my-3 sm:my-4 group ${className}`}>
@@ -45,17 +60,17 @@ export const PlaceholderSlot: React.FC<PlaceholderSlotProps> = ({
       >
         {/* Optional Clean Dark Window / Browser Bar */}
         {browserFrame && (
-          <div className="flex items-center justify-between px-3 py-2 bg-[#1E293B] border-b border-slate-700/60 select-none text-[11px] shrink-0">
-            <div className="flex items-center gap-1.5">
+          <div className="flex items-center justify-between px-3 py-2 bg-[#1E293B] border-b border-slate-700/60 select-none text-[11px] shrink-0 gap-2">
+            <div className="flex items-center gap-1.5 shrink-0">
               <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/80 inline-block" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/80 inline-block" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/80 inline-block" />
             </div>
-            <div className="bg-[#0F172A]/90 border border-slate-700/50 rounded px-2.5 py-0.5 text-slate-400 font-mono text-[10px] truncate max-w-[200px] sm:max-w-xs">
-              https://{browserUrl}
+            <div className="bg-[#0F172A]/90 border border-slate-700/50 rounded px-2.5 py-0.5 text-slate-400 font-mono text-[10px] truncate max-w-[140px] xs:max-w-[200px] sm:max-w-xs">
+              https://{effectiveUrl}
             </div>
-            <div className="text-[10px] text-slate-500 font-mono">
-              {browserUrl ? browserUrl.replace(/^https?:\/\//, '').split('/')[0] : (src ? 'Operater.io' : `Slot: ${id}`)}
+            <div className="text-[10px] text-slate-400 font-mono shrink-0 truncate max-w-[120px] text-right">
+              {effectiveTitle}
             </div>
           </div>
         )}
@@ -86,14 +101,24 @@ export const PlaceholderSlot: React.FC<PlaceholderSlotProps> = ({
             />
 
             <div className="relative z-10 space-y-2 max-w-md px-4">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-950/60 border border-purple-800/50 rounded text-purple-300 text-[10px] font-mono uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+              <div
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-mono uppercase tracking-wider ${
+                  theme === 'lime'
+                    ? 'bg-lime-950/60 border border-lime-800/50 text-lime-300'
+                    : 'bg-purple-950/60 border border-purple-800/50 text-purple-300'
+                }`}
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                    theme === 'lime' ? 'bg-lime-400' : 'bg-purple-400'
+                  }`}
+                />
                 <span>{id}</span>
               </div>
               <h4 className="text-xs sm:text-sm font-semibold text-slate-300">
                 {locale === 'tr' ? nameTr : nameEn}
               </h4>
-              <p className="text-[11px] text-slate-500 font-mono">
+              <p className="text-[11px] text-slate-400 font-mono">
                 [Gerçek ekran görüntüsü sonraki adımda yerleştirilecek]
               </p>
             </div>

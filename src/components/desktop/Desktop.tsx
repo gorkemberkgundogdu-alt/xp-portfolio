@@ -102,8 +102,8 @@ export const Desktop: React.FC = () => {
 
         <DesktopIcon
           id="cv"
-          label="CV_2026.pdf"
-          labelEn="CV_2026.pdf"
+          label="Görkem_Berk_Gündoğdu CV.pdf"
+          labelEn="Görkem_Berk_Gündoğdu CV.pdf"
           icon="pdf"
         />
 

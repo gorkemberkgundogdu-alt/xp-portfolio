@@ -180,7 +180,7 @@ export const IDENTITY_DATA = {
     email: 'gorkemberkgundogdu@gmail.com',
     whatsapp: '+90 505 502 97 63',
     whatsappUrl: 'https://wa.me/905055029763',
-    cvPath: '/assets/Gorkem_Berk_Gundogdu_CV_2026.pdf',
+    cvPath: '/assets/Gorkem_Berk_Gundogdu_CV.pdf',
   },
 };
 

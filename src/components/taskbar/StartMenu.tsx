@@ -133,7 +133,7 @@ export const StartMenu: React.FC = () => {
               >
                 <XpIcon name="pdf" size={24} />
                 <div className="min-w-0">
-                  <div className="text-[12px] font-bold">CV_2026.pdf</div>
+                  <div className="text-[12px] font-bold">Görkem_Berk_Gündoğdu CV.pdf</div>
                   <div className="text-[10px] text-slate-500 group-hover:text-blue-100 group-focus-visible:text-blue-100 truncate">
                     {language === 'tr' ? 'Özgeçmiş Belgesi' : 'Curriculum Vitae'}
                   </div>
@@ -242,7 +242,7 @@ export const StartMenu: React.FC = () => {
                 className="p-1.5 rounded hover:bg-[#2F82FF] hover:text-white cursor-pointer flex items-center gap-2 outline-none focus-visible:bg-[#2F82FF] focus-visible:text-white"
               >
                 <span className="text-[14px]">✉️</span>
-                <span>E-posta Gönder ↗</span>
+                <span>{language === 'tr' ? 'E-posta Gönder ↗' : 'Send Email ↗'}</span>
               </a>
             </div>
           </div>

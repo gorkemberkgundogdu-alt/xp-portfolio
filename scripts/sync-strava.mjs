@@ -5,10 +5,34 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
+// Optionally load local environment files if present
+if (typeof process.loadEnvFile === 'function') {
+  for (const envFile of ['.env', '.env.local']) {
+    const envPath = path.join(rootDir, envFile);
+    if (fs.existsSync(envPath)) {
+      try {
+        process.loadEnvFile(envPath);
+      } catch {
+        // Continue if file cannot be read
+      }
+    }
+  }
+}
 
-const CLIENT_ID = process.env.STRAVA_CLIENT_ID || '280232';
-const CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET || '6c6e5ae69d9754e0f2dee79c1d24022f04a6db87';
-const REFRESH_TOKEN = process.env.STRAVA_REFRESH_TOKEN || '381d1b538fd9357dd9cb416323c5e6d24a57bdbc';
+const CLIENT_ID = process.env.STRAVA_CLIENT_ID?.trim();
+const CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET?.trim();
+const REFRESH_TOKEN = process.env.STRAVA_REFRESH_TOKEN?.trim();
+
+const missingVars = [];
+if (!CLIENT_ID) missingVars.push('STRAVA_CLIENT_ID');
+if (!CLIENT_SECRET) missingVars.push('STRAVA_CLIENT_SECRET');
+if (!REFRESH_TOKEN) missingVars.push('STRAVA_REFRESH_TOKEN');
+
+if (missingVars.length > 0) {
+  console.error(`❌ Error: Missing required Strava environment variable(s): ${missingVars.join(', ')}`);
+  console.error('Please configure these environment variables or define them in a local .env file before running sync:strava.');
+  process.exit(1);
+}
 
 async function syncStrava() {
   console.log('🔄 Refreshing Strava access token...');
@@ -41,6 +65,15 @@ async function syncStrava() {
   console.log('📥 Fetching Recent Activities...');
   const actRes = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=30', { headers });
   const activities = await actRes.json();
+
+  if (!actRes.ok) {
+    console.error(`❌ Failed to fetch Strava activities (HTTP ${actRes.status}):`, activities?.message || activities);
+    if (activities?.errors) {
+      console.error('❌ Missing permissions:', activities.errors.map((e) => `${e.field || e.resource}: ${e.code}`).join(', '));
+      console.error('ℹ️ Note: Strava activities require an OAuth refresh token with "activity:read" or "activity:read_all" scope.');
+    }
+    process.exit(1);
+  }
 
   const cleanedActivities = (Array.isArray(activities) ? activities : []).map((a) => {
     const paceSec = a.average_speed > 0 ? 1000 / a.average_speed : 0;
@@ -91,7 +124,40 @@ export interface StravaActivity {
   stravaUrl: string;
 }
 
-export const STRAVA_DATA = ${JSON.stringify(
+export interface StravaDataset {
+  athlete: {
+    id: number;
+    name: string;
+    city: string;
+    country: string;
+    profilePhoto: string;
+    profileMedium: string;
+    stravaUrl: string;
+  };
+  stats: {
+    allRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+      elevationM: number;
+    };
+    ytdRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+      elevationM: number;
+    };
+    recentRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+    };
+  };
+  lastSyncedAt: string;
+  activities: StravaActivity[];
+}
+
+export const STRAVA_DATA: StravaDataset = ${JSON.stringify(
     {
       athlete: {
         id: athlete.id,

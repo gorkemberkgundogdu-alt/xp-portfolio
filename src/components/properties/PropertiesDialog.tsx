@@ -13,6 +13,7 @@ import { SkillsExplorer } from '../common/SkillsExplorer';
 import { PropertiesContact } from './PropertiesContact';
 import { OperaterCaseStudy } from '../case-study/OperaterCaseStudy';
 import { StudioV1beCaseStudy } from '../case-study/StudioV1beCaseStudy';
+import { ProjectSummaryView } from '../common/ProjectSummaryView';
 import {
   pushProjectUrl,
   pushLocaleRootUrl,
@@ -128,6 +129,17 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
     ? PROJECTS_DATA.find((p) => p.slug === selectedProjectSlug)
     : null;
 
+  const currentProjectIndex = currentProject
+    ? PROJECTS_DATA.findIndex((p) => p.slug === currentProject.slug)
+    : -1;
+
+  const handleNextProject = () => {
+    if (currentProjectIndex >= 0) {
+      const nextIndex = (currentProjectIndex + 1) % PROJECTS_DATA.length;
+      handleSelectProject(PROJECTS_DATA[nextIndex].slug);
+    }
+  };
+
   const currentArticle = selectedArticleSlug
     ? ARTICLES_DATA.find(
         (a) => a.slugTr === selectedArticleSlug || a.slugEn === selectedArticleSlug
@@ -221,7 +233,11 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
         </div>
 
         {/* Active Tab Scrollable Content Container (Only this body scrolls) */}
-        <div className="flex-1 bg-white p-4 md:p-6 overflow-y-auto min-h-0 select-text font-sans overscroll-contain">
+        <div
+          className={`flex-1 bg-white overflow-y-auto min-h-0 select-text font-sans overscroll-contain ${
+            activeTab === 'projects' && currentProject ? 'p-2 sm:p-4 md:p-6' : 'p-4 md:p-6'
+          }`}
+        >
           {/* TAB 1: GENERAL */}
           {activeTab === 'general' && (
             <div className="space-y-5 max-w-2xl mx-auto">
@@ -436,76 +452,23 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                   </button>
 
                   {currentProject.slug === 'operater' ? (
-                    <div className="bg-[#060911] p-4 sm:p-5 rounded-xl border border-slate-800">
-                      <OperaterCaseStudy locale={currentLocale} />
+                    <div className="bg-[#060911] p-2.5 sm:p-5 rounded-lg sm:rounded-xl border border-slate-800">
+                      <OperaterCaseStudy
+                        locale={currentLocale}
+                        onBackToProjects={handleBackToProjects}
+                        onNextCaseStudy={() => handleSelectProject('studio-v1be')}
+                      />
                     </div>
                   ) : currentProject.slug === 'studio-v1be' ? (
-                    <div className="bg-[#0c0f14] p-4 sm:p-5 rounded-xl border border-slate-800">
-                      <StudioV1beCaseStudy locale={currentLocale} />
+                    <div className="bg-[#0c0f14] p-2.5 sm:p-5 rounded-lg sm:rounded-xl border border-slate-800">
+                      <StudioV1beCaseStudy
+                        locale={currentLocale}
+                        onBackToProjects={handleBackToProjects}
+                        onNextCaseStudy={() => handleSelectProject('operater')}
+                      />
                     </div>
                   ) : (
-                    <div className="space-y-5">
-                      <div className="border-b pb-3 border-slate-200 space-y-1.5">
-                        <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 text-[10px] font-bold rounded uppercase">
-                          {currentLocale === 'tr' ? currentProject.badgeTr : currentProject.badgeEn}
-                        </span>
-                        <h2 className="text-lg md:text-xl font-bold text-slate-900">
-                          {currentLocale === 'tr' ? currentProject.titleTr : currentProject.titleEn}
-                        </h2>
-                        <div className="text-xs text-slate-500">
-                          📅 {currentProject.date} • <strong>{currentLocale === 'tr' ? currentProject.roleTr : currentProject.roleEn}</strong>
-                        </div>
-                      </div>
-
-                      <div className="space-y-3">
-                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                          {currentLocale === 'tr' ? 'Açıklama & Kapsam' : 'Overview & Scope'}
-                        </h3>
-                        <p className="text-xs md:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-200">
-                          {currentLocale === 'tr' ? currentProject.descriptionTr : currentProject.descriptionEn}
-                        </p>
-                      </div>
-
-                      <div className="space-y-2">
-                        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                          {currentLocale === 'tr' ? 'Kullanılan Teknolojiler' : 'Technologies & Skills'}
-                        </h3>
-                        <div className="flex flex-wrap gap-1.5">
-                          {currentProject.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="px-2.5 py-1 bg-blue-50 border border-blue-200 text-blue-900 rounded text-xs font-medium"
-                            >
-                              🏷️ {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {currentProject.highlightsTr && (
-                        <div className="space-y-2">
-                          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                            {currentLocale === 'tr' ? 'Önemli Çıktılar' : 'Key Highlights'}
-                          </h3>
-                          <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside bg-slate-50 p-3 rounded-lg border border-slate-200">
-                            {(currentLocale === 'tr' ? currentProject.highlightsTr : currentProject.highlightsEn || []).map((h) => (
-                              <li key={h}>{h}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {currentProject.liveUrl && (
-                        <a
-                          href={currentProject.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded text-center transition-colors shadow-xs"
-                        >
-                          🌐 {currentLocale === 'tr' ? 'Canlı Projeyi Ziyaret Et' : 'Visit Live Project'} →
-                        </a>
-                      )}
-                    </div>
+                    <ProjectSummaryView project={currentProject} locale={currentLocale} />
                   )}
                 </div>
               )}
@@ -608,7 +571,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
               <div className="p-2.5 bg-[#ECE9D8] border border-[#D4D0C8] rounded flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shadow-2xs shrink-0">
                 <div className="text-xs font-bold text-slate-800 truncate flex items-center gap-1.5">
                   <span>📄</span>
-                  <span className="truncate">Gorkem_Berk_Gundogdu_CV_2026.pdf</span>
+                  <span className="truncate">Görkem_Berk_Gündoğdu CV.pdf</span>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <a
@@ -621,7 +584,7 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
                   </a>
                   <a
                     href={IDENTITY_DATA.social.cvPath}
-                    download="Gorkem_Berk_Gundogdu_CV_2026.pdf"
+                    download="Görkem_Berk_Gündoğdu CV.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-xs flex items-center gap-1 shadow-2xs transition-colors no-underline"
@@ -650,40 +613,62 @@ export const PropertiesDialog: React.FC<PropertiesDialogProps> = ({
 
         {/* Tab Footer (Fixed Functional Linear Navigation + TR/EN Switcher) */}
         <div className="bg-[#ECE9D8] border-t border-[#D4D0C8] px-3 py-2.5 flex items-center justify-between gap-2 shrink-0 select-none">
-          {/* Functional Linear Navigation (< Previous / Next >) */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              disabled={activeTabIndex === 0}
-              onClick={handlePrevTab}
-              className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
-                activeTabIndex === 0
-                  ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
-                  : 'bg-[#F4F4F0] hover:bg-white text-slate-800 border-[#7F9DB9] cursor-pointer'
-              }`}
-            >
-              ◀ {currentLocale === 'tr' ? 'Önceki' : 'Previous'}
-            </button>
+          {/* Functional Linear Navigation (< Previous / Next > OR ← All Projects / Next Project →) */}
+          {activeTab === 'projects' && currentProject ? (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleBackToProjects}
+                className="px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors bg-[#F4F4F0] hover:bg-white text-slate-800 border-[#7F9DB9] cursor-pointer"
+              >
+                ← {currentLocale === 'tr' ? 'Tüm Projeler' : 'All Projects'}
+              </button>
 
-            <button
-              type="button"
-              disabled={activeTabIndex === TABS.length - 1}
-              onClick={handleNextTab}
-              className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
-                activeTabIndex === TABS.length - 1
-                  ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
-                  : 'bg-[#0055EA] hover:bg-[#0045B8] text-white border-[#003D9E] cursor-pointer'
-              }`}
-            >
-              {currentLocale === 'tr' ? 'Sonraki' : 'Next'} ▶
-            </button>
-          </div>
+              <button
+                type="button"
+                onClick={handleNextProject}
+                className="px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors bg-[#0055EA] hover:bg-[#0045B8] text-white border-[#003D9E] cursor-pointer"
+              >
+                {currentLocale === 'tr' ? 'Sonraki Proje' : 'Next Project'} →
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={activeTabIndex === 0}
+                onClick={handlePrevTab}
+                className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
+                  activeTabIndex === 0
+                    ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
+                    : 'bg-[#F4F4F0] hover:bg-white text-slate-800 border-[#7F9DB9] cursor-pointer'
+                }`}
+              >
+                ◀ {currentLocale === 'tr' ? 'Önceki' : 'Previous'}
+              </button>
+
+              <button
+                type="button"
+                disabled={activeTabIndex === TABS.length - 1}
+                onClick={handleNextTab}
+                className={`px-3 py-1.5 rounded border text-xs font-bold flex items-center gap-1 shadow-xs transition-colors ${
+                  activeTabIndex === TABS.length - 1
+                    ? 'bg-slate-100 text-slate-400 border-slate-300 cursor-not-allowed opacity-50'
+                    : 'bg-[#0055EA] hover:bg-[#0045B8] text-white border-[#003D9E] cursor-pointer'
+                }`}
+              >
+                {currentLocale === 'tr' ? 'Sonraki' : 'Next'} ▶
+              </button>
+            </div>
+          )}
 
           {/* Meaningful TR / EN Navigation Switch */}
           <div className="flex items-center gap-1.5 text-xs font-bold">
-            <span className="text-[11px] text-slate-500 font-mono hidden xs:inline">
-              {activeTabIndex + 1}/{TABS.length}
-            </span>
+            {(!currentProject || activeTab !== 'projects') && (
+              <span className="text-[11px] text-slate-500 font-mono hidden xs:inline">
+                {activeTabIndex + 1}/{TABS.length}
+              </span>
+            )}
 
             <a
               href={getLanguageToggleUrl('tr')}

@@ -31,7 +31,7 @@ const REQUIRED_FILES = [
   'assets/tommy-avatar.webp',
   'assets/operater-logo.webp',
   'assets/v1be-logo.webp',
-  'assets/Gorkem_Berk_Gundogdu_CV_2026.pdf',
+  'assets/Gorkem_Berk_Gundogdu_CV.pdf',
   'assets/case-study/operater/operater-landing.webp',
   'assets/case-study/operater/operater-create-account.webp',
   'assets/case-study/operater/operater-verify-email.webp',

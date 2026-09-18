@@ -10,6 +10,8 @@ interface ProductFrameProps {
   maxHeight?: string;
   className?: string;
   showMinimalBar?: boolean;
+  barUrl?: string;
+  theme?: 'purple' | 'lime';
 }
 
 export const ProductFrame: React.FC<ProductFrameProps> = ({
@@ -21,8 +23,11 @@ export const ProductFrame: React.FC<ProductFrameProps> = ({
   maxHeight,
   className = '',
   showMinimalBar = false,
+  barUrl,
+  theme = 'purple',
 }) => {
   const caption = locale === 'tr' ? captionTr : captionEn;
+  const displayBarUrl = barUrl || (theme === 'lime' ? 'studio.v1be.io' : 'app.operater.io');
 
   return (
     <figure className={`w-full my-6 select-text group ${className}`}>
@@ -34,7 +39,7 @@ export const ProductFrame: React.FC<ProductFrameProps> = ({
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block" />
               <span className="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block" />
             </div>
-            <div className="text-[10px] text-slate-500 font-mono">app.operater.io</div>
+            <div className="text-[10px] text-slate-400 font-mono">{displayBarUrl}</div>
             <div className="w-6" />
           </div>
         )}

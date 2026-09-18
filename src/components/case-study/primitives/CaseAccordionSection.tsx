@@ -45,7 +45,7 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
           aria-expanded={isOpen}
           aria-controls={contentId}
           onClick={onToggle}
-          className={`w-full px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 text-left transition-all duration-200 cursor-pointer group ${
+          className={`w-full px-3.5 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between gap-4 text-left transition-all duration-200 cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0E17] ${
             isOpen
               ? 'bg-[#0F172A] hover:bg-[#1E293B]/90 border-b border-slate-800'
               : 'bg-transparent hover:bg-purple-950/20'
@@ -113,7 +113,7 @@ export const CaseAccordionSection: React.FC<CaseAccordionSectionProps> = ({
         role="region"
         aria-labelledby={headerId}
         hidden={!isOpen}
-        className={`${isOpen ? 'block' : 'hidden'} p-4 sm:p-6 md:p-8 space-y-8 bg-[#0B0F19] text-slate-300`}
+        className={`${isOpen ? 'block' : 'hidden'} p-3 sm:p-6 md:p-8 space-y-8 bg-[#0B0F19] text-slate-300`}
       >
         {children}
       </div>

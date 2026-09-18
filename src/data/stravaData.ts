@@ -16,7 +16,40 @@ export interface StravaActivity {
   stravaUrl: string;
 }
 
-export const STRAVA_DATA = {
+export interface StravaDataset {
+  athlete: {
+    id: number;
+    name: string;
+    city: string;
+    country: string;
+    profilePhoto: string;
+    profileMedium: string;
+    stravaUrl: string;
+  };
+  stats: {
+    allRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+      elevationM: number;
+    };
+    ytdRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+      elevationM: number;
+    };
+    recentRuns: {
+      count: number;
+      distanceKm: number;
+      movingTimeHours: number;
+    };
+  };
+  lastSyncedAt: string;
+  activities: StravaActivity[];
+}
+
+export const STRAVA_DATA: StravaDataset = {
   "athlete": {
     "id": 177395919,
     "name": "Görkem Berk GÜNDOĞDU",
@@ -45,7 +78,7 @@ export const STRAVA_DATA = {
       "movingTimeHours": 1.4
     }
   },
-  "lastSyncedAt": "2026-09-18T09:23:29.260Z",
+  "lastSyncedAt": "2026-09-18T15:19:36.337Z",
   "activities": [
     {
       "id": 19995002514,

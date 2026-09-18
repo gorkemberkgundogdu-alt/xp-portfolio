@@ -46,6 +46,8 @@ export const AdaptiveShell: React.FC<AdaptiveShellProps> = ({
         setActiveProjectId(projectRoute.slug);
         openWindow('projects');
         focusWindow('projects');
+      } else if (isLocaleRoot(pathname)) {
+        setActiveProjectId(null);
       }
     };
 

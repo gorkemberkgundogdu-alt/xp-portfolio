@@ -11,7 +11,7 @@ export const CvViewerWindow: React.FC = () => {
       id="cv"
       statusBar={
         <>
-          <span>Gorkem_Berk_Gundogdu_CV_2026.pdf</span>
+          <span>Görkem_Berk_Gündoğdu CV.pdf</span>
           <span>{language === 'tr' ? 'Sayfa 1 / 1' : 'Page 1 / 1'}</span>
           <span>{language === 'tr' ? '100% Görünüm' : '100% View'}</span>
         </>
@@ -22,7 +22,7 @@ export const CvViewerWindow: React.FC = () => {
         <div className="bg-[#ECE9D8] border-b border-[#D4D0C8] p-1.5 flex items-center justify-between select-none">
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold text-slate-700 px-1">
-              📄 Gorkem_Berk_Gundogdu_CV_2026.pdf
+              📄 Görkem_Berk_Gündoğdu CV.pdf
             </span>
             <a
               href={IDENTITY_DATA.social.cvPath}
@@ -37,7 +37,7 @@ export const CvViewerWindow: React.FC = () => {
           <div>
             <a
               href={IDENTITY_DATA.social.cvPath}
-              download="Gorkem_Berk_Gundogdu_CV_2026.pdf"
+              download="Görkem_Berk_Gündoğdu CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[12px] font-bold flex items-center gap-1 shadow-xs transition-colors cursor-pointer"

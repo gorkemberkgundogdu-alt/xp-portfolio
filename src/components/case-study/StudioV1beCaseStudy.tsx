@@ -7,9 +7,15 @@ import { ReflectionBlock } from './primitives/ReflectionBlock';
 
 export interface StudioV1beCaseStudyProps {
   locale?: 'tr' | 'en';
+  onBackToProjects?: () => void;
+  onNextCaseStudy?: () => void;
 }
 
-export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale = 'tr' }) => {
+export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({
+  locale = 'tr',
+  onBackToProjects,
+  onNextCaseStudy,
+}) => {
   const isTr = locale === 'tr';
 
   return (
@@ -91,6 +97,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
         {/* Primary Editorial Statement */}
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="Bir site sadece iyi görünmesin. Anlaşılmalı, bulunmalı ve çalışmalı."
           quoteEn="A website shouldn't just look good. It should be understood, found and work."
         />
@@ -105,6 +112,9 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           altEn="Studio v1be Hero desktop view featuring procedural 3D robot mascot and typography"
           captionTr="Studio v1be açılış sahnesi: Montserrat tipografisi, Three.js prosedürel robot maskotu (v1ben.) ve mimari blueprint dokusu."
           captionEn="Studio v1be hero scene: Montserrat display typography, procedural Three.js robot mascot (v1ben.), and architectural grid texture."
+          browserUrl="studio.v1be.io"
+          browserTitle="studio.v1be.io"
+          theme="lime"
           locale={locale}
         />
       </header>
@@ -135,6 +145,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           primaryAltTr="About sayfası: Platform ve Servis Kolu ilişki kartları"
           primaryAltEn="About page: Platform and Service Arm relationship cards"
           primaryBrowserUrl="studio.v1be.io/about"
+          primaryBrowserTitle="studio.v1be.io/about"
           secondarySlotId="v1be-platform-hero"
           secondaryTitleTr="v1be Platformu (Mor Tema)"
           secondaryTitleEn="v1be Platform (Purple Theme)"
@@ -142,8 +153,10 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           secondaryAltTr="v1be.io platformu mor hero ekranı ve 3D robot maskotu"
           secondaryAltEn="v1be.io platform purple hero screen and 3D robot mascot"
           secondaryBrowserUrl="v1be.io"
+          secondaryBrowserTitle="v1be.io"
           captionTr="About ve v1be.io ekranları: v1be platformunun mor görsel DNA'sı ile Studio servis kolunun koyu mimari ve lime teması arasındaki ilişki."
           captionEn="About and v1be.io screens: Relationship between v1be platform's purple visual DNA and Studio's dark blueprint & lime service identity."
+          theme="lime"
           locale={locale}
         />
       </section>
@@ -163,6 +176,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
 
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="İlk ekranda ne yaptığınızı anlatamazsanız, potansiyel müşterinizi kaybedebilirsiniz."
           quoteEn="If the first screen doesn't make clear what you do, you can lose a potential client before the rest of the page gets a chance."
         />
@@ -181,6 +195,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           primaryAltTr="Sahne 02: Değer önerisi ve ikili aksiyon butonu"
           primaryAltEn="Scene 02: Value proposition and dual CTAs"
           primaryBrowserUrl="studio.v1be.io"
+          primaryBrowserTitle="studio.v1be.io"
           secondarySlotId="home-scene-03"
           secondaryTitleTr="Sahne 03 — Nasıl Yapıyoruz (HOW)"
           secondaryTitleEn="Scene 03 — How We Do It (HOW)"
@@ -188,8 +203,10 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           secondaryAltTr="Sahne 03: Açık krem zemin ve 4 makro sütun"
           secondaryAltEn="Scene 03: Light cream background and 4 macro pillars"
           secondaryBrowserUrl="studio.v1be.io"
+          secondaryBrowserTitle="studio.v1be.io"
           captionTr="Sahne 02 ve 03: Ne yaptığımızı koyu zemin üzerinde tek güçlü iddiayla açıklayan, ardından krem zemin ile süreci 4 adıma bölen kademeli anlatım."
           captionEn="Scenes 02 and 03: Progressive narrative establishing core value on a focused dark scene, then breaking the flow with a light cream section."
+          theme="lime"
           locale={locale}
         />
       </section>
@@ -250,6 +267,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
 
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="Responsive benim için ölçek değil, davranış değişimi."
           quoteEn="Responsive design isn't scale. It's a change in behavior."
         />
@@ -275,6 +293,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                   alt="Desktop Hero with 4 locked display lines"
                   captionTr="Masaüstü Hero (≥1024px): 4 satıra kilitlenen display tipografi ve tam ekran sayfalama sahnesi."
                   captionEn="Desktop Hero (≥1024px): 4 locked display lines and full-viewport paginated scene."
+                  theme="lime"
+                  barUrl="studio.v1be.io"
                   locale={locale}
                 />
               </div>
@@ -285,6 +305,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                     alt="Mobile Hero with adaptive inline line wrapping"
                     captionTr="Mobil Hero: Inline satır akışı ve doğal dikey kaydırma."
                     captionEn="Mobile Hero: Adaptive inline wrapping and fluid scroll."
+                    theme="lime"
+                    barUrl="studio.v1be.io"
                     locale={locale}
                   />
                 </div>
@@ -305,6 +327,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                   alt="Desktop Packages interactive brief configurator"
                   captionTr="Masaüstü Paketler: Sol sütunda seçenekler, sağ sütunda canlı Project Brief kartı."
                   captionEn="Desktop Packages: Interactive selections on the left, live Project Brief card on the right."
+                  theme="lime"
+                  barUrl="studio.v1be.io/packages"
                   locale={locale}
                 />
               </div>
@@ -315,6 +339,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                     alt="Mobile Packages starting point cards"
                     captionTr="Mobil Paketler: Tek sütunlu, dokunmatik seçim kartları."
                     captionEn="Mobile Packages: Single-column, touch-optimized cards."
+                    theme="lime"
+                    barUrl="studio.v1be.io/packages"
                     locale={locale}
                   />
                 </div>
@@ -335,6 +361,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                   alt="Desktop Process stage with inspectable build terminal"
                   captionTr="Masaüstü Süreç: Tek bir yapışkan panelde tekerlek kontrollü aşama geçişi ve kod terminali."
                   captionEn="Desktop Process: Wheel-controlled sticky stage deck with inspectable code terminal."
+                  theme="lime"
+                  barUrl="studio.v1be.io/process"
                   locale={locale}
                 />
               </div>
@@ -345,6 +373,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                     alt="Mobile Process stage with top tab navigation"
                     captionTr="Mobil Süreç: Üst sekme navigasyonu ve bağımsız dikey aşama blokları."
                     captionEn="Mobile Process: Top tab navigation and standalone vertical stage blocks."
+                    theme="lime"
+                    barUrl="studio.v1be.io/process"
                     locale={locale}
                   />
                 </div>
@@ -365,6 +395,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                   alt="Desktop Work Hub with Case 002 and Lab 001 card"
                   captionTr="Masaüstü Work: Case 002 ve LAB 001 deneyinin terminal detaylarıyla sergilendiği geniş grid."
                   captionEn="Desktop Work: Broad grid showcasing Case 002 and LAB 001 experiment with terminal previews."
+                  theme="lime"
+                  barUrl="studio.v1be.io/work"
                   locale={locale}
                 />
               </div>
@@ -375,6 +407,8 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
                     alt="Mobile Work Case 002 card"
                     captionTr="Mobil Work: Tam genişlikli, doğrudan aksiyon odaklı temiz vaka kartı."
                     captionEn="Mobile Work: Full-width, clean case card with direct CTA."
+                    theme="lime"
+                    barUrl="studio.v1be.io/work"
                     locale={locale}
                   />
                 </div>
@@ -399,6 +433,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
 
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="Karar anı tek bir yerde oluşmuyor."
           quoteEn="Decision moments don't happen in just one place."
         />
@@ -418,6 +453,9 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           altEn="Packages page: Interactive brief configurator"
           captionTr="Packages sayfası: Sıfırdan başlama veya mevcut siteyi onarma seçeneklerine göre canlı kapsam ve maliyet hesaplayan interaktif brief oluşturucu."
           captionEn="Packages page: Interactive brief configurator dynamically calculating scope and starting estimates based on user needs."
+          browserUrl="studio.v1be.io/packages"
+          browserTitle="studio.v1be.io/packages"
+          theme="lime"
           locale={locale}
         />
       </section>
@@ -448,6 +486,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           primaryAltTr="Process sayfası iş modeli diyagramı"
           primaryAltEn="Process page engagement model diagram"
           primaryBrowserUrl="studio.v1be.io/process"
+          primaryBrowserTitle="studio.v1be.io/process"
           secondarySlotId="process-build"
           secondaryTitleTr="Aşama 03 — Build Terminali"
           secondaryTitleEn="Stage 03 — Build Terminal"
@@ -455,8 +494,10 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           secondaryAltTr="Process Aşama 03: Kod ve dosya yapısı terminali"
           secondaryAltEn="Process Stage 03: Code and file structure terminal"
           secondaryBrowserUrl="studio.v1be.io/process"
+          secondaryBrowserTitle="studio.v1be.io/process"
           captionTr="Process sayfası: Başlangıç noktalarının tek bir süreçte buluştuğu model ve somut geliştirici teslimatını kanıtlayan terminal yapısı."
           captionEn="Process page: Engagement model diagram and inspectable terminal proving authentic developer deliverables."
+          theme="lime"
           locale={locale}
         />
       </section>
@@ -476,6 +517,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
 
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="Yaptığımız işi göstermek kadar, neleri websitenize uyguladığımızı da anlatmak istedim."
           quoteEn="I wanted to show not only the work we deliver, but also what we actually apply to the websites we build."
         />
@@ -494,6 +536,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           primaryAltTr="Case 01: v1be.io kanıt kartı"
           primaryAltEn="Case 01: v1be.io proof card"
           primaryBrowserUrl="v1be.io"
+          primaryBrowserTitle="v1be.io"
           secondarySlotId="work-case-02"
           secondaryTitleTr="Case 02 & LAB 001"
           secondaryTitleEn="Case 02 & LAB 001"
@@ -501,8 +544,10 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           secondaryAltTr="Case 02 ve LAB 001 kartları"
           secondaryAltEn="Case 02 and LAB 001 cards"
           secondaryBrowserUrl="studio.v1be.io/work"
+          secondaryBrowserTitle="studio.v1be.io/work"
           captionTr="Work Hub: Canlı platform vaka çalışmaları ve deneysel test laboratuvarlarının (LAB 001) hiyerarşik yapısı."
           captionEn="Work Hub: Hierarchical architecture separating applied production cases from empirical validation labs (LAB 001)."
+          theme="lime"
           locale={locale}
         />
       </section>
@@ -568,6 +613,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
 
         <EditorialStatement
           locale={locale}
+          theme="lime"
           quoteTr="Crawl edilmek, anlaşılmak demek değil. (Maalesef.)"
           quoteEn="Being crawled doesn't mean being understood. Unfortunately."
         />
@@ -646,6 +692,7 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
       <footer className="pt-6 border-t border-slate-800" id="reflection">
         <ReflectionBlock
           locale={locale}
+          theme="lime"
           titleTr="Tasarımcı ve Geliştirici Olarak Temel Çıkarımlarım"
           titleEn="Key Takeaways as Designer & Builder"
           takeawaysTr={[
@@ -662,6 +709,38 @@ export const StudioV1beCaseStudy: React.FC<StudioV1beCaseStudyProps> = ({ locale
           lessonEn="The Studio v1be architecture continues to scale as an active service platform, evolving with upcoming client case studies and empirical GEO experiments (LAB 002 GEO Readiness)."
         />
       </footer>
+
+      {/* ========================================================================= */}
+      {/* 11 — CASE STUDY ENDING NAVIGATION                                        */}
+      {/* ========================================================================= */}
+      {(onBackToProjects || onNextCaseStudy) && (
+        <nav
+          aria-label={isTr ? 'Vaka Çalışması Gezintisi' : 'Case Study Navigation'}
+          className="pt-8 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 select-none"
+        >
+          {onBackToProjects ? (
+            <button
+              type="button"
+              onClick={onBackToProjects}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+            >
+              <span>←</span>
+              <span>{isTr ? 'Tüm Projeler' : 'All Projects'}</span>
+            </button>
+          ) : <div />}
+
+          {onNextCaseStudy && (
+            <button
+              type="button"
+              onClick={onNextCaseStudy}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold font-display transition-all shadow-md shadow-purple-900/40 cursor-pointer ml-auto"
+            >
+              <span>{isTr ? 'Sonraki Vaka: Operater.io' : 'Next Case Study: Operater.io'}</span>
+              <span>→</span>
+            </button>
+          )}
+        </nav>
+      )}
     </article>
   );
 };
