@@ -51,7 +51,7 @@ const graph: any[] = [
     inLanguage: locale,
   },
   {
-    '@type': project ? 'ItemPage' : 'ProfilePage',
+    '@type': project ? 'ItemPage' : article ? 'WebPage' : 'ProfilePage',
     '@id': webpageId,
     url: canonicalUrl,
     name: title,
@@ -75,6 +75,7 @@ if (project) {
 }
 
 if (article) {
+  const datePublished = article.date.replace(/\./g, '-');
   graph.push({
     '@type': 'Article',
     '@id': `${canonicalUrl}#article`,
@@ -82,7 +83,7 @@ if (article) {
     description: locale === 'tr' ? article.summaryTr : article.summaryEn,
     author: { '@id': personId },
     publisher: { '@id': personId },
-    datePublished: article.date,
+    datePublished: datePublished,
   });
 }
 
